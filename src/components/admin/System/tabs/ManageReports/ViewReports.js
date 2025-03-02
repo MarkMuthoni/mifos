@@ -31,7 +31,7 @@ const ViewReportsTable = () => {
     const fetchReports = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/reports`, {
+            const response = await axios.get(`/fineract-provider/api/v1/reports`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -74,7 +74,7 @@ const ViewReportsTable = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/reports/${report.id}?template=true`,
+                `/fineract-provider/api/v1/reports/${report.id}?template=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -98,7 +98,7 @@ const ViewReportsTable = () => {
         startLoading();
         try {
             await axios.put(
-                `${API_CONFIG.baseURL}/reports/${modalData.id}`,
+                `/fineract-provider/api/v1/reports/${modalData.id}`,
                 { useReport: userReportValue },
                 {
                     headers: {

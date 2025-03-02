@@ -42,7 +42,7 @@ const ViewJournalEntries = () => {
 
     const fetchOffices = async () => {
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -58,7 +58,7 @@ const ViewJournalEntries = () => {
     const fetchEntries = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/journalentries`, {
+            const response = await axios.get(`/fineract-provider/api/v1/journalentries`, {
                 params: {
                     offset: (currentPage - 1) * pageSize,
                     limit: pageSize,
@@ -101,7 +101,7 @@ const ViewJournalEntries = () => {
         setFilters((prev) => ({ ...prev, accountName: value }));
         if (value.length > 2) {
             try {
-                const response = await axios.get(`${API_CONFIG.baseURL}/glAccounts`, {
+                const response = await axios.get(`/fineract-provider/api/v1/glAccounts`, {
                     params: { search: value },
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -142,7 +142,7 @@ const ViewJournalEntries = () => {
         try {
             startLoading();
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/journalentries?transactionId=${entryId}&transactionDetails=true`,
+                `/fineract-provider/api/v1/journalentries?transactionId=${entryId}&transactionDetails=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -282,7 +282,7 @@ const ViewJournalEntries = () => {
         try {
             startLoading();
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/journalentries/${transactionId}?command=reverse`,
+                `/fineract-provider/api/v1/journalentries/${transactionId}?command=reverse`,
                 { comments: revertComments },
                 {
                     headers: {

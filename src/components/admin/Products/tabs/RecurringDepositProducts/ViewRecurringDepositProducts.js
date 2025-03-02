@@ -25,7 +25,7 @@ const ViewRecurringDepositProducts = () => {
     const fetchRecurringDepositProducts = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/recurringdepositproducts`, {
+            const response = await axios.get(`/fineract-provider/api/v1/recurringdepositproducts`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

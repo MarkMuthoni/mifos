@@ -23,7 +23,7 @@ const AmazonS3Service = () => {
     const fetchS3Data = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/externalservice/S3`, {
+            const response = await axios.get(`/fineract-provider/api/v1/externalservice/S3`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -65,7 +65,7 @@ const AmazonS3Service = () => {
         startLoading();
         try {
             await axios.put(
-                `${API_CONFIG.baseURL}/externalservice/S3`,
+                `/fineract-provider/api/v1/externalservice/S3`,
                 formValues,
                 {
                     headers: {

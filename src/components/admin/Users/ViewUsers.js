@@ -22,7 +22,7 @@ const ViewUsers = ({ onRowClick }) => {
     const fetchUsers = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/users`, {
+            const response = await axios.get(`/fineract-provider/api/v1/users`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

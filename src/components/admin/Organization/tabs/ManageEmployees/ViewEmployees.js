@@ -30,7 +30,7 @@ const ViewEmployees = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -48,7 +48,7 @@ const ViewEmployees = () => {
     const fetchEmployees = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/staff?status=all`, {
+            const response = await axios.get(`/fineract-provider/api/v1/staff?status=all`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -86,7 +86,7 @@ const ViewEmployees = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/staff/${employee.id}?template=true`,
+                `/fineract-provider/api/v1/staff/${employee.id}?template=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -108,7 +108,7 @@ const ViewEmployees = () => {
         startLoading();
         try {
             const response = await axios.put(
-                `${API_CONFIG.baseURL}/staff/${selectedEmployee.id}`,
+                `/fineract-provider/api/v1/staff/${selectedEmployee.id}`,
                 updatedEmployee,
                 {
                     headers: {

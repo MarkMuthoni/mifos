@@ -20,7 +20,7 @@ const RoleForm = ({ setActiveTab, onRolesUpdate }) => {
 
         try {
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/roles`,
+                `/fineract-provider/api/v1/roles`,
                 { name, description },
                 {
                     headers: {

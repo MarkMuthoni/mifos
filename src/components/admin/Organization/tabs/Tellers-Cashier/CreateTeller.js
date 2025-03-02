@@ -26,7 +26,7 @@ const CreateTeller = ({ onFormSubmitSuccess }) => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -71,7 +71,7 @@ const CreateTeller = ({ onFormSubmitSuccess }) => {
 
         startLoading();
         try {
-            await axios.post(`${API_CONFIG.baseURL}/tellers`, payload, {
+            await axios.post(`/fineract-provider/api/v1/tellers`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

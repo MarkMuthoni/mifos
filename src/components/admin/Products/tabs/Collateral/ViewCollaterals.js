@@ -27,7 +27,7 @@ const ViewCollaterals = ({onRowClick}) => {
     const fetchCollaterals = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/collateral-management`, {
+            const response = await axios.get(`/fineract-provider/api/v1/collateral-management`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

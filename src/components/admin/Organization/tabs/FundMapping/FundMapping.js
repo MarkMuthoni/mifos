@@ -38,7 +38,7 @@ const FundMapping = () => {
     const fetchTemplateData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/search/template`, {
+            const response = await axios.get(`/fineract-provider/api/v1/search/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -114,7 +114,7 @@ const FundMapping = () => {
                 locale: "en",
             };
 
-            const response = await axios.post(`${API_CONFIG.baseURL}/search/advance`, payload, {
+            const response = await axios.post(`/fineract-provider/api/v1/search/advance`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

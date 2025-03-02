@@ -33,7 +33,7 @@ const ViewProductsMix = () => {
     const fetchProductsMix = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/loanproducts?associations=productMixes`, {
+            const response = await axios.get(`/fineract-provider/api/v1/loanproducts?associations=productMixes`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -52,7 +52,7 @@ const ViewProductsMix = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loanproducts/${product.productId}/productmix`,
+                `/fineract-provider/api/v1/loanproducts/${product.productId}/productmix`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -92,7 +92,7 @@ const ViewProductsMix = () => {
                 restrictedProducts,
             };
             await axios.put(
-                `${API_CONFIG.baseURL}/loanproducts/${selectedProduct.productId}/productmix`,
+                `/fineract-provider/api/v1/loanproducts/${selectedProduct.productId}/productmix`,
                 payload,
                 {
                     headers: {
@@ -123,7 +123,7 @@ const ViewProductsMix = () => {
                 productId: selectedProduct.productId,
             };
             await axios.delete(
-                `${API_CONFIG.baseURL}/loanproducts/${selectedProduct.productId}/productmix`,
+                `/fineract-provider/api/v1/loanproducts/${selectedProduct.productId}/productmix`,
                 {
                     data: payload,
                     headers: {

@@ -29,7 +29,7 @@ const ConfigurationPage = () => {
     const fetchConfigurations = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/configurations`, {
+            const response = await axios.get(`/fineract-provider/api/v1/configurations`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -64,7 +64,7 @@ const ConfigurationPage = () => {
 
         try {
             startLoading();
-            await axios.put(`${API_CONFIG.baseURL}/configurations/${id}`, payload, {
+            await axios.put(`/fineract-provider/api/v1/configurations/${id}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -119,7 +119,7 @@ const ConfigurationPage = () => {
 
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/configurations/${config.id}`,
+                `/fineract-provider/api/v1/configurations/${config.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -160,7 +160,7 @@ const ConfigurationPage = () => {
             };
 
             await axios.put(
-                `${API_CONFIG.baseURL}/configurations/${editConfig.id}`,
+                `/fineract-provider/api/v1/configurations/${editConfig.id}`,
                 payload,
                 {
                     headers: {

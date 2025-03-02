@@ -13,7 +13,7 @@ const ReportsPage = () => {
     const { startLoading, stopLoading } = useLoading();
     const { reportType } = useParams();
 
-    const [activeTab, setActiveTab] = useState("standardReports");
+    const [activeTab, setActiveTab] = useState("tableReports");
     const [reports, setReports] = useState([]);
     const [nameFilter, setNameFilter] = useState("");
     const [pageSize, setPageSize] = useState(10);
@@ -66,7 +66,7 @@ const ReportsPage = () => {
     const fetchReports = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/reports`, {
+            const response = await axios.get(`/fineract-provider/api/v1/reports`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -98,7 +98,7 @@ const ReportsPage = () => {
     const filteredReports = () => {
         let data = [];
 
-        if (activeTab === "standardReports") {
+        if (activeTab === "otherReports") {
             data = reports;
         } else if (activeTab === "pentahoReports" && componentVisibility["pentaho-reports"]) {
             data = pentahoReports;
@@ -148,8 +148,8 @@ const ReportsPage = () => {
                     )}
 
                     <button
-                        className={`users-tab-button ${activeTab === "standardReports" ? "active" : ""}`}
-                        onClick={() => setActiveTab("standardReports")}
+                        className={`users-tab-button ${activeTab === "otherReports" ? "active" : ""}`}
+                        onClick={() => setActiveTab("otherReports")}
                     >
                         Other Reports
                     </button>

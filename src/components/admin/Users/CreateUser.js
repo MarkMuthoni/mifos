@@ -71,7 +71,7 @@ const CreateUserForm = ({ onUserCreated }) => {
 
     const fetchTemplateData = async () => {
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/users/template`, {
+            const response = await axios.get(`/fineract-provider/api/v1/users/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -80,7 +80,7 @@ const CreateUserForm = ({ onUserCreated }) => {
             });
             setRoles(response.data.availableRoles);
 
-            const officesResponse = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const officesResponse = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -95,7 +95,7 @@ const CreateUserForm = ({ onUserCreated }) => {
 
     const fetchStaffData = async (officeId) => {
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/staff?officeId=${officeId}&status=all`, {
+            const response = await axios.get(`/fineract-provider/api/v1/staff?officeId=${officeId}&status=all`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -150,7 +150,7 @@ const CreateUserForm = ({ onUserCreated }) => {
         };
 
         try {
-            const response = await axios.post(`${API_CONFIG.baseURL}/users`, payload, {
+            const response = await axios.post(`/fineract-provider/api/v1/users`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

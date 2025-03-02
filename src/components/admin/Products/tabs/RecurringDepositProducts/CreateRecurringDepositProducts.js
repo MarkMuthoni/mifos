@@ -45,7 +45,7 @@ const CreateRecurringDepositProducts = () => {
                 startLoading();
 
                 const recurringDepositProductTemplateResponse = await axios.get(
-                    `${API_CONFIG.baseURL}/recurringdepositproducts/template`,
+                    `/fineract-provider/api/v1/recurringdepositproducts/template`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

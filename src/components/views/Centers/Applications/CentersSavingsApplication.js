@@ -37,7 +37,7 @@ const CentersSavingsApplication = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${centerId}`,
+                    `/fineract-provider/api/v1/savingsaccounts/template?groupId=${centerId}`,
                     { headers }
                 );
                 setProductOptions(response.data.productOptions || []);
@@ -59,7 +59,7 @@ const CentersSavingsApplication = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${centerId}&productId=${productId}`,
+                `/fineract-provider/api/v1/savingsaccounts/template?groupId=${centerId}&productId=${productId}`,
                 { headers }
             );
             setSavingsTemplate(response.data);
@@ -134,7 +134,7 @@ const CentersSavingsApplication = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/savingsaccounts`, submissionData, { headers });
+            await axios.post(`/fineract-provider/api/v1/savingsaccounts`, submissionData, { headers });
 
             showNotification("Center savings application submitted successfully!", 'success');
         } catch (error) {

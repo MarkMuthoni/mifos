@@ -23,7 +23,7 @@ const ManageExternalEvents = () => {
     const fetchEvents = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/externalevents/configuration`, {
+            const response = await axios.get(`/fineract-provider/api/v1/externalevents/configuration`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -63,7 +63,7 @@ const ManageExternalEvents = () => {
         }));
         try {
             startLoading();
-            await axios.put(`${API_CONFIG.baseURL}/externalevents/configuration`, updatedEvents, {
+            await axios.put(`/fineract-provider/api/v1/externalevents/configuration`, updatedEvents, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

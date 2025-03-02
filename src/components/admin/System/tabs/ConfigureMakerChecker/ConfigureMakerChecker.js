@@ -25,7 +25,7 @@ const ConfigureMakerChecker = () => {
     const fetchPermissions = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/permissions?makerCheckerable=true`, {
+            const response = await axios.get(`/fineract-provider/api/v1/permissions?makerCheckerable=true`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -89,7 +89,7 @@ const ConfigureMakerChecker = () => {
                 makerCheckerEnabled: enabled,
             }));
 
-            await axios.put(`${API_CONFIG.baseURL}/permissions`, updatedPermissions, {
+            await axios.put(`/fineract-provider/api/v1/permissions`, updatedPermissions, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

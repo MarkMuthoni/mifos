@@ -23,7 +23,6 @@ const Insights = ({ selectedOffice, officeOptions }) => {
     });
     const isSuperUser = user?.roles?.some(role => role.name === 'Super user');
 
-    const API_BASE_URL = API_CONFIG.baseURL;
     const AUTH_TOKEN = user?.base64EncodedAuthenticationKey;
     const headers = {
         'Authorization': `Basic ${AUTH_TOKEN}`,
@@ -34,7 +33,7 @@ const Insights = ({ selectedOffice, officeOptions }) => {
     const fetchOfficeData = async (endpoint, officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`${API_BASE_URL}/runreports/${endpoint}`, {
+            const response = await axios.get(`/fineract-provider/api/v1/runreports/${endpoint}`, {
                 headers,
                 params: {
                     R_officeId: officeId,
@@ -110,7 +109,7 @@ const Insights = ({ selectedOffice, officeOptions }) => {
     const fetchLoanAccountData = async (officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`${API_BASE_URL}/loans`, {
+            const response = await axios.get(`/fineract-provider/api/v1/loans`, {
                 headers,
                 params: {
                     officeId: officeId === 'all' ? undefined : officeId,

@@ -130,6 +130,7 @@ import CollateralDetails from "./components/views/Clients/CollateralDetails/Coll
 import SystemManagement from "./components/utilities/SystemManagement";
 import NotificationContainer from "./context/NotificationContainer";
 import CollectionSheet from "./components/CollectionSheet";
+import axios from "axios";
 
 const App = () => {
     const { redirectToLogin, authInitialized } = useContext(AuthContext);

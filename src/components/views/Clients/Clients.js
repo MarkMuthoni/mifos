@@ -5,6 +5,8 @@ import { AuthContext } from '../../../context/AuthContext';
 import { useLoading } from '../../../context/LoadingContext';
 import { API_CONFIG } from '../../../config';
 import {NotificationContext} from "../../../context/NotificationContext";
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
 
 const Clients = ({ onRowClick }) => {
     const [clients, setClients] = useState([]);
@@ -12,15 +14,46 @@ const Clients = ({ onRowClick }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(20);
     const [totalPages, setTotalPages] = useState(1);
-    const [filters, setFilters] = useState({ searchQuery: '' });
+    const [filters, setFilters] = useState({ searchQuery: '', office: '' });
     const { user } = useContext(AuthContext);
     const { startLoading, stopLoading } = useLoading();
     const { showNotification } = useContext(NotificationContext);
+    const [offices, setOffices] = useState([]);
+
+    const exportToExcel = () => {
+        if (filteredClients.length === 0) {
+            showNotification('No data to export!', 'warning');
+            return;
+        }
+
+        const worksheet = XLSX.utils.json_to_sheet(
+            filteredClients.map(client => ({
+                Name: client.displayName,
+                "Account Number": client.accountNo,
+                "National ID/Passport": client.externalId,
+                Status: client.status?.value || '',
+                Branch: client.officeName,
+                "Mobile Number": client.mobileNo,
+                "Loan Officer": client.staffName,
+                "Activation Date": client.timeline?.activatedOnDate
+                    ? `${client.timeline.activatedOnDate[2]}-${client.timeline.activatedOnDate[1]}-${client.timeline.activatedOnDate[0]}`
+                    : "N/A"
+            }))
+        );
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Clients');
+
+        const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array'});
+        const excelData = new Blob([excelBuffer], {type: 'application/octet-stream'});
+
+        saveAs(excelData, 'Clients_List.xlsx');
+    }
 
     const fetchClients = async () => {
         try {
             startLoading();
-            const response = await axios.get(`${API_CONFIG.baseURL}/clients`, {
+            const response = await axios.get(`/fineract-provider/api/v1/clients`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -37,14 +70,38 @@ const Clients = ({ onRowClick }) => {
         }
     };
 
+    const fetchOffices = async () => {
+        startLoading();
+        try {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+                headers: {
+                    Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
+                    'Fineract-Platform-TenantID': `${API_CONFIG.tenantId}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+            setOffices(response.data || []);
+        } catch (error) {
+            console.error('Error fetching offices:', error);
+            showNotification("Error fetching offices!", 'error');
+        } finally {
+            stopLoading();
+        }
+    }
+
     useEffect(() => {
         fetchClients();
+        fetchOffices();
     }, []);
 
     useEffect(() => {
-        const filtered = clients.filter((client) =>
+        let filtered = clients.filter((client) =>
             client.displayName.toLowerCase().includes(filters.searchQuery.toLowerCase())
         );
+
+        if (filters.office) {
+            filtered = filtered.filter(client => client.officeName === filters.office);
+        }
 
         setFilteredClients(filtered);
         setTotalPages(Math.ceil(filtered.length / pageSize));
@@ -81,6 +138,24 @@ const Clients = ({ onRowClick }) => {
             <div className="table-controls">
                 <div className="filters-container">
                     <div className="filter-group">
+                        <label htmlFor="officeFilter" className="filter-label">
+                            Filter by Branch:
+                        </label>
+                        <select
+                            id="officeFilter"
+                            name="office"
+                            className="filter-input"
+                            value={filters.office}
+                            onChange={handleFilterChange}
+                        >
+                            {offices.map(office => (
+                                <option key={office.id} value={office.name}>
+                                    {office.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="filter-group">
                         <label htmlFor="searchQuery" className="filter-label">
                             Search by Client Name:
                         </label>
@@ -94,25 +169,31 @@ const Clients = ({ onRowClick }) => {
                             onChange={handleFilterChange}
                         />
                     </div>
-
                 </div>
-                <div className="filter-group">
-                    <label htmlFor="pageSize" className="filter-label">
-                        Rows per page:
-                    </label>
-                    <select
-                        id="pageSize"
-                        value={pageSize}
-                        onChange={handlePageSizeChange}
-                        className="filter-dropdown"
-                    >
-                        <option value={5}>5</option>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                        <option value={500}>500</option>
-                    </select>
+                <div className="filters-container">
+                    <div className="filter-group">
+                        <label htmlFor="pageSize" className="filter-label">
+                            Rows per page:
+                        </label>
+                        <select
+                            id="pageSize"
+                            value={pageSize}
+                            onChange={handlePageSizeChange}
+                            className="filter-input"
+                        >
+                            <option value={5}>5</option>
+                            <option value={10}>10</option>
+                            <option value={20}>20</option>
+                            <option value={50}>50</option>
+                            <option value={100}>100</option>
+                            <option value={500}>500</option>
+                        </select>
+                    </div>
+                    <div className="export-container">
+                        <button onClick={exportToExcel} className="export-button">
+                            Export Excel
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -120,12 +201,13 @@ const Clients = ({ onRowClick }) => {
                 <table>
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Client Number</th>
-                        <th>External ID</th>
+                    <th>Name</th>
+                        <th>Account Number</th>
+                        <th>Mobile Number</th>
+                        <th>National ID/Passport</th>
                         <th>Status</th>
-                        <th>Office</th>
-                        <th>Staff</th>
+                        <th>Branch</th>
+                        <th>Loan Officer</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -134,6 +216,7 @@ const Clients = ({ onRowClick }) => {
                             <tr key={client.id} onClick={() => onRowClick(client)}>
                                 <td>{client.displayName}</td>
                                 <td>{client.accountNo}</td>
+                                <td>{client.mobileNo}</td>
                                 <td>{client.externalId}</td>
                                 <td>
                                     <span className={`status-badge ${getStatusClass(client.status.value)}`}>
@@ -146,7 +229,7 @@ const Clients = ({ onRowClick }) => {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="6">No clients found</td>
+                            <td colSpan="7">No clients found</td>
                         </tr>
                     )}
                     </tbody>

@@ -36,7 +36,7 @@ const ViewDelinquencyBuckets = () => {
     const fetchDelinquencyBuckets = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/delinquency/buckets`, {
+            const response = await axios.get(`/fineract-provider/api/v1/delinquency/buckets`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -54,7 +54,7 @@ const ViewDelinquencyBuckets = () => {
     const fetchDelinquencyRanges = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/delinquency/ranges`, {
+            const response = await axios.get(`/fineract-provider/api/v1/delinquency/ranges`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -83,7 +83,7 @@ const ViewDelinquencyBuckets = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/delinquency/buckets/${bucket.id}`,
+                `/fineract-provider/api/v1/delinquency/buckets/${bucket.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -125,7 +125,7 @@ const ViewDelinquencyBuckets = () => {
                 ranges: bucketRanges.map((range) => range.id),
             };
             await axios.put(
-                `${API_CONFIG.baseURL}/delinquency/buckets/${selectedBucket.id}`,
+                `/fineract-provider/api/v1/delinquency/buckets/${selectedBucket.id}`,
                 payload,
                 {
                     headers: {
@@ -152,7 +152,7 @@ const ViewDelinquencyBuckets = () => {
         startLoading();
         try {
             await axios.delete(
-                `${API_CONFIG.baseURL}/delinquency/buckets/${selectedBucket.id}`,
+                `/fineract-provider/api/v1/delinquency/buckets/${selectedBucket.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

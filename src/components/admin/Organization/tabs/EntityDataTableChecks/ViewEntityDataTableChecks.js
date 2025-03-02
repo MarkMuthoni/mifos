@@ -29,7 +29,7 @@ const ViewEntityDataTableChecks = () => {
     const fetchDataTableChecks = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/entityDatatableChecks?offset=0&limit=-1`, {
+            const response = await axios.get(`/fineract-provider/api/v1/entityDatatableChecks?offset=0&limit=-1`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -69,7 +69,7 @@ const ViewEntityDataTableChecks = () => {
         if (window.confirm("Are you sure you want to delete this data table check?")) {
             startLoading();
             try {
-                await axios.delete(`${API_CONFIG.baseURL}/entityDatatableChecks/${id}`, {
+                await axios.delete(`/fineract-provider/api/v1/entityDatatableChecks/${id}`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

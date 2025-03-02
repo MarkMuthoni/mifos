@@ -18,7 +18,7 @@ const Centers = ({ onRowClick }) => {
     const fetchCenters = async () => {
         try {
             startLoading();
-            const response = await axios.get(`${API_CONFIG.baseURL}/centers`, {
+            const response = await axios.get(`/fineract-provider/api/v1/centers`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

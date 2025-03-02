@@ -32,7 +32,7 @@ const WorkflowJobs = () => {
     const fetchJobNames = async () => {
         startLoading();
         try {
-            const response = await fetch(`${API_CONFIG.baseURL}/jobs/names`, {
+            const response = await fetch(`/fineract-provider/api/v1/jobs/names`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -52,7 +52,7 @@ const WorkflowJobs = () => {
     const fetchLinkedSteps = async (jobName) => {
         startLoading();
         try {
-            const response = await fetch(`${API_CONFIG.baseURL}/jobs/${jobName}/steps`, {
+            const response = await fetch(`/fineract-provider/api/v1/jobs/${jobName}/steps`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -75,7 +75,7 @@ const WorkflowJobs = () => {
         try {
             const jobBaseName = selectedJobName.split('_')[0];
 
-            const response = await fetch(`${API_CONFIG.baseURL}/jobs/${jobBaseName}/available-steps`, {
+            const response = await fetch(`/fineract-provider/api/v1/jobs/${jobBaseName}/available-steps`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -137,7 +137,7 @@ const WorkflowJobs = () => {
                 steps: linkedSteps,
             };
 
-            const response = await fetch(`${API_CONFIG.baseURL}/jobs/${selectedJobName}/steps`, {
+            const response = await fetch(`/fineract-provider/api/v1/jobs/${selectedJobName}/steps`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

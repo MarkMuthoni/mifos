@@ -74,7 +74,7 @@ const LoanAccount = () => {
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                     };
 
-                    const response = await axios.get(`${API_CONFIG.baseURL}/loans/${account}?associations=charges,collateral,meeting,multiDisburseDetails&staffInSelectedOfficeOnly=true&template=true`,
+                    const response = await axios.get(`/fineract-provider/api/v1/loans/${account}?associations=charges,collateral,meeting,multiDisburseDetails&staffInSelectedOfficeOnly=true&template=true`,
                         { headers });
                     setModifyData(response.data);
                 } catch (error) {
@@ -114,6 +114,17 @@ const LoanAccount = () => {
             }));
         }
     }, [modifyData]);
+
+    useEffect(() => {
+        if (loanTemplate) {
+            setFormData(prev => ({
+                ...prev,
+                linkSavings: loanTemplate?.accountLinkingOptions?.length > 0
+                    ? loanTemplate.accountLinkingOptions[0].id
+                    : ""
+            }));
+        }
+    }, [loanTemplate]);
 
     const setDateForSubmittedOn = (submittedOnDate) => {
         if (submittedOnDate && submittedOnDate.length === 3) {
@@ -212,7 +223,7 @@ const LoanAccount = () => {
             };
 
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/loans?command=calculateLoanSchedule`,
+                `/fineract-provider/api/v1/loans?command=calculateLoanSchedule`,
                 payload,
                 {
                     headers: {
@@ -225,8 +236,10 @@ const LoanAccount = () => {
 
             setLoanDetails(response.data);
         } catch (error) {
-            console.error("Error generating repayment schedule:", error);
-            showNotification("Failed to generate repayment schedule. Please try again!", 'error');
+            const errorMessage = error.response?.data?.errors?.[0]?.defaultUserMessage ||
+                error.response?.data?.defaultUserMessage ||
+                "An unexpected error occurred.";
+            showNotification(errorMessage, 'error');
         } finally {
             stopLoading();
         }
@@ -245,12 +258,12 @@ const LoanAccount = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const clientRequest = axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
-            const loanTemplateRequest = axios.get(`${API_CONFIG.baseURL}/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&clientId=${clientId}&templateType=individual`, { headers });
-            const datatableRequest = axios.get(`${API_CONFIG.baseURL}/datatables?apptable=m_client`, { headers });
-            const clientAccountsRequest = axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/accounts`, { headers });
-            const collateralsRequest = axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/collaterals/template`, { headers });
-            const chargesRequest = axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/charges?pendingPayment=true`, { headers });
+            const clientRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const loanTemplateRequest = axios.get(`/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&clientId=${clientId}&templateType=individual`, { headers });
+            const datatableRequest = axios.get(`/fineract-provider/api/v1/datatables?apptable=m_client`, { headers });
+            const clientAccountsRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/accounts`, { headers });
+            const collateralsRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, { headers });
+            const chargesRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, { headers });
 
             const responses = await Promise.allSettled([
                 clientRequest,
@@ -310,7 +323,7 @@ const LoanAccount = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&productId=${productId}&clientId=${clientId}&templateType=individual`,
+                `/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&productId=${productId}&clientId=${clientId}&templateType=individual`,
                 { headers }
             );
             setLoanTemplate(response.data);
@@ -475,7 +488,7 @@ const LoanAccount = () => {
                             <>
                                 <div className="staged-form-row">
                                     <div className="staged-form-field">
-                                        <label htmlFor="externalId">External ID</label>
+                                        <label htmlFor="externalId">National ID/Passport</label>
                                         <input
                                             type="text"
                                             id="externalId"
@@ -598,11 +611,15 @@ const LoanAccount = () => {
                                             className="staged-form-select"
                                         >
                                             <option value="">-- Select Savings --</option>
-                                            {loanTemplate?.accountLinkingOptions?.map((account) => (
-                                                <option key={account.id} value={account.id}>
-                                                    {account.productName} - {account.accountNo}
-                                                </option>
-                                            ))}
+                                            {loanTemplate?.accountLinkingOptions?.length > 0 ? (
+                                                loanTemplate.accountLinkingOptions.map((account) => (
+                                                    <option key={account.id} value={account.id}>
+                                                        {account.productName} - {account.accountNo}
+                                                    </option>
+                                                ))
+                                            ) : (
+                                                <option disabled>No linked savings accounts available</option>
+                                            )}
                                         </select>
                                     </div>
                                     <div className="staged-form-field">
@@ -663,6 +680,7 @@ const LoanAccount = () => {
                                     required
                                     className="staged-form-select"
                                 >
+                                    <option value="">-- Select Frequency --</option>
                                     {loanTemplate?.termFrequencyTypeOptions?.map((option) => (
                                         <option key={option.id} value={option.id}>
                                             {option.value}
@@ -750,6 +768,7 @@ const LoanAccount = () => {
                                     onChange={handleInputChange}
                                     className="staged-form-select"
                                 >
+                                    <option value="">-- Select Frequency --</option>
                                     {loanTemplate?.repaymentFrequencyTypeOptions?.map((option) => (
                                         <option key={option.id} value={option.id}>
                                             {option.value}
@@ -780,6 +799,7 @@ const LoanAccount = () => {
                                     onChange={handleInputChange}
                                     className="staged-form-select"
                                 >
+                                    <option value="">-- Select Frequency --</option>
                                     {loanTemplate?.interestRateFrequencyTypeOptions?.map((option) => (
                                         <option key={option.id} value={option.id}>
                                             {option.value}
@@ -798,6 +818,7 @@ const LoanAccount = () => {
                                     onChange={handleInputChange}
                                     className="staged-form-select"
                                 >
+                                    <option value="">-- Select Interest Method --</option>
                                     {loanTemplate?.interestTypeOptions?.map((option) => (
                                         <option key={option.id} value={option.id}>
                                             {option.value}
@@ -813,6 +834,7 @@ const LoanAccount = () => {
                                     onChange={handleInputChange}
                                     className="staged-form-select"
                                 >
+                                    <option value="">-- Select Amortization --</option>
                                     {loanTemplate?.amortizationTypeOptions?.map((option) => (
                                         <option key={option.id} value={option.id}>
                                             {option.value}
@@ -1033,7 +1055,7 @@ const LoanAccount = () => {
                             </div>
                         )}
 
-                        {overdueCharges?.length > 0 && (
+                        {loanTemplate?.overdueCharges?.length > 0 && (
                             <div className="overdue-charges-section">
                                 <h4>Overdue Charges</h4>
                                 <table className="charges-table">
@@ -1042,16 +1064,16 @@ const LoanAccount = () => {
                                         <th>Name</th>
                                         <th>Type</th>
                                         <th>Amount</th>
-                                        <th>Collected On</th>
+                                        <th>Applies To</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {overdueCharges.map((charge, index) => (
+                                    {loanTemplate?.overdueCharges.map((charge, index) => (
                                         <tr key={index}>
                                             <td>{charge.name}</td>
-                                            <td>{charge.type}</td>
-                                            <td>{charge.amount}</td>
-                                            <td>{charge.collectedOn}</td>
+                                            <td>{charge?.chargeTimeType?.value}</td>
+                                            <td>{charge?.currency?.code} {charge?.amount}</td>
+                                            <td>{charge?.chargeAppliesTo?.value}</td>
                                         </tr>
                                     ))}
                                     </tbody>
@@ -1238,8 +1260,8 @@ const LoanAccount = () => {
             };
 
             const endpoint = isModifying
-                ? `${API_CONFIG.baseURL}/loans/${account}`
-                : `${API_CONFIG.baseURL}/loans`;
+                ? `/fineract-provider/api/v1/loans/${account}`
+                : `/fineract-provider/api/v1/loans`;
 
             const method = isModifying ? "put" : "post";
 
@@ -1286,7 +1308,19 @@ const LoanAccount = () => {
             });
         } catch (error) {
             console.error("Error submitting loan:", error);
-            showNotification("Failed to submit the loan. Please try again!", 'error');
+
+            let errorMessage = "Failed to submit the loan. Please try again!";
+
+            if (error.response && error.response.data) {
+                const errorData = error.response.data;
+                if (errorData.errors && errorData.errors.length > 0) {
+                    errorMessage = errorData.errors[0].defaultUserMessage || errorData.errors[0].developerMessage;
+                } else if (errorData.defaultUserMessage) {
+                    errorMessage = errorData.defaultUserMessage;
+                }
+            }
+
+            showNotification(errorMessage, 'error');
         } finally {
             stopLoading();
         }

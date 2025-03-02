@@ -30,13 +30,13 @@ const CollateralDetails = () => {
             };
 
             const clientResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}`,
+                `/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
             setClientDetails(clientResponse.data);
 
             const collateralResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/collaterals/${collateralId}`,
+                `/fineract-provider/api/v1/clients/${clientId}/collaterals/${collateralId}`,
                 { headers }
             );
             setCollateralDetails(collateralResponse.data);

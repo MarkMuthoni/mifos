@@ -25,7 +25,7 @@ const ViewCurrencyConfiguration = () => {
     const fetchCurrencies = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/currencies`, {
+            const response = await axios.get(`/fineract-provider/api/v1/currencies`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

@@ -101,11 +101,11 @@ const GroupDetails = ({ groupId, onClose }) => {
                     };
 
                     // Fetch group details
-                    const groupResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all`, { headers });
+                    const groupResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all`, { headers });
                     setGroupDetails(groupResponse.data);
 
                     // Fetch group summary counts
-                    const summaryResponse = await axios.get(`${API_CONFIG.baseURL}/runreports/GroupSummaryCounts?R_groupId=${groupId}&genericResultSet=false`, { headers });
+                    const summaryResponse = await axios.get(`/fineract-provider/api/v1/runreports/GroupSummaryCounts?R_groupId=${groupId}&genericResultSet=false`, { headers });
                     const summaryData = summaryResponse.data[0] || {};
                     setGroupDetails((prevDetails) => ({
                         ...prevDetails,
@@ -113,21 +113,21 @@ const GroupDetails = ({ groupId, onClose }) => {
                     }));
 
                     // Fetch group accounts
-                    const accountsResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}/accounts`, { headers });
+                    const accountsResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}/accounts`, { headers });
                     setGroupDetails((prevDetails) => ({
                         ...prevDetails,
                         groupAccounts: accountsResponse.data,
                     }));
 
                     // Fetch GSIM accounts
-                    const gsimAccountsResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}/gsimaccounts`, { headers });
+                    const gsimAccountsResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}/gsimaccounts`, { headers });
                     setGroupDetails((prevDetails) => ({
                         ...prevDetails,
                         gsimAccounts: gsimAccountsResponse.data,
                     }));
 
                     // Fetch GLIM accounts
-                    const glimAccountsResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}/glimaccounts`, { headers });
+                    const glimAccountsResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}/glimaccounts`, { headers });
                     setGroupDetails((prevDetails) => ({
                         ...prevDetails,
                         glimAccounts: glimAccountsResponse.data,
@@ -154,7 +154,7 @@ const GroupDetails = ({ groupId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/groups/${groupId}/notes`,
+                        `/fineract-provider/api/v1/groups/${groupId}/notes`,
                         { headers }
                     );
                     setNotes(response.data);
@@ -179,7 +179,7 @@ const GroupDetails = ({ groupId, onClose }) => {
                     };
 
                     // Fetch group details with template data
-                    const response = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all&template=true`, { headers });
+                    const response = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all&template=true`, { headers });
                     const groupData = response.data;
 
                     setClientOptions(groupData.staffOptions || []);
@@ -221,8 +221,8 @@ const GroupDetails = ({ groupId, onClose }) => {
         };
 
         const endpoint = editingNoteId
-            ? `${API_CONFIG.baseURL}/groups/${groupId}/notes/${editingNoteId}`
-            : `${API_CONFIG.baseURL}/groups/${groupId}/notes`;
+            ? `/fineract-provider/api/v1/groups/${groupId}/notes/${editingNoteId}`
+            : `/fineract-provider/api/v1/groups/${groupId}/notes`;
 
         const method = editingNoteId ? 'put' : 'post';
 
@@ -231,7 +231,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             await axios[method](endpoint, { note: newNote }, { headers });
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}/notes`,
+                `/fineract-provider/api/v1/groups/${groupId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -260,12 +260,12 @@ const GroupDetails = ({ groupId, onClose }) => {
         try {
             startLoading();
             await axios.delete(
-                `${API_CONFIG.baseURL}/groups/${groupId}/notes/${noteId}`,
+                `/fineract-provider/api/v1/groups/${groupId}/notes/${noteId}`,
                 { headers }
             );
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}/notes`,
+                `/fineract-provider/api/v1/groups/${groupId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -293,15 +293,15 @@ const GroupDetails = ({ groupId, onClose }) => {
 
             if (editingCommitteeMemberId) {
                 await axios.put(
-                    `${API_CONFIG.baseURL}/groups/${groupId}/associations/${editingCommitteeMemberId}`,
+                    `/fineract-provider/api/v1/groups/${groupId}/associations/${editingCommitteeMemberId}`,
                     { clientId: selectedClient, roleId: selectedRole },
                     { headers }
                 );
             } else {
-                await axios.post(`${API_CONFIG.baseURL}/groups/${groupId}/associations`, { clientId: selectedClient, roleId: selectedRole }, { headers });
+                await axios.post(`/fineract-provider/api/v1/groups/${groupId}/associations`, { clientId: selectedClient, roleId: selectedRole }, { headers });
             }
 
-            const updatedResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all&template=true`, { headers });
+            const updatedResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all&template=true`, { headers });
             setCommitteeMembers(updatedResponse.data.committeeMembers || []);
 
             setSelectedClient('');
@@ -328,9 +328,9 @@ const GroupDetails = ({ groupId, onClose }) => {
                 'Content-Type': 'application/json',
             };
 
-            await axios.delete(`${API_CONFIG.baseURL}/groups/${groupId}/associations/${memberId}`, { headers });
+            await axios.delete(`/fineract-provider/api/v1/groups/${groupId}/associations/${memberId}`, { headers });
 
-            const updatedResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all&template=true`, { headers });
+            const updatedResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all&template=true`, { headers });
             setCommitteeMembers(updatedResponse.data.committeeMembers || []);
         } catch (error) {
             console.error('Error deleting committee member:', error);
@@ -700,9 +700,9 @@ const GroupDetails = ({ groupId, onClose }) => {
 
         try {
             startLoading();
-            await axios.post(`${API_CONFIG.baseURL}/groups/${groupId}?command=activate`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/groups/${groupId}?command=activate`, payload, { headers });
             setIsActivateModalOpen(false);
-            const groupResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all`, { headers });
+            const groupResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all`, { headers });
             setGroupDetails(groupResponse.data);
             showNotification("Group activated successfully!", 'success')
         } catch (error) {
@@ -746,7 +746,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             const staffResponse = await axios.get(
-                `${API_CONFIG.baseURL}/groups/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
+                `/fineract-provider/api/v1/groups/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
                 { headers }
             );
 
@@ -792,10 +792,10 @@ const GroupDetails = ({ groupId, onClose }) => {
 
         try {
             startLoading();
-            await axios.put(`${API_CONFIG.baseURL}/groups/${groupId}`, payload, { headers });
+            await axios.put(`/fineract-provider/api/v1/groups/${groupId}`, payload, { headers });
             setIsEditModalOpen(false);
 
-            const updatedResponse = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all`, { headers });
+            const updatedResponse = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all`, { headers });
             setGroupDetails(updatedResponse.data);
             showNotification("Group editing successful!", 'success');
         } catch (error) {
@@ -815,7 +815,7 @@ const GroupDetails = ({ groupId, onClose }) => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all`, { headers });
+            const response = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all`, { headers });
             setClientMembers(
                 response.data.clientMembers.map((client) => ({
                     value: client.id,
@@ -856,7 +856,7 @@ const GroupDetails = ({ groupId, onClose }) => {
 
         try {
             startLoading();
-            await axios.post(`${API_CONFIG.baseURL}/groups/${groupId}?command=transferClients`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/groups/${groupId}?command=transferClients`, payload, { headers });
             showNotification('Clients transferred successfully!', 'success');
             setIsTransferModalOpen(false);
             fetchGroupAssociations(); // Refresh data
@@ -884,7 +884,7 @@ const GroupDetails = ({ groupId, onClose }) => {
                         'Content-Type': 'application/json',
                     };
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/clients?orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
+                        `/fineract-provider/api/v1/clients?orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
                         { headers }
                     );
                     setAllClients(response.data.pageItems || []);
@@ -942,7 +942,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${groupId}?command=associateClients`,
+                `/fineract-provider/api/v1/groups/${groupId}?command=associateClients`,
                 payload,
                 { headers }
             );
@@ -968,7 +968,7 @@ const GroupDetails = ({ groupId, onClose }) => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}?associations=all`, { headers });
+            const response = await axios.get(`/fineract-provider/api/v1/groups/${groupId}?associations=all`, { headers });
             setGroupClients(response.data.clientMembers || []);
         } catch (error) {
             console.error('Error fetching group clients:', error);
@@ -989,7 +989,7 @@ const GroupDetails = ({ groupId, onClose }) => {
                 'Content-Type': 'application/json',
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/groups/${groupId}?command=disassociateClients`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/groups/${groupId}?command=disassociateClients`, payload, { headers });
             fetchGroupClients();
         } catch (error) {
             console.error('Error removing client:', error);
@@ -1014,13 +1014,13 @@ const GroupDetails = ({ groupId, onClose }) => {
             const payload = { staffId: groupDetails?.staffId };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${groupId}?command=unassignStaff`,
+                `/fineract-provider/api/v1/groups/${groupId}?command=unassignStaff`,
                 payload,
                 { headers }
             );
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}?associations=all`,
+                `/fineract-provider/api/v1/groups/${groupId}?associations=all`,
                 { headers }
             );
             setGroupDetails(response.data);
@@ -1044,7 +1044,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}?associations=all&template=true`,
+                `/fineract-provider/api/v1/groups/${groupId}?associations=all&template=true`,
                 { headers }
             );
 
@@ -1075,13 +1075,13 @@ const GroupDetails = ({ groupId, onClose }) => {
             const payload = { staffId: selectedStaffId };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${groupId}?command=assignStaff`,
+                `/fineract-provider/api/v1/groups/${groupId}?command=assignStaff`,
                 payload,
                 { headers }
             );
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}?associations=all`,
+                `/fineract-provider/api/v1/groups/${groupId}?associations=all`,
                 { headers }
             );
             setGroupDetails(response.data);
@@ -1107,7 +1107,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${groupId}/calendars/template`,
+                `/fineract-provider/api/v1/groups/${groupId}/calendars/template`,
                 { headers }
             );
 
@@ -1149,7 +1149,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${groupId}/calendars`,
+                `/fineract-provider/api/v1/groups/${groupId}/calendars`,
                 payload,
                 { headers }
             );
@@ -1177,7 +1177,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/template?command=close`,
+                `/fineract-provider/api/v1/groups/template?command=close`,
                 { headers }
             );
 
@@ -1217,7 +1217,7 @@ const GroupDetails = ({ groupId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${groupId}?command=close`,
+                `/fineract-provider/api/v1/groups/${groupId}?command=close`,
                 payload,
                 { headers }
             );

@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }) => {
             'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
         };
         try {
-            const response = await fetch(`${API_CONFIG.baseURL}/notifications?isRead=false`, { headers });
+            const response = await fetch(`/fineract-provider/api/v1/notifications?isRead=false`, { headers });
 
             if (!response.ok) {
                 const errorText = await response.text();
@@ -404,6 +404,8 @@ export const AuthProvider = ({ children }) => {
         setBaseURL(newURL);
         localStorage.setItem('customBaseURL', newURL);
         setIsBaseURLChanged(true);
+
+        updateProxyBaseURL(newURL);
     };
 
     const updateTenantId = (newTenantId) => {
@@ -411,6 +413,29 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('tenantId', newTenantId);
         setIsBaseURLChanged(true);
     };
+
+    const updateProxyBaseURL = (newURL) => {
+        if (newURL) {
+            fetch('/api/updateBaseURL', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ baseURL: newURL })
+            }).then(response => response.json())
+                .then()
+                .catch(error => console.error("Error updating proxy Base URL:", error));
+        }
+    };
+
+    useEffect(() => {
+        const savedBaseURL = localStorage.getItem('customBaseURL');
+        if (savedBaseURL) {
+            fetch('/api/updateBaseURL', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({baseURL: savedBaseURL})
+            }).then();
+         }
+    }, []);
 
     const toggleComponentVisibility = (componentId) => {
         setComponentVisibility((prevState) => ({

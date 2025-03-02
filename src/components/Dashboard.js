@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useRef, useState} from 'react';
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { AuthContext } from '../context/AuthContext';
 import { NotificationContext } from '../context/NotificationContext';
 import { useLoading } from '../context/LoadingContext';
@@ -41,7 +41,6 @@ const Dashboard = () => {
         const fetchOffices = async () => {
             startLoading();
             try {
-                const API_BASE_URL = API_CONFIG.baseURL;
                 const AUTH_TOKEN = user.base64EncodedAuthenticationKey;
                 const headers = {
                     'Authorization': `Basic ${AUTH_TOKEN}`,
@@ -49,7 +48,7 @@ const Dashboard = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
 
-                const response = await axios.get(`${API_BASE_URL}/offices`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
                 const offices = response.data || [];
                 setOfficeOptions(offices);
 
@@ -79,7 +78,6 @@ const Dashboard = () => {
         let isMounted = true;
 
         if (user) {
-            const API_BASE_URL = API_CONFIG.baseURL;
             const AUTH_TOKEN = user.base64EncodedAuthenticationKey;
             const headers = {
                 'Authorization': `Basic ${AUTH_TOKEN}`,
@@ -88,12 +86,13 @@ const Dashboard = () => {
             };
 
             const fetchClientData = async () => {
+                startLoading();
                 try {
                     const officeFilter = selectedOffice && selectedOffice !== "all" ? `&officeId=${selectedOffice}` : "";
-                    const response = await axios.get(`${API_BASE_URL}/clients?${officeFilter}`, { headers });
-                    const staffResponse = await axios.get(`${API_BASE_URL}/staff`, { headers });
-                    const loansResponse = await axios.get(`${API_BASE_URL}/loans`, { headers });
-                    const currencyResponse = await axios.get(`${API_BASE_URL}/currencies`, { headers });
+                    const response = await axios.get(`/fineract-provider/api/v1/clients?${officeFilter}`, { headers });
+                    const staffResponse = await axios.get(`/fineract-provider/api/v1/staff`, { headers });
+                    const loansResponse = await axios.get(`/fineract-provider/api/v1/loans`, { headers });
+                    const currencyResponse = await axios.get(`/fineract-provider/api/v1/currencies`, { headers });
 
                     const defaultCurrency = currencyResponse.data.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
@@ -108,16 +107,26 @@ const Dashboard = () => {
                             : clients;
 
                     const activeClients = filteredClients.filter(client => client.status.value === "Active").length;
-                    const inactiveClients = filteredClients.filter(client => client.status.value === "Inactive").length;
+                    const inactiveClients = filteredClients.filter(client =>
+                        ["Inactive", "Closed", "Withdrawn"].includes(client.status.value)
+                    ).length;
                     const newClients = filteredClients.filter(client => client.status.value === "Pending").length;
                     activeClientsRef.current = activeClients;
 
-                    const activeLoans = loans.filter(loan => loan.status.active).length;
-                    const loanOfficers = staff.filter(member => member.isLoanOfficer && member.isActive);
+                    // const activeLoans = loans.filter(loan => loan.status.active).length;
+                    // const loanOfficers = staff.filter(member => member.isLoanOfficer && member.isActive);
+
+                    const activeLoanClients = filteredClients.filter(client =>
+                        loans.some(loan => loan.clientId === client.id && loan.status.active)
+                    ).length;
+
+                    const loanOfficersInOffice = selectedOffice && selectedOffice !== "all"
+                        ? staff.filter(member => member.isLoanOfficer && member.isActive && member.officeId === parseInt(selectedOffice))
+                        : staff.filter(member => member.isLoanOfficer && member.isActive);
 
                     const borrowersPerLoanOfficer =
-                        loanOfficers.length > 0
-                            ? Math.round(activeLoans / loanOfficers.length)
+                        loanOfficersInOffice.length > 0
+                            ? Math.round(activeLoanClients / loanOfficersInOffice.length)
                             : 'N/A';
 
                     const clientsPerPersonnel =
@@ -126,8 +135,8 @@ const Dashboard = () => {
                             : 'N/A';
 
                     const averageClientsPerLoanOfficer =
-                        loanOfficers.length > 0
-                            ? Math.round(activeClients / loanOfficers.length)
+                        loanOfficersInOffice.length > 0
+                            ? Math.round(filteredClients.length / loanOfficersInOffice.length)
                             : 'N/A';
 
                     const getTodaysDisbursements = (loans) => {
@@ -204,6 +213,8 @@ const Dashboard = () => {
                 } catch (error) {
                     console.error("Error fetching client data:", error);
                     throw error;
+                } finally {
+                    stopLoading();
                 }
             };
 
@@ -285,6 +296,7 @@ const Dashboard = () => {
                                     nextRepayment.setFullYear(
                                         disbursementDate.getFullYear() + i * repaymentEvery
                                     );
+
                                     break;
                             }
 
@@ -306,12 +318,13 @@ const Dashboard = () => {
                 return repaymentCount;
             };
 
-            const fetchLoanData = async () => {
+            const fetchLoanData = async (activeClients) => {
+                startLoading();
                 try {
                     const officeFilter = selectedOffice && selectedOffice !== "all" ? `&officeId=${selectedOffice}` : "";
-                    const response = await axios.get(`${API_BASE_URL}/loans?${officeFilter}`, { headers });
-                    const currencyResponse = await axios.get(`${API_BASE_URL}/currencies`, { headers });
-                    const savingsResponse = await axios.get(`${API_BASE_URL}/savingsaccounts`, { headers });
+                    const response = await axios.get(`/fineract-provider/api/v1/loans?${officeFilter}`, { headers });
+                    const currencyResponse = await axios.get(`/fineract-provider/api/v1/currencies`, { headers });
+                    const savingsResponse = await axios.get(`/fineract-provider/api/v1/savingsaccounts`, { headers });
 
                     const defaultCurrency = currencyResponse.data.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
@@ -341,6 +354,27 @@ const Dashboard = () => {
                         countTotalOverdue = 0, countNonPerformingAssets = 0,
                         countLoansForApproval = 0, countLoansForDisapproval = 0, countInterestOutstanding = 0;
 
+                    const today = new Date();
+                    const thisMonthLoans = filteredLoans.filter(loan => {
+                        const disbursementDateArray = loan.timeline?.actualDisbursementDate;
+                        if (!Array.isArray(disbursementDateArray) || disbursementDateArray.length < 3) {
+                            return false;
+                        }
+
+                        const [year, month] = disbursementDateArray;
+                        return (
+                            year === today.getFullYear() &&
+                            month === today.getMonth() + 1
+                        );
+                    });
+
+                    thisMonthLoans.forEach(loan => {
+                        const summary = loan.summary || {};
+                        if (summary.interestCharged) {
+                            totalInterestThisMonth += summary.interestCharged;
+                        }
+                    });
+
                     filteredLoans.forEach(loan => {
                         const summary = loan.summary || {};
                         if (summary.principalOutstanding) {
@@ -362,9 +396,9 @@ const Dashboard = () => {
                             totalInterestOverdue += summary.interestOverdue;
                             countInterestOverdue++;
                         }
-                        if (summary.interestCharged) {
-                            totalInterestThisMonth += summary.interestCharged;
-                        }
+                        // if (summary.interestCharged) {
+                        //     totalInterestThisMonth += summary.interestCharged;
+                        // }
                         if (summary.totalOverdue) {
                             totalOverdue += summary.totalOverdue;
                             countTotalOverdue++;
@@ -412,8 +446,8 @@ const Dashboard = () => {
                     const totalSavingsMobilizedThisMonth = calculateSavingsMobilizedThisMonth(savings);
 
                     const averageLoanDisbursed =
-                        activeClientsRef.current > 0
-                            ? formatCurrency(totalOutstandingCalc / parseInt(activeClientsRef.current), currencyCode, currencySymbol, decimalPlaces)
+                        activeClients > 0
+                            ? formatCurrency(totalOutstandingCalc / activeClients, currencyCode, currencySymbol, decimalPlaces)
                             : formatCurrency(0, currencyCode, currencySymbol, decimalPlaces);
 
 
@@ -446,13 +480,16 @@ const Dashboard = () => {
                 } catch (error) {
                     console.error("Error fetching loan data:", error);
                     throw error;
+                } finally {
+                    stopLoading();
                 }
             };
 
             const fetchData = async () => {
                 startLoading();
                 try {
-                    const [clientData, loanData] = await Promise.all([fetchClientData(), fetchLoanData()]);
+                    const clientData = await fetchClientData();
+                    const loanData = await fetchLoanData(clientData.activeClients);
                     if (isMounted) {
                         setDashboardData(prev => ({
                             ...prev,

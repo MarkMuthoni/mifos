@@ -35,7 +35,7 @@ const CreateShareProducts = () => {
                 startLoading();
 
                 const shareProductTemplateResponse = await axios.get(
-                    `${API_CONFIG.baseURL}/products/share/template`,
+                    `/fineract-provider/api/v1/products/share/template`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

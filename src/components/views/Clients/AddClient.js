@@ -149,7 +149,7 @@ const AddClientForm = () => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/clients/template`,
+                `/fineract-provider/api/v1/clients/template`,
                 {
                     headers,
                     params: {
@@ -187,7 +187,7 @@ const AddClientForm = () => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`${API_CONFIG.baseURL}/clients/template`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/clients/template`, { headers });
 
                 setClientTemplate(response.data || {});
             } catch (error) {
@@ -210,7 +210,7 @@ const AddClientForm = () => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`${API_CONFIG.baseURL}/charges/template`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/charges/template`, { headers });
 
                 const savingsRelatedCharges = response.data.savingsChargeCalculationTypeOptions;
                 setSavingsCharges(savingsRelatedCharges);
@@ -268,7 +268,7 @@ const AddClientForm = () => {
                         <div className="staged-form-row">
                             <div className="staged-form-field">
                                 <label htmlFor="office">
-                                    Office <span className="staged-form-required">*</span>
+                                    Branch <span className="staged-form-required">*</span>
                                 </label>
                                 <select
                                     id="office"
@@ -277,7 +277,7 @@ const AddClientForm = () => {
                                     className="staged-form-select"
                                     required
                                 >
-                                    <option value="">-- Select Office --</option>
+                                    <option value="">-- Select Branch --</option>
                                     {clientTemplate.officeOptions?.length > 0
                                         ? clientTemplate.officeOptions.map((office) => (
                                             <option key={office.id} value={office.id}>
@@ -290,7 +290,7 @@ const AddClientForm = () => {
 
                             <div className="staged-form-field">
                                 <label htmlFor="staff">
-                                    Staff
+                                    Loan Officer
                                 </label>
                                 <select
                                     id="staff"
@@ -299,7 +299,7 @@ const AddClientForm = () => {
                                     className="staged-form-select"
                                     disabled={!office}
                                 >
-                                    <option value="">-- Select Staff --</option>
+                                    <option value="">-- Select Loan Officer --</option>
                                     {staffs.length > 0
                                         ? staffs.map((staff) => (
                                             <option key={staff.id} value={staff.id}>
@@ -314,7 +314,7 @@ const AddClientForm = () => {
                         <div className="staged-form-row">
                             <div className="staged-form-field">
                                 <label htmlFor="externalId">
-                                    External ID <span className="staged-form-required">*</span>
+                                    National ID/Passport <span className="staged-form-required">*</span>
                                 </label>
                                 <input
                                     id="externalId"
@@ -1066,7 +1066,7 @@ const AddClientForm = () => {
                 externalId: externalId || undefined,
             };
 
-            const response = await axios.post(`${API_CONFIG.baseURL}/clients`, clientData, { headers });
+            const response = await axios.post(`/fineract-provider/api/v1/clients`, clientData, { headers });
 
             setLegalForm('');
             setFirstName('');

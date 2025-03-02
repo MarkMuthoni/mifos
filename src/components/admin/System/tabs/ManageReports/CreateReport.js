@@ -39,7 +39,7 @@ const ReportForm = () => {
     const fetchReportTemplate = async () => {
         startLoading();
         try {
-            const response = await fetch(`${API_CONFIG.baseURL}/reports/template`, {
+            const response = await fetch(`/fineract-provider/api/v1/reports/template`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -101,7 +101,7 @@ const ReportForm = () => {
         startLoading();
         try {
             const payload = { ...formData };
-            const response = await fetch(`${API_CONFIG.baseURL}/reports`, {
+            const response = await fetch(`/fineract-provider/api/v1/reports`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

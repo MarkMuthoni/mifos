@@ -60,7 +60,7 @@ const ReportFormPage = () => {
     const fetchReportDetails = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/reports/${reportId}`, {
+            const response = await axios.get(`/fineract-provider/api/v1/reports/${reportId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -84,7 +84,7 @@ const ReportFormPage = () => {
 
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/runreports/FullParameterList?R_reportListing='${reportName}'&parameterType=true`,
+                `/fineract-provider/api/v1/runreports/FullParameterList?R_reportListing='${reportName}'&parameterType=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -169,7 +169,7 @@ const ReportFormPage = () => {
                 endpoint += `&${parentKey}=${parentValue}`;
             }
 
-            const response = await axios.get(`${API_CONFIG.baseURL}${endpoint}`, {
+            const response = await axios.get(`/fineract-provider/api/v1${endpoint}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -328,7 +328,7 @@ const ReportFormPage = () => {
                 }
             });
 
-            const url = `${API_CONFIG.baseURL}/runreports/${encodeURIComponent(
+            const url = `/fineract-provider/api/v1/runreports/${encodeURIComponent(
                 reportDetails?.reportName
             )}?${queryParams.toString()}`;
 
@@ -366,7 +366,7 @@ const ReportFormPage = () => {
                 }
             });
 
-            const url = `${API_CONFIG.baseURL}/runreports/${encodeURIComponent(
+            const url = `/fineract-provider/api/v1/runreports/${encodeURIComponent(
                 reportDetails?.reportName
             )}?${queryParams.toString()}`;
 
@@ -540,7 +540,7 @@ const ReportFormPage = () => {
                 if (value) queryParams.append(mapParameterName(key), value);
             });
 
-            const url = `${API_CONFIG.baseURL}/runreports/${encodeURIComponent(reportDetails?.reportName)}?${queryParams.toString()}`;
+            const url = `/fineract-provider/api/v1/runreports/${encodeURIComponent(reportDetails?.reportName)}?${queryParams.toString()}`;
 
             const response = await axios.get(url, {
                 headers: {

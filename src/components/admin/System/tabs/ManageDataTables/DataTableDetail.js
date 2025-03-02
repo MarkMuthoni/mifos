@@ -21,7 +21,7 @@ const DataTableDetail = ({ dataTable, onCloseTab, tabId }) => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/datatables/${encodeURIComponent(dataTable.registeredTableName)}`,
+                `/fineract-provider/api/v1/datatables/${encodeURIComponent(dataTable.registeredTableName)}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -46,7 +46,7 @@ const DataTableDetail = ({ dataTable, onCloseTab, tabId }) => {
         startLoading();
         try {
             await axios.delete(
-                `${API_CONFIG.baseURL}/datatables/${encodeURIComponent(dataTable.registeredTableName)}`,
+                `/fineract-provider/api/v1/datatables/${encodeURIComponent(dataTable.registeredTableName)}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

@@ -26,7 +26,7 @@
 //                     'Fineract-Platform-TenantId': 'default',
 //                 };
 //                 const response = await axios.get(
-//                     `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${groupId}`,
+//                     `/fineract-provider/api/v1/savingsaccounts/template?groupId=${groupId}`,
 //                     { headers }
 //                 );
 //                 setProductOptions(response.data.productOptions || []);
@@ -48,7 +48,7 @@
 //                 'Fineract-Platform-TenantId': 'default',
 //             };
 //             const response = await axios.get(
-//                 `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${groupId}&productId=${productId}`,
+//                 `/fineract-provider/api/v1/savingsaccounts/template?groupId=${groupId}&productId=${productId}`,
 //                 { headers }
 //             );
 //             setSavingsTemplate(response.data);
@@ -258,7 +258,7 @@
 //                 'Fineract-Platform-TenantId': 'default',
 //             };
 //
-//             await axios.post(`${API_CONFIG.baseURL}/savingsaccounts`, submissionData, { headers });
+//             await axios.post(`/fineract-provider/api/v1/savingsaccounts`, submissionData, { headers });
 //
 //             alert("Application submitted successfully!");
 //         } catch (error) {

@@ -27,7 +27,7 @@ const CodeDetail = ({ code }) => {
     const fetchCodeValues = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/codes/${codeId}/codevalues`, {
+            const response = await axios.get(`/fineract-provider/api/v1/codes/${codeId}/codevalues`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -55,7 +55,7 @@ const CodeDetail = ({ code }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/codes/${codeId}/codevalues`,
+                `/fineract-provider/api/v1/codes/${codeId}/codevalues`,
                 payload,
                 {
                     headers: {
@@ -82,7 +82,7 @@ const CodeDetail = ({ code }) => {
         startLoading();
         try {
             await axios.put(
-                `${API_CONFIG.baseURL}/codes/${codeId}/codevalues/${value.id}`,
+                `/fineract-provider/api/v1/codes/${codeId}/codevalues/${value.id}`,
                 {
                     name: value.name,
                     description: value.description,
@@ -113,7 +113,7 @@ const CodeDetail = ({ code }) => {
         if (!window.confirm('Are you sure you want to delete this value?')) return;
         startLoading();
         try {
-            await axios.delete(`${API_CONFIG.baseURL}/codes/${codeId}/codevalues/${id}`, {
+            await axios.delete(`/fineract-provider/api/v1/codes/${codeId}/codevalues/${id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

@@ -35,7 +35,7 @@ const EntityMapping = () => {
     const fetchMappings = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/entitytoentitymapping`, {
+            const response = await axios.get(`/fineract-provider/api/v1/entitytoentitymapping`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -63,13 +63,13 @@ const EntityMapping = () => {
 
         try {
             const [firstResponse, secondResponse] = await Promise.all([
-                axios.get(`${API_CONFIG.baseURL}/${firstPart}s`, {
+                axios.get(`/fineract-provider/api/v1/${firstPart}s`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                     },
                 }),
-                axios.get(`${API_CONFIG.baseURL}/${secondPart}`, {
+                axios.get(`/fineract-provider/api/v1/${secondPart}`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -124,7 +124,7 @@ const EntityMapping = () => {
         try {
             startLoading();
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/entitytoentitymapping/${selectedMapping.id}/${currentFormValues.first}/${currentFormValues.second}`,
+                `/fineract-provider/api/v1/entitytoentitymapping/${selectedMapping.id}/${currentFormValues.first}/${currentFormValues.second}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -197,7 +197,7 @@ const EntityMapping = () => {
         try {
             startLoading();
             await axios.post(
-                `${API_CONFIG.baseURL}/entitytoentitymapping/${selectedMapping?.id}`,
+                `/fineract-provider/api/v1/entitytoentitymapping/${selectedMapping?.id}`,
                 payload,
                 {
                     headers: {
@@ -210,7 +210,7 @@ const EntityMapping = () => {
 
             const currentFormValues = formValuesByMapping[selectedMapping?.id];
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/entitytoentitymapping/${selectedMapping.id}/${currentFormValues.first}/${currentFormValues.second}`,
+                `/fineract-provider/api/v1/entitytoentitymapping/${selectedMapping.id}/${currentFormValues.first}/${currentFormValues.second}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

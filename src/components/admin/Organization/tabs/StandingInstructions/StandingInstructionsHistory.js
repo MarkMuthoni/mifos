@@ -39,7 +39,7 @@ const StandingInstructionsHistory = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/standinginstructions/template`,
+                `/fineract-provider/api/v1/standinginstructions/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -97,7 +97,7 @@ const StandingInstructionsHistory = () => {
             const query = new URLSearchParams(filteredParams).toString();
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/standinginstructionrunhistory?${query}`,
+                `/fineract-provider/api/v1/standinginstructionrunhistory?${query}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

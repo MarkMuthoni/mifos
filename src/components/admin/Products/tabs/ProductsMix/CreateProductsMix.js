@@ -25,7 +25,7 @@ const CreateProductsMix = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loanproducts/template?isProductMixTemplate=true`,
+                `/fineract-provider/api/v1/loanproducts/template?isProductMixTemplate=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -46,7 +46,7 @@ const CreateProductsMix = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loanproducts/${productId}/productmix?template=true`,
+                `/fineract-provider/api/v1/loanproducts/${productId}/productmix?template=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -76,7 +76,7 @@ const CreateProductsMix = () => {
 
         try {
             startLoading();
-            await axios.post(`${API_CONFIG.baseURL}/loanproducts/${selectedProduct}/productmix`, payload, {
+            await axios.post(`/fineract-provider/api/v1/loanproducts/${selectedProduct}/productmix`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

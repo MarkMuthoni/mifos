@@ -26,7 +26,7 @@ const ViewCashiers = ({ teller, setActiveTab }) => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/tellers/${teller.id}/cashiers`,
+                `/fineract-provider/api/v1/tellers/${teller.id}/cashiers`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

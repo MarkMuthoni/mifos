@@ -52,10 +52,10 @@ const FrequentPostingForm = () => {
                 };
 
                 const [officesResponse, accountingRulesResponse, currenciesResponse, paymentTypesResponse] = await Promise.all([
-                    axios.get(`${API_CONFIG.baseURL}/offices`, { headers }),
-                    axios.get(`${API_CONFIG.baseURL}/accountingrules?associations=all`, { headers }),
-                    axios.get(`${API_CONFIG.baseURL}/currencies`, { headers }),
-                    axios.get(`${API_CONFIG.baseURL}/paymenttypes`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/offices`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/accountingrules?associations=all`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/currencies`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/paymenttypes`, { headers }),
                 ]);
 
                 setOffices(officesResponse.data);
@@ -114,7 +114,7 @@ const FrequentPostingForm = () => {
         }
 
         try {
-            const response = await axios.post(`${API_CONFIG.baseURL}/journalentries`, payload,{
+            const response = await axios.post(`/fineract-provider/api/v1/journalentries`, payload,{
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

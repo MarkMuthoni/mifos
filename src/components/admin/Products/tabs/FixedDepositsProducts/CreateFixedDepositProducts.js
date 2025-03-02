@@ -45,7 +45,7 @@ const CreateFixedDepositProducts = () => {
                 startLoading();
 
                 const fixedDepositProductTemplateResponse = await axios.get(
-                    `${API_CONFIG.baseURL}/fixeddepositproducts/template`,
+                    `/fineract-provider/api/v1/fixeddepositproducts/template`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

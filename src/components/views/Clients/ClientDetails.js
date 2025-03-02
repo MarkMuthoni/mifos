@@ -328,7 +328,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 locale: 'en',
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}?command=activate`, payload, {
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=activate`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -355,7 +355,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
     const handleConfirmDelete = async (clientId) => {
         try {
-            await axios.delete(`${API_CONFIG.baseURL}/clients/${clientId}`, {
+            await axios.delete(`/fineract-provider/api/v1/clients/${clientId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -374,7 +374,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
     const fetchRejectionTemplate = async () => {
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/clients/template?commandParam=reject`, {
+            const response = await axios.get(`/fineract-provider/api/v1/clients/template?commandParam=reject`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -410,7 +410,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         };
 
         try {
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}?command=reject`, payload, {
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=reject`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -428,7 +428,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     const fetchWithdrawalNarrations = async () => {
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/clients/template?commandParam=withdraw`,
+                `/fineract-provider/api/v1/clients/template?commandParam=withdraw`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -469,7 +469,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=withdraw`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=withdraw`,
                 payload,
                 {
                     headers: {
@@ -515,7 +515,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/savingsaccounts/${selectedSavingsId}?command=activate`,
+                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=activate`,
                 payload,
                 { headers }
             );
@@ -555,7 +555,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         setIsProcessingApproval(true);
 
         try {
-            const endpoint = `${API_CONFIG.baseURL}/savingsaccounts/${selectedSavingsId}?command=approve`;
+            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=approve`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -603,7 +603,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         setIsProcessingUndo(true);
 
         try {
-            const endpoint = `${API_CONFIG.baseURL}/savingsaccounts/${selectedSavingsId}?command=undoapproval`;
+            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=undoapproval`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -640,7 +640,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
+                `/fineract-provider/api/v1/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
                 { headers }
             );
 
@@ -663,7 +663,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${productId}`,
+                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${productId}`,
                 { headers }
             );
 
@@ -693,7 +693,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/accounttransfers/template?fromAccountId=${selectedLoan.id}&fromAccountType=${selectedLoan.productId}&toOfficeId=${officeId}`,
+                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${selectedLoan.id}&fromAccountType=${selectedLoan.productId}&toOfficeId=${officeId}`,
                 { headers }
             );
 
@@ -739,7 +739,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/accounttransfers`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/accounttransfers`, payload, { headers });
 
             showNotification("Funds transferred successfully.", 'success');
             setIsOverpayTransferModalOpen(false);
@@ -758,7 +758,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loans/${loanId}/transactions/template?command=disburse`,
+                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburse`,
                 { headers }
             );
 
@@ -812,7 +812,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/loans/${selectedLoanId}?command=disburse`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/loans/${selectedLoanId}?command=disburse`, payload, { headers });
 
             showNotification("Loan disbursed successfully.", 'success');
             setIsDisburseModalOpen(false);
@@ -842,7 +842,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch main client details
-            const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, {headers});
+            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, {headers});
             setClientDetails(clientResponse.data);
 
             // Fetch client image if imagePresent is true
@@ -854,23 +854,23 @@ const ClientDetails = ({ clientId, onClose }) => {
             }
 
             // Fetch template data
-            const templateResponse = await axios.get(`${API_CONFIG.baseURL}/clients/template`, {headers});
+            const templateResponse = await axios.get(`/fineract-provider/api/v1/clients/template`, {headers});
             setTemplateData(templateResponse.data);
 
             // Fetch registered datatables
-            const datatablesResponse = await axios.get(`${API_CONFIG.baseURL}/datatables?apptable=m_client`, {headers});
+            const datatablesResponse = await axios.get(`/fineract-provider/api/v1/datatables?apptable=m_client`, {headers});
             setDataTables(datatablesResponse.data);
 
             // Fetch collaterals
-            const collateralsResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/collaterals/template`, {headers});
+            const collateralsResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, {headers});
             setCollaterals(collateralsResponse.data);
 
             // Fetch charges
-            const chargesResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/charges?pendingPayment=true`, {headers});
+            const chargesResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, {headers});
             setCharges(chargesResponse.data.pageItems);
 
             // Fetch accounts
-            const accountsResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}/accounts`, {headers});
+            const accountsResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/accounts`, {headers});
             setAccounts(accountsResponse.data);
 
         } catch (error) {
@@ -892,12 +892,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             startLoading();
 
             const clientResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}`,
+                `/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
 
             const chargesResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/charges`,
+                `/fineract-provider/api/v1/clients/${clientId}/charges`,
                 { headers }
             );
 
@@ -918,7 +918,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     const fetchClientImage = async (imageId, headers) => {
         try {
             const imageUrlResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/images?maxHeight=150`,
+                `/fineract-provider/api/v1/clients/${clientId}/images?maxHeight=150`,
                 { headers }
             );
 
@@ -1013,14 +1013,14 @@ const ClientDetails = ({ clientId, onClose }) => {
                 };
 
                 try {
-                    const addressConfigResponse = await axios.get(`${API_CONFIG.baseURL}/fieldconfiguration/ADDRESS`, {
+                    const addressConfigResponse = await axios.get(`/fineract-provider/api/v1/fieldconfiguration/ADDRESS`, {
                         headers,
                     });
-                    const addressTemplateResponse = await axios.get(`${API_CONFIG.baseURL}/client/addresses/template`, {
+                    const addressTemplateResponse = await axios.get(`/fineract-provider/api/v1/client/addresses/template`, {
                         headers,
                     });
                     const clientAddressesResponse = await axios.get(
-                        `${API_CONFIG.baseURL}/client/${clientId}/addresses`,
+                        `/fineract-provider/api/v1/client/${clientId}/addresses`,
                         {headers}
                     );
 
@@ -1048,13 +1048,13 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             await axios.post(
-                `${API_CONFIG.baseURL}/client/${clientId}/addresses`,
+                `/fineract-provider/api/v1/client/${clientId}/addresses`,
                 newAddress,
                 { headers }
             );
             setIsAddressModalOpen(false);
             const updatedAddresses = await axios.get(
-                `${API_CONFIG.baseURL}/client/${clientId}/addresses`,
+                `/fineract-provider/api/v1/client/${clientId}/addresses`,
                 { headers }
             );
             setClientAddresses(updatedAddresses.data);
@@ -1076,13 +1076,13 @@ const ClientDetails = ({ clientId, onClose }) => {
                     };
 
                     const familyResponse = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/${clientId}/familymembers`,
+                        `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                         { headers }
                     );
                     setFamilyMembers(familyResponse.data);
 
                     const templateResponse = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/template`,
+                        `/fineract-provider/api/v1/clients/template`,
                         { headers }
                     );
 
@@ -1112,13 +1112,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}/familymembers`,
+                `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                 newFamilyMember,
                 { headers }
             );
             setIsFamilyModalOpen(false);
             const updatedFamilyMembers = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/familymembers`,
+                `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                 { headers }
             );
             setFamilyMembers(updatedFamilyMembers.data);
@@ -1158,13 +1158,13 @@ const ClientDetails = ({ clientId, onClose }) => {
                     startLoading();
 
                     const identitiesResponse = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/${clientId}/identifiers`,
+                        `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                         { headers }
                     );
                     setIdentities(identitiesResponse.data);
 
                     const templateResponse = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/${clientId}/identifiers/template`,
+                        `/fineract-provider/api/v1/clients/${clientId}/identifiers/template`,
                         { headers }
                     );
                     setDocumentTypeOptions(templateResponse.data.allowedDocumentTypes);
@@ -1189,13 +1189,13 @@ const ClientDetails = ({ clientId, onClose }) => {
             startLoading();
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}/identifiers`,
+                `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                 newIdentity,
                 { headers }
             );
 
             const updatedIdentities = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/identifiers`,
+                `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                 { headers }
             );
             setIdentities(updatedIdentities.data);
@@ -1226,7 +1226,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/${clientId}/documents`,
+                        `/fineract-provider/api/v1/clients/${clientId}/documents`,
                         { headers }
                     );
                     setDocuments(response.data);
@@ -1254,13 +1254,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}/documents`,
+                `/fineract-provider/api/v1/clients/${clientId}/documents`,
                 formData,
                 { headers }
             );
 
             const updatedDocuments = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/documents`,
+                `/fineract-provider/api/v1/clients/${clientId}/documents`,
                 { headers }
             );
             setDocuments(updatedDocuments.data);
@@ -1286,7 +1286,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/clients/${clientId}/notes`,
+                        `/fineract-provider/api/v1/clients/${clientId}/notes`,
                         { headers }
                     );
                     setNotes(response.data);
@@ -1307,8 +1307,8 @@ const ClientDetails = ({ clientId, onClose }) => {
         };
 
         const endpoint = editingNoteId
-            ? `${API_CONFIG.baseURL}/clients/${clientId}/notes/${editingNoteId}`
-            : `${API_CONFIG.baseURL}/clients/${clientId}/notes`;
+            ? `/fineract-provider/api/v1/clients/${clientId}/notes/${editingNoteId}`
+            : `/fineract-provider/api/v1/clients/${clientId}/notes`;
 
         const method = editingNoteId ? 'put' : 'post';
 
@@ -1317,7 +1317,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             await axios[method](endpoint, { note: newNote }, { headers });
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/notes`,
+                `/fineract-provider/api/v1/clients/${clientId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -1347,12 +1347,12 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.delete(
-                `${API_CONFIG.baseURL}/clients/${clientId}/notes/${noteId}`,
+                `/fineract-provider/api/v1/clients/${clientId}/notes/${noteId}`,
                 { headers }
             );
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/notes`,
+                `/fineract-provider/api/v1/clients/${clientId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -1390,12 +1390,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const approvalTemplateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/loans/${selectedLoanId}/template?templateType=approval`,
+                `/fineract-provider/api/v1/loans/${selectedLoanId}/template?templateType=approval`,
                 { headers }
             );
 
             const loanDetailsResponse = await axios.get(
-                `${API_CONFIG.baseURL}/loans/${selectedLoanId}?associations=multiDisburseDetails`,
+                `/fineract-provider/api/v1/loans/${selectedLoanId}?associations=multiDisburseDetails`,
                 { headers }
             );
 
@@ -1449,7 +1449,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/loans/${loanId}?command=approve`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=approve`, payload, { headers });
             setIsLoanApproveModalOpen(false);
             fetchGeneralTabData();
             showNotification('Loan approved successfully', 'success');
@@ -1536,15 +1536,15 @@ const ClientDetails = ({ clientId, onClose }) => {
                                     {/*>*/}
                                     {/*    Share Accounts*/}
                                     {/*</li>*/}
-                                    <li
-                                        className={activeSection === 'collateral-data' ? 'active' : ''}
-                                        onClick={() => {
-                                            setActiveSection('collateral-data');
-                                            setIsSidebarHidden(true);
-                                        }}
-                                    >
-                                        Collateral Data
-                                    </li>
+                                    {/*<li*/}
+                                    {/*    className={activeSection === 'collateral-data' ? 'active' : ''}*/}
+                                    {/*    onClick={() => {*/}
+                                    {/*        setActiveSection('collateral-data');*/}
+                                    {/*        setIsSidebarHidden(true);*/}
+                                    {/*    }}*/}
+                                    {/*>*/}
+                                    {/*    Collateral Data*/}
+                                    {/*</li>*/}
                                 </ul>
                             </div>
                         </div>
@@ -1612,10 +1612,10 @@ const ClientDetails = ({ clientId, onClose }) => {
                                                 >
                                                     <td>{charge.name}</td>
                                                     <td>{formatDate(charge.dueDate)}</td>
-                                                    <td>{charge.due}</td>
-                                                    <td>{charge.paid}</td>
-                                                    <td>{charge.waived}</td>
-                                                    <td>{charge.outstanding}</td>
+                                                    <td>{charge?.currency?.code} {charge.amount}</td>
+                                                    <td>{charge?.currency?.code} {charge.amountPaid}</td>
+                                                    <td>{charge?.currency?.code} {charge.amountWaived}</td>
+                                                    <td>{charge?.currency?.code} {charge.amountOutstanding}</td>
                                                     <td>
                                                         <button className="general-action-button"
                                                                 onClick={(e) => {
@@ -2205,55 +2205,9 @@ const ClientDetails = ({ clientId, onClose }) => {
                             )}
 
                             {/* Collateral Data Section */}
-                            {activeSection === 'collateral-data' && (
-                                <div id={'collateral-data'} className="general-section general-collateral-data">
-                                    <div className="general-section-header">
-                                        <h3 className="general-section-title">Collateral Data</h3>
-                                        <button
-                                            className="general-collateral-button"
-                                            disabled={!clientDetails?.clientCollateralManagements?.length}
-                                        >
-                                            View Collaterals
-                                        </button>
-                                    </div>
-                                    <table className="general-collateral-table">
-                                        <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Percent To Base</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Total Value</th>
-                                            <th>Total Collateral Value</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {clientDetails?.clientCollateralManagements?.length > 0 ? (
-                                            clientDetails.clientCollateralManagements.map((item, index) => (
-                                                <tr
-                                                    key={index}
-                                                    onClick={() => handleCollateralRowClick(item)}
-                                                    style={{cursor: "pointer"}}
-                                                >
-                                                    <td>{item.id || "N/A"}</td>
-                                                    <td>{item.name || "N/A"}</td>
-                                                    <td>{item.pctToBase ? `${item.pctToBase}%` : "N/A"}</td>
-                                                    <td>{item.quantity || "N/A"}</td>
-                                                    <td>{item.unitPrice ? item.unitPrice.toLocaleString() : "N/A"}</td>
-                                                    <td>{item.total ? item.total.toLocaleString() : "N/A"}</td>
-                                                    <td>{item.totalCollateral ? item.totalCollateral.toLocaleString() : "N/A"}</td>
-                                                </tr>
-                                            ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan="5">No collateral data available</td>
-                                            </tr>
-                                        )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )}
+                            {/*{activeSection === 'collateral-data' && (*/}
+                            {/*    */}
+                            {/*)}*/}
                         </div>
                     </div>
                 );
@@ -2970,135 +2924,186 @@ const ClientDetails = ({ clientId, onClose }) => {
                 );
             case 'documents':
                 return (
-                    <div className="general-section general-documents-section">
-                        <div className="general-section-header">
-                            <h3 className="general-section-title">Documents</h3>
-                            <button
-                                className="create-provisioning-criteria-submit"
-                                onClick={() => setIsDocumentsModalOpen(true)}
-                            >
-                                Add Document
-                            </button>
+                    <>
+                        <div className="general-section general-documents-section">
+                            <div className="general-section-header">
+                                <h3 className="general-section-title">Documents</h3>
+                                <button
+                                    className="create-provisioning-criteria-submit"
+                                    onClick={() => setIsDocumentsModalOpen(true)}
+                                >
+                                    Add Document
+                                </button>
+                            </div>
+                            {documents.length > 0 ? (
+                                <table className="general-accounts-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>File Name</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {documents.map((doc, index) => (
+                                        <tr key={index}>
+                                            <td>{doc.name}</td>
+                                            <td>{doc.description || ''}</td>
+                                            <td>{doc.fileName}</td>
+                                            <td className={"create-provisioning-criteria-actions"}>
+                                                <button
+                                                    className="create-adhoc-query-submit"
+                                                    style={{marginRight: '10px'}}
+                                                    // onClick={() => handleViewDocument(doc.id)}
+                                                >
+                                                    View
+                                                </button>
+                                                <button
+                                                    className="create-provisioning-criteria-cancel"
+                                                    // onClick={() => handleDeleteDocument(doc.id)}
+                                                >
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                            ) : (
+                                <p className="no-data">No documents available</p>
+                            )}
+                            {isDocumentsModalOpen && (
+                                <div className="create-provisioning-criteria-modal-overlay">
+                                    <div className="create-provisioning-criteria-modal-content">
+                                        <h4 className="create-modal-title">Upload Documents</h4>
+                                        <div className="create-holiday-row">
+                                            <div className="create-provisioning-criteria-group">
+                                                <label htmlFor="fileName"
+                                                       className="create-provisioning-criteria-label">
+                                                    File Name <span>*</span>
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="fileName"
+                                                    value={newDocument.fileName}
+                                                    onChange={(e) =>
+                                                        setNewDocument((prev) => ({
+                                                            ...prev,
+                                                            fileName: e.target.value,
+                                                        }))
+                                                    }
+                                                    className="create-provisioning-criteria-input"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="create-holiday-row">
+                                            <div className="create-provisioning-criteria-group">
+                                                <label htmlFor="description"
+                                                       className="create-provisioning-criteria-label">
+                                                    Description
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="description"
+                                                    value={newDocument.description}
+                                                    onChange={(e) =>
+                                                        setNewDocument((prev) => ({
+                                                            ...prev,
+                                                            description: e.target.value,
+                                                        }))
+                                                    }
+                                                    className="create-provisioning-criteria-input"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="create-holiday-row">
+                                            <div className="create-provisioning-criteria-group">
+                                                <label htmlFor="file" className="create-provisioning-criteria-label">
+                                                    Upload <span>*</span>
+                                                </label>
+                                                <input
+                                                    type="file"
+                                                    id="file"
+                                                    onChange={(e) =>
+                                                        setNewDocument((prev) => ({
+                                                            ...prev,
+                                                            file: e.target.files[0],
+                                                        }))
+                                                    }
+                                                    className="create-provisioning-criteria-input"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="create-provisioning-criteria-modal-actions">
+                                            <button
+                                                onClick={() => setIsDocumentsModalOpen(false)}
+                                                className="create-provisioning-criteria-cancel"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                onClick={handleAddDocument}
+                                                className="create-provisioning-criteria-confirm"
+                                                disabled={!newDocument.fileName || !newDocument.file}
+                                            >
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
                         </div>
-                        {documents.length > 0 ? (
-                            <table className="general-accounts-table">
+                        <div id={'collateral-data'} className="general-section general-collateral-data">
+                            <div className="general-section-header">
+                                <h3 className="general-section-title">Collateral Data</h3>
+                                <button
+                                    className="general-collateral-button"
+                                    disabled={!clientDetails?.clientCollateralManagements?.length}
+                                >
+                                    View Collaterals
+                                </button>
+                            </div>
+                            <table className="general-collateral-table">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
-                                    <th>Description</th>
-                                    <th>File Name</th>
-                                    <th>Actions</th>
+                                    <th>Percent To Base</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Total Value</th>
+                                    <th>Total Collateral Value</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {documents.map((doc, index) => (
-                                    <tr key={index}>
-                                        <td>{doc.name}</td>
-                                        <td>{doc.description || ''}</td>
-                                        <td>{doc.fileName}</td>
-                                        <td className={"create-provisioning-criteria-actions"}>
-                                            <button
-                                                className="create-adhoc-query-submit"
-                                                style={{marginRight: '10px'}}
-                                                // onClick={() => handleViewDocument(doc.id)}
-                                            >
-                                                View
-                                            </button>
-                                            <button
-                                                className="create-provisioning-criteria-cancel"
-                                                // onClick={() => handleDeleteDocument(doc.id)}
-                                            >
-                                                Delete
-                                            </button>
-                                        </td>
+                                {clientDetails?.clientCollateralManagements?.length > 0 ? (
+                                    clientDetails.clientCollateralManagements.map((item, index) => (
+                                        <tr
+                                            key={index}
+                                            onClick={() => handleCollateralRowClick(item)}
+                                            style={{cursor: "pointer"}}
+                                        >
+                                            <td>{item.id || "N/A"}</td>
+                                            <td>{item.name || "N/A"}</td>
+                                            <td>{item.pctToBase ? `${item.pctToBase}%` : "N/A"}</td>
+                                            <td>{item.quantity || "N/A"}</td>
+                                            <td>{item.unitPrice ? item.unitPrice.toLocaleString() : "N/A"}</td>
+                                            <td>{item.total ? item.total.toLocaleString() : "N/A"}</td>
+                                            <td>{item.totalCollateral ? item.totalCollateral.toLocaleString() : "N/A"}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td className={"no-data"} colSpan="7">No collateral data available</td>
                                     </tr>
-                                ))}
+                                )}
                                 </tbody>
                             </table>
-                        ) : (
-                            <p className="no-data">No documents available</p>
-                        )}
-                        {isDocumentsModalOpen && (
-                            <div className="create-provisioning-criteria-modal-overlay">
-                                <div className="create-provisioning-criteria-modal-content">
-                                    <h4 className="create-modal-title">Upload Documents</h4>
-                                    <div className="create-holiday-row">
-                                        <div className="create-provisioning-criteria-group">
-                                            <label htmlFor="fileName" className="create-provisioning-criteria-label">
-                                                File Name <span>*</span>
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="fileName"
-                                                value={newDocument.fileName}
-                                                onChange={(e) =>
-                                                    setNewDocument((prev) => ({
-                                                        ...prev,
-                                                        fileName: e.target.value,
-                                                    }))
-                                                }
-                                                className="create-provisioning-criteria-input"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="create-holiday-row">
-                                        <div className="create-provisioning-criteria-group">
-                                            <label htmlFor="description" className="create-provisioning-criteria-label">
-                                                Description
-                                            </label>
-                                            <input
-                                                type="text"
-                                                id="description"
-                                                value={newDocument.description}
-                                                onChange={(e) =>
-                                                    setNewDocument((prev) => ({
-                                                        ...prev,
-                                                        description: e.target.value,
-                                                    }))
-                                                }
-                                                className="create-provisioning-criteria-input"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="create-holiday-row">
-                                        <div className="create-provisioning-criteria-group">
-                                            <label htmlFor="file" className="create-provisioning-criteria-label">
-                                                Upload <span>*</span>
-                                            </label>
-                                            <input
-                                                type="file"
-                                                id="file"
-                                                onChange={(e) =>
-                                                    setNewDocument((prev) => ({
-                                                        ...prev,
-                                                        file: e.target.files[0],
-                                                    }))
-                                                }
-                                                className="create-provisioning-criteria-input"
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="create-provisioning-criteria-modal-actions">
-                                        <button
-                                            onClick={() => setIsDocumentsModalOpen(false)}
-                                            className="create-provisioning-criteria-cancel"
-                                        >
-                                            Cancel
-                                        </button>
-                                        <button
-                                            onClick={handleAddDocument}
-                                            className="create-provisioning-criteria-confirm"
-                                            disabled={!newDocument.fileName || !newDocument.file}
-                                        >
-                                            Confirm
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                        </div>
+                    </>
                 );
             case 'notes':
                 return (
@@ -3137,7 +3142,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                                                 className="note-general-action-button"
                                                 onClick={() => handleEditNote(note)}
                                             >
-                                                <FaEdit  color={"#56bc23"} size={20}/>
+                                                <FaEdit color={"#56bc23"} size={20}/>
                                             </button>
                                             <button
                                                 className="note-general-action-button"
@@ -3155,7 +3160,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                         {isNotesModalOpen && (
                             <div className="create-provisioning-criteria-modal-overlay">
                                 <div className="create-provisioning-criteria-modal-content">
-                                    <h4 className="create-modal-title">
+                                <h4 className="create-modal-title">
                                         {editingNoteId ? 'Edit Note' : 'Add Note'}
                                     </h4>
                                     <div className="create-holiday-row">
@@ -3208,23 +3213,23 @@ const ClientDetails = ({ clientId, onClose }) => {
     };
 
     const handleChargeRowClick = (charge) => {
-        console.log("Charge clicked:", charge);
+        // console.log("Charge clicked:", charge);
     };
 
     const handleUpcomingChargeRowClick = (charge) => {
-        console.log("Upcoming charge clicked:", charge);
+        // console.log("Upcoming charge clicked:", charge);
     };
 
     const handleFixedDepositAccountRowClick = (account) => {
-        console.log("Fixed deposit account row clicked:", account);
+        // console.log("Fixed deposit account row clicked:", account);
     };
 
     const handleRecurringDepositAccountRowClick = (account) => {
-        console.log("Recurring deposit account row clicked:", account);
+        // console.log("Recurring deposit account row clicked:", account);
     };
 
     const handleShareAccountRowClick = (account) => {
-        console.log("Share account row clicked:", account);
+        // console.log("Share account row clicked:", account);
     };
 
     const handleCollateralRowClick = (item) => {
@@ -3259,13 +3264,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}/images`,
+                `/fineract-provider/api/v1/clients/${clientId}/images`,
                 formData,
                 { headers }
             );
 
             const updatedClientData = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}`,
+                `/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
             setClientDetails(updatedClientData.data);
@@ -3301,9 +3306,9 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
 
-            await axios.delete(`${API_CONFIG.baseURL}/clients/${clientId}/images`, { headers });
+            await axios.delete(`/fineract-provider/api/v1/clients/${clientId}/images`, { headers });
 
-            const updatedClientData = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const updatedClientData = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setClientDetails(updatedClientData.data);
 
             setClientImage(process.env.PUBLIC_URL + 'Images/user.jpg');
@@ -3373,9 +3378,9 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             startLoading();
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}/images`, formData, { headers });
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}/images`, formData, { headers });
 
-            const updatedClientData = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const updatedClientData = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setClientDetails(updatedClientData.data);
 
             const updatedImage = await fetchClientImage(clientId, headers);
@@ -3400,7 +3405,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/documents`,
+                `/fineract-provider/api/v1/clients/${clientId}/documents`,
                 { headers }
             );
 
@@ -3442,7 +3447,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 };
 
                 await axios.delete(
-                    `${API_CONFIG.baseURL}/clients/${clientId}/documents/${signatureData.id}`,
+                    `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,
                     { headers }
                 );
 
@@ -3472,7 +3477,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     // const handleDownloadDocument = async () => {
     //     try {
     //         // Construct the URL for downloading the document
-    //         const downloadUrl = `${API_CONFIG.baseURL}/clients/${clientId}/documents/${signatureData.id}/content`;
+    //         const downloadUrl = `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}/content`;
     //         const headers = {
     //             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
     //             'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -3518,7 +3523,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             formData.append("file", selectedDocument);
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}/documents`,
+                `/fineract-provider/api/v1/clients/${clientId}/documents`,
                 formData,
                 { headers }
             );
@@ -3548,11 +3553,11 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch client details
-            const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setCloseClientData(clientResponse.data);
 
             // Fetch closure reasons
-            const templateResponse = await axios.get(`${API_CONFIG.baseURL}/clients/template?commandParam=close`, { headers });
+            const templateResponse = await axios.get(`/fineract-provider/api/v1/clients/template?commandParam=close`, { headers });
             setClosureReasonOptions(templateResponse.data?.narrations || []);
 
             setIsCloseClientModalOpen(true);
@@ -3591,7 +3596,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
 
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}?command=close`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=close`, payload, { headers });
 
             showNotification('Client successfully closed.', 'success');
             fetchGeneralTabData();
@@ -3612,8 +3617,8 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const officesResponse = await axios.get(`${API_CONFIG.baseURL}/offices`, { headers });
-            const currentClientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const officesResponse = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
+            const currentClientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const currentOfficeId = currentClientResponse.data?.officeId;
             const filteredOffices = officesResponse.data?.filter((office) => office.id !== currentOfficeId);
@@ -3657,7 +3662,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=proposeTransfer`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=proposeTransfer`,
                 payload,
                 { headers }
             );
@@ -3684,9 +3689,9 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const [clientResponse, staffTemplateResponse] = await Promise.all([
-                axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers }),
+                axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers }),
                 axios.get(
-                    `${API_CONFIG.baseURL}/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
+                    `/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
                     { headers }
                 ),
             ]);
@@ -3718,7 +3723,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientData.id}?command=assignStaff`,
+                `/fineract-provider/api/v1/clients/${clientData.id}?command=assignStaff`,
                 payload,
                 { headers }
             );
@@ -3769,7 +3774,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 staffId: staffIdToUnassign,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}?command=unassignStaff`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=unassignStaff`, payload, { headers });
 
             await fetchGeneralTabData();
             closeUnassignStaffModal();
@@ -3790,7 +3795,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const transferDateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/transferproposaldate`,
+                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
 
@@ -3822,7 +3827,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=withdrawTransfer`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=withdrawTransfer`,
                 { note: undoTransferNote },
                 { headers }
             );
@@ -3854,7 +3859,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch transfer proposal date
             const transferDateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/transferproposaldate`,
+                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
             const fetchedDate = transferDateResponse.data;
@@ -3868,11 +3873,11 @@ const ClientDetails = ({ clientId, onClose }) => {
             }
 
             // Fetch all groups
-            const allGroupsResponse = await axios.get(`${API_CONFIG.baseURL}/groups`, { headers });
+            const allGroupsResponse = await axios.get(`/fineract-provider/api/v1/groups`, { headers });
             const allGroups = allGroupsResponse.data;
 
             // Fetch client details to identify the current group
-            const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
             const clientGroups = clientResponse.data.groups || [];
             const currentGroup = clientGroups.length > 0 ? clientGroups[0] : null;
 
@@ -3906,7 +3911,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=acceptTransfer`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=acceptTransfer`,
                 payload,
                 { headers }
             );
@@ -3937,7 +3942,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch transfer proposal date
             const transferDateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/transferproposaldate`,
+                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
             const fetchedDate = transferDateResponse.data;
@@ -3971,7 +3976,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=rejectTransfer`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=rejectTransfer`,
                 payload,
                 { headers }
             );
@@ -3997,7 +4002,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch charge options
             const chargeTemplateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}/charges/template`,
+                `/fineract-provider/api/v1/clients/${clientId}/charges/template`,
                 { headers }
             );
             setAvailableCharges(chargeTemplateResponse.data.chargeOptions || []);
@@ -4049,7 +4054,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const response = await axios.get(`${API_CONFIG.baseURL}/collateral-management`, { headers });
+            const response = await axios.get(`/fineract-provider/api/v1/collateral-management`, { headers });
             setCollateralOptions(response.data);
         } catch (error) {
             console.error('Error fetching collateral options:', error);
@@ -4066,7 +4071,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const response = await axios.get(`${API_CONFIG.baseURL}/collateral-management/${collateralId}?template=false`, {
+            const response = await axios.get(`/fineract-provider/api/v1/collateral-management/${collateralId}?template=false`, {
                 headers,
             });
             setCollateralDetails(response.data);
@@ -4103,7 +4108,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 locale: 'en',
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/clients/${clientId}/collaterals`, payload, { headers });
+            await axios.post(`/fineract-provider/api/v1/clients/${clientId}/collaterals`, payload, { headers });
 
             // Refetch client data after successful submission
             fetchGeneralTabData();
@@ -4126,12 +4131,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch client data
-            const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
             const currentSavingsAccountId = clientResponse.data.savingsAccountId || '';
 
             // Fetch template data
             const templateResponse = await axios.get(
-                `${API_CONFIG.baseURL}/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
+                `/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
                 { headers }
             );
             const accountOptions = templateResponse.data.savingAccountOptions || [];
@@ -4164,7 +4169,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/clients/${clientId}?command=updateSavingsAccount`,
+                `/fineract-provider/api/v1/clients/${clientId}?command=updateSavingsAccount`,
                 payload,
                 { headers }
             );
@@ -4189,9 +4194,9 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
-            const templatesResponse = await axios.get(`${API_CONFIG.baseURL}/templates?entityId=0&typeId=0`, { headers });
+            const templatesResponse = await axios.get(`/fineract-provider/api/v1/templates?entityId=0&typeId=0`, { headers });
             const reports = templatesResponse.data;
 
             setAvailableReports(reports);
@@ -4222,7 +4227,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/templates?clientId=${clientId}`,
+                `/fineract-provider/api/v1/templates?clientId=${clientId}`,
                 { reportId: selectedReportId },
                 { headers }
             );
@@ -4254,7 +4259,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch repayment template data
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/loans/${loanId}/transactions/template?command=repayment`,
+                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=repayment`,
                 { headers }
             );
 
@@ -4321,7 +4326,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/loans/${selectedLoan.id}/transactions?command=repayment`,
+                `/fineract-provider/api/v1/loans/${selectedLoan.id}/transactions?command=repayment`,
                 payload,
                 { headers }
             );
@@ -4331,8 +4336,10 @@ const ClientDetails = ({ clientId, onClose }) => {
             setReceiptNumber('');
             fetchGeneralTabData();
         } catch (error) {
-            console.error("Error processing loan repayment:", error);
-            showNotification("Loan repayment failed. Please try again.", 'error');
+            const errorMessage = error.response?.data?.errors?.[0]?.defaultUserMessage ||
+                error.response?.data?.defaultUserMessage ||
+                "An unexpected error occurred.";
+            showNotification(errorMessage, 'error');
         } finally {
             stopLoading();
         }
@@ -4346,10 +4353,10 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const transactionResponse = await axios.get(
-                `${API_CONFIG.baseURL}/savingsaccounts/${clientId}/transactions/template`,
+                `/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
                 { headers }
             );
 
@@ -4394,7 +4401,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/savingsaccounts/${selectedSavingsId}/transactions?command=deposit`,
+                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=deposit`,
                 payload,
                 { headers }
             );
@@ -4413,8 +4420,10 @@ const ClientDetails = ({ clientId, onClose }) => {
             setIsDepositModalOpen(false);
             fetchGeneralTabData();
         } catch (error) {
-            console.error('Error making deposit:', error);
-            showNotification('Deposit failed. Please try again.', 'error');
+            const errorMessage = error.response?.data?.errors?.[0]?.defaultUserMessage ||
+                error.response?.data?.defaultUserMessage ||
+                "An unexpected error occurred.";
+            showNotification(errorMessage, 'error');
         } finally {
             stopLoading();
         }
@@ -4428,10 +4437,10 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers });
+            await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const transactionResponse = await axios.get(
-                `${API_CONFIG.baseURL}/savingsaccounts/${clientId}/transactions/template`,
+                `/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
                 { headers }
             );
 
@@ -4476,7 +4485,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/savingsaccounts/${selectedSavingsId}/transactions?command=withdrawal`,
+                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=withdrawal`,
                 payload,
                 { headers }
             );
@@ -4555,7 +4564,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                         <li>
                             {clientDetails.status.code === 'clientStatusType.transfer.in.progress' ? (
                                 <>
-                                    <span className="client-info-label">Current Office:</span>
+                                    <span className="client-info-label">Current Branch:</span>
                                     <span className="client-info-value">{clientDetails.officeName || ''}</span>
                                     <span className="client-info-label">Transfer To:</span>
                                     <span
@@ -4563,7 +4572,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                                 </>
                             ) : (
                                 <>
-                                    <span className="client-info-label">Office:</span>
+                                    <span className="client-info-label">Branch:</span>
                                     <span className="client-info-value">{clientDetails.officeName || ''}</span>
                                 </>
                             )}
@@ -4574,12 +4583,12 @@ const ClientDetails = ({ clientId, onClose }) => {
                         </li>
                         {clientDetails.staffName && (
                             <li>
-                                <span className="client-info-label">Staff:</span>
+                                <span className="client-info-label">Loan Officer:</span>
                                 <span className="client-info-value">{clientDetails.staffName}</span>
                             </li>
                         )}
                         <li>
-                            <span className="client-info-label">External ID:</span>
+                            <span className="client-info-label">National ID/Passport:</span>
                             <span className="client-info-value">{clientDetails.externalId || ''}</span>
                         </li>
                         <li>
@@ -4860,7 +4869,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                                     {/*<button*/}
                                     {/*    onClick={() =>*/}
                                     {/*        window.open(*/}
-                                    {/*            `${API_CONFIG.baseURL}/clients/${clientId}/documents/${signatureData.id}`,*/}
+                                    {/*            `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,*/}
                                     {/*            '_blank'*/}
                                     {/*        )*/}
                                     {/*    }*/}

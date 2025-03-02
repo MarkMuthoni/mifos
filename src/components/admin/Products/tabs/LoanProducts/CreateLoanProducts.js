@@ -166,7 +166,7 @@ const CreateLoanProducts = ({ onSuccess, productToEdit }) => {
                 startLoading();
 
                 const loanProductTemplateResponse = await axios.get(
-                    `${API_CONFIG.baseURL}/loanproducts/template`,
+                    `/fineract-provider/api/v1/loanproducts/template`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -177,7 +177,7 @@ const CreateLoanProducts = ({ onSuccess, productToEdit }) => {
                 );
 
                 const globalConfigResponse = await axios.get(
-                    `${API_CONFIG.baseURL}/configurations`,
+                    `/fineract-provider/api/v1/configurations`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -386,8 +386,8 @@ const CreateLoanProducts = ({ onSuccess, productToEdit }) => {
 
             const method = productToEdit ? 'put' : 'post';
             const url = productToEdit
-                ? `${API_CONFIG.baseURL}/loanproducts/${productToEdit.id}`
-                : `${API_CONFIG.baseURL}/loanproducts`;
+                ? `/fineract-provider/api/v1/loanproducts/${productToEdit.id}`
+                : `/fineract-provider/api/v1/loanproducts`;
 
             const response = await axios[method](url, payload, {
                     headers: {

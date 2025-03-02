@@ -21,7 +21,7 @@ const ChargeDetails = ({ chargeId, onClose }) => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`${API_CONFIG.baseURL}/charges/${chargeId}?template=false`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/charges/${chargeId}?template=false`, { headers });
                 setChargeDetails(response.data);
             } catch (error) {
                 console.error('Error fetching charge details:', error);

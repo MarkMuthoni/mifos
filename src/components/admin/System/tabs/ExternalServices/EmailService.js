@@ -22,7 +22,7 @@ const EmailService = () => {
     const fetchEmailData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/externalservice/SMTP`, {
+            const response = await axios.get(`/fineract-provider/api/v1/externalservice/SMTP`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -69,7 +69,7 @@ const EmailService = () => {
             };
 
             const response = await axios.put(
-                `${API_CONFIG.baseURL}/externalservice/SMTP`,
+                `/fineract-provider/api/v1/externalservice/SMTP`,
                 payload,
                 {
                     headers: {

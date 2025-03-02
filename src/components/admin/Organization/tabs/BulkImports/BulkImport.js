@@ -49,7 +49,7 @@ const BulkImport = () => {
         const fetchOffices = async () => {
             startLoading();
             try {
-                const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+                const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -72,7 +72,7 @@ const BulkImport = () => {
                 startLoading();
                 try {
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/staff?officeId=${selectedOffice}`,
+                        `/fineract-provider/api/v1/staff?officeId=${selectedOffice}`,
                         {
                             headers: {
                                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -97,7 +97,7 @@ const BulkImport = () => {
             startLoading();
             try {
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/imports?entityType=${entityType}`,
+                    `/fineract-provider/api/v1/imports?entityType=${entityType}`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -127,7 +127,7 @@ const BulkImport = () => {
             formData.append('file', file);
 
             await axios.post(
-                `${API_CONFIG.baseURL}/imports/upload?entityType=${entityType}`,
+                `/fineract-provider/api/v1/imports/upload?entityType=${entityType}`,
                 formData,
                 {
                     headers: {
@@ -148,7 +148,7 @@ const BulkImport = () => {
     };
 
     const handleDownloadTemplate = async () => {
-        const endpoint = `${API_CONFIG.baseURL}/${entityType}/downloadtemplate`;
+        const endpoint = `/fineract-provider/api/v1/${entityType}/downloadtemplate`;
         const params = {
             tenantIdentifier: 'default',
             locale: 'en',

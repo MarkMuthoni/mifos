@@ -29,7 +29,7 @@ const ViewHoliday = () => {
     const fetchEditTemplate = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/holidays/template`, {
+            const response = await axios.get(`/fineract-provider/api/v1/holidays/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -68,7 +68,7 @@ const ViewHoliday = () => {
     const fetchHolidayDetails = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/holidays/${id}`, {
+            const response = await axios.get(`/fineract-provider/api/v1/holidays/${id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -88,7 +88,7 @@ const ViewHoliday = () => {
             if (confirmActivate) {
                 try {
                     await axios.post(
-                        `${API_CONFIG.baseURL}/holidays/${id}?command=activate`,
+                        `/fineract-provider/api/v1/holidays/${id}?command=activate`,
                         { command: "activate" },
                         {
                             headers: {
@@ -110,7 +110,7 @@ const ViewHoliday = () => {
             const confirmDelete = window.confirm("Are you sure you want to delete this holiday?");
             if (confirmDelete) {
                 try {
-                    await axios.delete(`${API_CONFIG.baseURL}/holidays/${id}`, {
+                    await axios.delete(`/fineract-provider/api/v1/holidays/${id}`, {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                             'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -158,7 +158,7 @@ const ViewHoliday = () => {
                 : editFields.repaymentsRescheduledTo;
 
             await axios.put(
-                `${API_CONFIG.baseURL}/holidays/${id}`,
+                `/fineract-provider/api/v1/holidays/${id}`,
                 {
                     ...editFields,
                     dateFormat: "dd MMMM yyyy",

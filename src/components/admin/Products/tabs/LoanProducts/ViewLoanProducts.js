@@ -25,7 +25,7 @@ const ViewLoanProducts = ({ onRowClick }) => {
     const fetchLoanProducts = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/loanproducts`, {
+            const response = await axios.get(`/fineract-provider/api/v1/loanproducts`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

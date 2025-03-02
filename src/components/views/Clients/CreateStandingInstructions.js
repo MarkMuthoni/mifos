@@ -48,7 +48,7 @@ const CreateStandingInstructions = () => {
                 };
 
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/clients/${clientId}`,
+                    `/fineract-provider/api/v1/clients/${clientId}`,
                     { headers }
                 );
                 setClientData(response.data);
@@ -79,7 +79,7 @@ const CreateStandingInstructions = () => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/standinginstructions/template?fromAccountType=2&fromClientId=${clientId}&fromOfficeId=${user.officeId}`,
+                `/fineract-provider/api/v1/standinginstructions/template?fromAccountType=2&fromClientId=${clientId}&fromOfficeId=${user.officeId}`,
                 { headers }
             );
 
@@ -106,7 +106,7 @@ const CreateStandingInstructions = () => {
                 'Content-Type': 'application/json',
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/standinginstructions`, formFields, { headers });
+            await axios.post(`/fineract-provider/api/v1/standinginstructions`, formFields, { headers });
             navigate("/clients", {
                 state: {
                     clientId: clientId,

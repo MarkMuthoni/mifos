@@ -23,7 +23,7 @@ const LoanProductDetails = ({ loanProductId, onClose, onEdit }) => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`${API_CONFIG.baseURL}/loanproducts/${loanProductId}?template=false`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/loanproducts/${loanProductId}?template=false`, { headers });
                 setLoanProductDetails(response.data);
             } catch (error) {
                 console.error('Error fetching loan product details:', error);

@@ -35,7 +35,7 @@ const ViewPaymentTypes = () => {
     const fetchPaymentTypes = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/paymenttypes`, {
+            const response = await axios.get(`/fineract-provider/api/v1/paymenttypes`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -66,7 +66,7 @@ const ViewPaymentTypes = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/paymenttypes/${paymentType.id}`,
+                `/fineract-provider/api/v1/paymenttypes/${paymentType.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -108,7 +108,7 @@ const ViewPaymentTypes = () => {
         startLoading();
         try {
             await axios.put(
-                `${API_CONFIG.baseURL}/paymenttypes/${editPaymentType.id}`,
+                `/fineract-provider/api/v1/paymenttypes/${editPaymentType.id}`,
                 editPaymentType,
                 {
                     headers: {
@@ -140,7 +140,7 @@ const ViewPaymentTypes = () => {
         startLoading();
         try {
             const response = await axios.delete(
-                `${API_CONFIG.baseURL}/paymenttypes/${paymentType.id}`,
+                `/fineract-provider/api/v1/paymenttypes/${paymentType.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

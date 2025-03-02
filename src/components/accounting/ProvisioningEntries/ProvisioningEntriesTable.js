@@ -20,7 +20,7 @@ const ProvisioningEntriesTable = () => {
     const fetchProvisioningEntries = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/provisioningentries`, {
+            const response = await axios.get(`/fineract-provider/api/v1/provisioningentries`, {
                 params: {
                     dateFormat: 'dd MMMM yyyy',
                     limit: pageSize,

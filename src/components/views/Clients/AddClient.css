@@ -633,3 +633,20 @@ table select:disabled {
 .react-datepicker__year-select:hover {
     border-color: #007bff;
 }
+.export-container {
+    margin-left: 10px;
+}
+
+.export-button {
+    padding: 6px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.export-button:hover {
+    background-color: #218838;
+}

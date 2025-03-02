@@ -23,7 +23,7 @@ const AddFinancialActivityMappingForm = () => {
         const fetchTemplateData = async () => {
             startLoading();
             try {
-                const response = await axios.get(`${API_CONFIG.baseURL}/financialactivityaccounts/template`, {
+                const response = await axios.get(`/fineract-provider/api/v1/financialactivityaccounts/template`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -85,7 +85,7 @@ const AddFinancialActivityMappingForm = () => {
         };
 
         try {
-            const response = await axios.post(`${API_CONFIG.baseURL}/financialactivityaccounts`, newMappingData, {
+            const response = await axios.post(`/fineract-provider/api/v1/financialactivityaccounts`, newMappingData, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -96,7 +96,7 @@ const AddFinancialActivityMappingForm = () => {
             const mappingId = response.data.resourceId;
 
             const mappingDetailsResponse = await axios.get(
-                `${API_CONFIG.baseURL}/financialactivityaccounts/${mappingId}?template=false`,
+                `/fineract-provider/api/v1/financialactivityaccounts/${mappingId}?template=false`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -161,7 +161,7 @@ const AddFinancialActivityMappingForm = () => {
         };
 
         try {
-            await axios.put(`${API_CONFIG.baseURL}/financialactivityaccounts/${mappingDetails.id}`, updatedMappingData, {
+            await axios.put(`/fineract-provider/api/v1/financialactivityaccounts/${mappingDetails.id}`, updatedMappingData, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -170,7 +170,7 @@ const AddFinancialActivityMappingForm = () => {
             });
 
             const updatedMappingDetailsResponse = await axios.get(
-                `${API_CONFIG.baseURL}/financialactivityaccounts/${mappingDetails.id}?template=false`,
+                `/fineract-provider/api/v1/financialactivityaccounts/${mappingDetails.id}?template=false`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -193,7 +193,7 @@ const AddFinancialActivityMappingForm = () => {
         if (window.confirm('Are you sure you want to delete this mapping?')) {
             startLoading();
             try {
-                await axios.delete(`${API_CONFIG.baseURL}/financialactivityaccounts/${mappingDetails.id}`, {
+                await axios.delete(`/fineract-provider/api/v1/financialactivityaccounts/${mappingDetails.id}`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

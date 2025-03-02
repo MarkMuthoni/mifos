@@ -63,8 +63,8 @@ const SavingsAccount = () => {
                 clientResponse,
                 savingsTemplateResponse,
             ] = await Promise.all([
-                axios.get(`${API_CONFIG.baseURL}/clients/${clientId}`, { headers }),
-                axios.get(`${API_CONFIG.baseURL}/savingsaccounts/template?clientId=${clientId}`, { headers }),
+                axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers }),
+                axios.get(`/fineract-provider/api/v1/savingsaccounts/template?clientId=${clientId}`, { headers }),
             ]);
 
             setClientData(clientResponse.data);
@@ -93,7 +93,7 @@ const SavingsAccount = () => {
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                     };
 
-                    const response = await axios.get(`${API_CONFIG.baseURL}/savingsaccounts/${account}?template=true&associations=charges`, { headers });
+                    const response = await axios.get(`/fineract-provider/api/v1/savingsaccounts/${account}?template=true&associations=charges`, { headers });
                     setModifyData(response.data);
                 } catch (error) {
                     console.error('Error fetching modification data', error);
@@ -151,7 +151,7 @@ const SavingsAccount = () => {
                 };
 
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/savingsaccounts/template?clientId=${clientId}&productId=${selectedProduct}`,
+                    `/fineract-provider/api/v1/savingsaccounts/template?clientId=${clientId}&productId=${selectedProduct}`,
                     { headers }
                 );
 
@@ -858,8 +858,8 @@ const SavingsAccount = () => {
             };
 
             const endpoint = isModifying
-                ? `${API_CONFIG.baseURL}/savingsaccounts/${account}`
-                : `${API_CONFIG.baseURL}/savingsaccounts`;
+                ? `/fineract-provider/api/v1/savingsaccounts/${account}`
+                : `/fineract-provider/api/v1/savingsaccounts`;
 
             const method = isModifying ? "put" : "post";
 

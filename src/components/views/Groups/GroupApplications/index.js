@@ -24,7 +24,7 @@ const GroupApplications = () => {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
-                const response = await axios.get(`${API_CONFIG.baseURL}/groups/${groupId}`, { headers });
+                const response = await axios.get(`/fineract-provider/api/v1/groups/${groupId}`, { headers });
                 setGroupData(response.data);
             } catch (error) {
                 console.error("Error fetching group data:", error);

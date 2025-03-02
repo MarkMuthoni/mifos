@@ -101,7 +101,7 @@ const CollectionSheet = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     "Fineract-Platform-TenantId": `${API_CONFIG.tenantId}`,
@@ -119,7 +119,7 @@ const CollectionSheet = () => {
     const fetchStaff = async (officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/staff?officeId=${officeId}&status=all`, {
+            const response = await axios.get(`/fineract-provider/api/v1/staff?officeId=${officeId}&status=all`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     "Fineract-Platform-TenantId": `${API_CONFIG.tenantId}`,
@@ -160,7 +160,7 @@ const CollectionSheet = () => {
 
         try {
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/collectionsheet?command=generateCollectionSheet`,
+                `/fineract-provider/api/v1/collectionsheet?command=generateCollectionSheet`,
                 payload,
                 {
                     headers: {
@@ -247,7 +247,7 @@ const CollectionSheet = () => {
 
         try {
             startLoading();
-            await axios.post(`${API_CONFIG.baseURL}/collectionsheet?command=saveCollectionSheet`, payload, {
+            await axios.post(`/fineract-provider/api/v1/collectionsheet?command=saveCollectionSheet`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     "Fineract-Platform-TenantId": `${API_CONFIG.tenantId}`,

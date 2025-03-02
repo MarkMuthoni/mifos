@@ -80,14 +80,14 @@ const CenterDetails = ({ centerId, onClose }) => {
 
             // Fetch center details
             const centerResponse = await axios.get(
-                `${API_CONFIG.baseURL}/centers/${centerId}?associations=groupMembers,collectionMeetingCalendar`,
+                `/fineract-provider/api/v1/centers/${centerId}?associations=groupMembers,collectionMeetingCalendar`,
                 { headers }
             );
             setCentersDetails(centerResponse.data);
 
             // Fetch group summary counts
             const summaryResponse = await axios.get(
-                `${API_CONFIG.baseURL}/runreports/GroupSummaryCounts?R_groupId=${centerId}&genericResultSet=false`,
+                `/fineract-provider/api/v1/runreports/GroupSummaryCounts?R_groupId=${centerId}&genericResultSet=false`,
                 { headers }
             );
             const summaryData = summaryResponse.data[0] || {};
@@ -98,7 +98,7 @@ const CenterDetails = ({ centerId, onClose }) => {
 
             // Fetch group accounts
             const accountsResponse = await axios.get(
-                `${API_CONFIG.baseURL}/centers/${centerId}/accounts`,
+                `/fineract-provider/api/v1/centers/${centerId}/accounts`,
                 { headers }
             );
             setCentersDetails((prevDetails) => ({
@@ -123,7 +123,7 @@ const CenterDetails = ({ centerId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `${API_CONFIG.baseURL}/groups/${centerId}/notes`,
+                        `/fineract-provider/api/v1/groups/${centerId}/notes`,
                         { headers }
                     );
                     setNotes(response.data);
@@ -161,8 +161,8 @@ const CenterDetails = ({ centerId, onClose }) => {
         };
 
         const endpoint = editingNoteId
-            ? `${API_CONFIG.baseURL}/groups/${centerId}/notes/${editingNoteId}`
-            : `${API_CONFIG.baseURL}/groups/${centerId}/notes`;
+            ? `/fineract-provider/api/v1/groups/${centerId}/notes/${editingNoteId}`
+            : `/fineract-provider/api/v1/groups/${centerId}/notes`;
 
         const method = editingNoteId ? 'put' : 'post';
 
@@ -171,7 +171,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             await axios[method](endpoint, { note: newNote }, { headers });
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${centerId}/notes`,
+                `/fineract-provider/api/v1/groups/${centerId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -200,12 +200,12 @@ const CenterDetails = ({ centerId, onClose }) => {
         try {
             startLoading();
             await axios.delete(
-                `${API_CONFIG.baseURL}/groups/${centerId}/notes/${noteId}`,
+                `/fineract-provider/api/v1/groups/${centerId}/notes/${noteId}`,
                 { headers }
             );
 
             const updatedNotes = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${centerId}/notes`,
+                `/fineract-provider/api/v1/groups/${centerId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -232,7 +232,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/centers/${centerId}?staffInSelectedOfficeOnly=true&template=true`,
+                `/fineract-provider/api/v1/centers/${centerId}?staffInSelectedOfficeOnly=true&template=true`,
                 { headers }
             );
 
@@ -275,7 +275,7 @@ const CenterDetails = ({ centerId, onClose }) => {
                 locale: "en",
             };
 
-            await axios.put(`${API_CONFIG.baseURL}/centers/${centerId}`, payload, { headers });
+            await axios.put(`/fineract-provider/api/v1/centers/${centerId}`, payload, { headers });
             setIsEditModalOpen(false);
             fetchGeneralTabData();
             showNotification("Center details updated!", 'info');
@@ -298,7 +298,7 @@ const CenterDetails = ({ centerId, onClose }) => {
 
             // Fetch current groups and center details
             const centerResponse = await axios.get(
-                `${API_CONFIG.baseURL}/centers/${centerId}?associations=groupMembers&template=true`,
+                `/fineract-provider/api/v1/centers/${centerId}?associations=groupMembers&template=true`,
                 { headers }
             );
 
@@ -306,7 +306,7 @@ const CenterDetails = ({ centerId, onClose }) => {
 
             // Fetch available groups for dropdown
             const availableGroupsResponse = await axios.get(
-                `${API_CONFIG.baseURL}/groups?sortOrder=ASC&orderBy=name&officeId=${centerResponse.data.officeId}&orphansOnly=true`,
+                `/fineract-provider/api/v1/groups?sortOrder=ASC&orderBy=name&officeId=${centerResponse.data.officeId}&orphansOnly=true`,
                 { headers }
             );
 
@@ -333,7 +333,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             const payload = { groupMembers: [selectedGroup] };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/centers/${centerId}?command=associateGroups`,
+                `/fineract-provider/api/v1/centers/${centerId}?command=associateGroups`,
                 payload,
                 { headers }
             );
@@ -363,7 +363,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             const payload = { groupMembers: [groupId] };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/centers/${centerId}?command=disassociateGroups`,
+                `/fineract-provider/api/v1/centers/${centerId}?command=disassociateGroups`,
                 payload,
                 { headers }
             );
@@ -386,7 +386,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             };
 
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/groups/${centerId}?groupOrCenter=centers&staffInSelectedOfficeOnly=true&template=true`,
+                `/fineract-provider/api/v1/groups/${centerId}?groupOrCenter=centers&staffInSelectedOfficeOnly=true&template=true`,
                 { headers }
             );
 
@@ -406,7 +406,7 @@ const CenterDetails = ({ centerId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/centers/${centerId}/calendars/template`,
+                `/fineract-provider/api/v1/centers/${centerId}/calendars/template`,
                 { headers }
             );
             setMeetingTemplate(response.data);
@@ -429,7 +429,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             const payload = { staffId: selectedStaff };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${centerId}?command=assignStaff`,
+                `/fineract-provider/api/v1/groups/${centerId}?command=assignStaff`,
                 payload,
                 { headers }
             );
@@ -459,7 +459,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             const payload = { staffId: centersDetails.staffId };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/groups/${centerId}?command=unassignStaff`,
+                `/fineract-provider/api/v1/groups/${centerId}?command=unassignStaff`,
                 payload,
                 { headers }
             );
@@ -495,7 +495,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/centers/${centerId}/calendars`,
+                `/fineract-provider/api/v1/centers/${centerId}/calendars`,
                 payload,
                 { headers }
             );
@@ -540,7 +540,7 @@ const CenterDetails = ({ centerId, onClose }) => {
             };
 
             await axios.post(
-                `${API_CONFIG.baseURL}/centers/${centerId}?command=close`,
+                `/fineract-provider/api/v1/centers/${centerId}?command=close`,
                 payload,
                 { headers }
             );
@@ -571,7 +571,7 @@ const CenterDetails = ({ centerId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.delete(`${API_CONFIG.baseURL}/centers/${centerId}`, { headers });
+            await axios.delete(`/fineract-provider/api/v1/centers/${centerId}`, { headers });
 
             showNotification('Center deleted successfully!', 'success');
             onClose();

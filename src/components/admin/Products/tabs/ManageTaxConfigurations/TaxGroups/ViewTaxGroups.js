@@ -25,7 +25,7 @@ const ViewTaxGroups = () => {
     const fetchTaxGroups = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/taxes/group`, {
+            const response = await axios.get(`/fineract-provider/api/v1/taxes/group`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

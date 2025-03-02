@@ -74,8 +74,8 @@ const AddJournalEntries = () => {
                 };
 
                 const [officesResponse, currenciesResponse] = await Promise.all([
-                    axios.get(`${API_CONFIG.baseURL}/offices`, { headers }),
-                    axios.get(`${API_CONFIG.baseURL}/currencies`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/offices`, { headers }),
+                    axios.get(`/fineract-provider/api/v1/currencies`, { headers }),
                 ]);
 
                 setOffices(officesResponse.data);
@@ -101,7 +101,7 @@ const AddJournalEntries = () => {
                 };
 
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/accountingrules?associations=all`,
+                    `/fineract-provider/api/v1/accountingrules?associations=all`,
                     { headers }
                 );
                 setAccountingRules(response.data);
@@ -120,7 +120,7 @@ const AddJournalEntries = () => {
             startLoading();
             try {
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/glaccounts?manualEntriesAllowed=true&usage=1&disabled=false`,
+                    `/fineract-provider/api/v1/glaccounts?manualEntriesAllowed=true&usage=1&disabled=false`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -150,7 +150,7 @@ const AddJournalEntries = () => {
         const fetchPaymentTypes = async () => {
             startLoading();
             try {
-                const response = await axios.get(`${API_CONFIG.baseURL}/paymenttypes`, {
+                const response = await axios.get(`/fineract-provider/api/v1/paymenttypes`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -219,7 +219,7 @@ const AddJournalEntries = () => {
         try {
             startLoading();
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/journalentries`,
+                `/fineract-provider/api/v1/journalentries`,
                 payload,
                 {
                     headers: {
@@ -233,7 +233,7 @@ const AddJournalEntries = () => {
             const newTransactionId = response.data.transactionId;
             setTransactionId(newTransactionId);
             const transactionResponse = await axios.get(
-                `${API_CONFIG.baseURL}/journalentries?transactionId=${newTransactionId}&transactionDetails=true`,
+                `/fineract-provider/api/v1/journalentries?transactionId=${newTransactionId}&transactionDetails=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -905,7 +905,7 @@ const AddJournalEntries = () => {
         try {
             startLoading();
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/journalentries/${transactionId}?command=reverse`,
+                `/fineract-provider/api/v1/journalentries/${transactionId}?command=reverse`,
                 { comments: revertComments },
                 {
                     headers: {
@@ -938,7 +938,7 @@ const AddJournalEntries = () => {
         try {
             startLoading();
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/journalentries?transactionId=${transactionId}&transactionDetails=true`,
+                `/fineract-provider/api/v1/journalentries?transactionId=${transactionId}&transactionDetails=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

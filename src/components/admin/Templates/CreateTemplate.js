@@ -38,7 +38,7 @@ const CreateTemplateForm = () => {
     const fetchTemplateOptions = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/templates/template`, {
+            const response = await axios.get(`/fineract-provider/api/v1/templates/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -124,7 +124,7 @@ const CreateTemplateForm = () => {
     const handleSubmitTemplate = async () => {
         try {
             const payload = { ...templateForm };
-            const response = await axios.post(`${API_CONFIG.baseURL}/templates`, payload, {
+            const response = await axios.post(`/fineract-provider/api/v1/templates`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

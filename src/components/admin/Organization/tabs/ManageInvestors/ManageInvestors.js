@@ -29,7 +29,7 @@ const ManageInvestors = () => {
             };
 
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/search/advance`,
+                `/fineract-provider/api/v1/search/advance`,
                 payload,
                 {
                     headers: {

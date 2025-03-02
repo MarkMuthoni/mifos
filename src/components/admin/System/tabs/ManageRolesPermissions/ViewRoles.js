@@ -32,7 +32,7 @@ const ViewRolesTable = ({ onRowClick}) => {
     const fetchRoles = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/roles`, {
+            const response = await axios.get(`/fineract-provider/api/v1/roles`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -75,7 +75,7 @@ const ViewRolesTable = ({ onRowClick}) => {
 
         try {
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/roles/${role.id}/permissions`,
+                `/fineract-provider/api/v1/roles/${role.id}/permissions`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -116,7 +116,7 @@ const ViewRolesTable = ({ onRowClick}) => {
             const payload = { description: editRole.description.trim() };
 
             await axios.put(
-                `${API_CONFIG.baseURL}/roles/${editRole.id}`,
+                `/fineract-provider/api/v1/roles/${editRole.id}`,
                 payload,
                 {
                     headers: {

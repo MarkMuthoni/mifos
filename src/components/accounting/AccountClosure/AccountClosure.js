@@ -29,7 +29,7 @@ const AccountClosure = () => {
     const fetchClosures = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/glclosures`, {
+            const response = await axios.get(`/fineract-provider/api/v1/glclosures`, {
                 params: {
                     offset: (currentPage - 1) * pageSize,
                     limit: pageSize,
@@ -54,7 +54,7 @@ const AccountClosure = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -86,7 +86,7 @@ const AccountClosure = () => {
         startLoading();
         try {
             const response = await axios.put(
-                `${API_CONFIG.baseURL}/glclosures/${selectedClosure.id}`,
+                `/fineract-provider/api/v1/glclosures/${selectedClosure.id}`,
                 { comments },
                 {
                     headers: {
@@ -112,7 +112,7 @@ const AccountClosure = () => {
 
         startLoading();
         try {
-            await axios.delete(`${API_CONFIG.baseURL}/glclosures/${closure.id}`, {
+            await axios.delete(`/fineract-provider/api/v1/glclosures/${closure.id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

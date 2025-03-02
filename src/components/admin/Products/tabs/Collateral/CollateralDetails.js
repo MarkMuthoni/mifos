@@ -22,7 +22,7 @@ const CollateralDetails = ({ collateralId, onClose }) => {
                 };
 
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/collateral-management/${collateralId}?template=false`,
+                    `/fineract-provider/api/v1/collateral-management/${collateralId}?template=false`,
                     { headers }
                 );
                 setCollateralDetails(response.data);

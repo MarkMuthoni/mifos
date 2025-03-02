@@ -27,7 +27,7 @@ const XBRLReports = () => {
     const fetchXBRLData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/mixtaxonomy`, {
+            const response = await axios.get(`/fineract-provider/api/v1/mixtaxonomy`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -129,7 +129,7 @@ const XBRLReports = () => {
         try {
             startLoading();
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/mixreport`,
+                `/fineract-provider/api/v1/mixreport`,
                 {
                     params: { startDate, endDate },
                     headers: {
@@ -160,7 +160,7 @@ const XBRLReports = () => {
         try {
             startLoading();
             const response = await axios.put(
-                `${API_CONFIG.baseURL}/mixmapping`,
+                `/fineract-provider/api/v1/mixmapping`,
                 payload,
                 {
                     headers: {

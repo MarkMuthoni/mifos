@@ -24,7 +24,7 @@ const CreateOffice = ({ onFormSubmitSuccess }) => {
     const fetchParentOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/offices`, {
+            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -58,7 +58,7 @@ const CreateOffice = ({ onFormSubmitSuccess }) => {
 
         startLoading();
         try {
-            const response = await axios.post(`${API_CONFIG.baseURL}/offices`, payload, {
+            const response = await axios.post(`/fineract-provider/api/v1/offices`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

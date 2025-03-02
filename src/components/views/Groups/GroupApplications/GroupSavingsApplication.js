@@ -33,7 +33,7 @@ const GroupSavingsApplication = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${groupId}`,
+                    `/fineract-provider/api/v1/savingsaccounts/template?groupId=${groupId}`,
                     { headers }
                 );
                 setProductOptions(response.data.productOptions || []);
@@ -55,7 +55,7 @@ const GroupSavingsApplication = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `${API_CONFIG.baseURL}/savingsaccounts/template?groupId=${groupId}&productId=${productId}`,
+                `/fineract-provider/api/v1/savingsaccounts/template?groupId=${groupId}&productId=${productId}`,
                 { headers }
             );
             setSavingsTemplate(response.data);
@@ -916,7 +916,7 @@ const GroupSavingsApplication = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`${API_CONFIG.baseURL}/savingsaccounts`, submissionData, { headers });
+            await axios.post(`/fineract-provider/api/v1/savingsaccounts`, submissionData, { headers });
 
             alert("Form submitted successfully!");
         } catch (error) {

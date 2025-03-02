@@ -37,10 +37,10 @@ const AddGroupForm = () => {
                     'Content-Type': 'application/json',
                 };
 
-                const officeResponse = await axios.get(`${API_CONFIG.baseURL}/offices`, { headers });
+                const officeResponse = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
                 setOffices(officeResponse.data);
 
-                const clientResponse = await axios.get(`${API_CONFIG.baseURL}/clients`, { headers });
+                const clientResponse = await axios.get(`/fineract-provider/api/v1/clients`, { headers });
                 setClients(clientResponse.data.pageItems || []);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -87,7 +87,7 @@ const AddGroupForm = () => {
                 'Content-Type': 'application/json',
             };
 
-            const response = await axios.post(`${API_CONFIG.baseURL}/groups`, payload, { headers });
+            const response = await axios.post(`/fineract-provider/api/v1/groups`, payload, { headers });
 
             const groupId = response.data.groupId;
             navigate('/groups', {
@@ -119,7 +119,7 @@ const AddGroupForm = () => {
                 };
 
                 const response = await axios.get(
-                    `${API_CONFIG.baseURL}/groups/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
+                    `/fineract-provider/api/v1/groups/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
                     { headers }
                 );
                 setStaffs(response.data.staffOptions || []);

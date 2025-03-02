@@ -18,7 +18,7 @@ const CreateProvisioningEntryForm = () => {
         e.preventDefault();
         try {
             await axios.post(
-                `${API_CONFIG.baseURL}/provisioningentries`,
+                `/fineract-provider/api/v1/provisioningentries`,
                 { provisioningDate, createJournalEntries },
                 {
                     headers: {

@@ -27,7 +27,7 @@ const CreateDelinquencyRange = () => {
         startLoading();
         try {
             const response = await axios.post(
-                `${API_CONFIG.baseURL}/delinquency/ranges`,
+                `/fineract-provider/api/v1/delinquency/ranges`,
                 payload,
                 {
                     headers: {

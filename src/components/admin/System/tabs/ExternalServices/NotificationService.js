@@ -22,7 +22,7 @@ const NotificationService = () => {
     const fetchNotificationData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`${API_CONFIG.baseURL}/externalservice/NOTIFICATION`, {
+            const response = await axios.get(`/fineract-provider/api/v1/externalservice/NOTIFICATION`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -62,7 +62,7 @@ const NotificationService = () => {
         startLoading();
         try {
             const response = await axios.put(
-                `${API_CONFIG.baseURL}/externalservice/NOTIFICATION`,
+                `/fineract-provider/api/v1/externalservice/NOTIFICATION`,
                 formValues,
                 {
                     headers: {
