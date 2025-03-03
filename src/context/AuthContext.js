@@ -108,6 +108,29 @@ export const AuthProvider = ({ children }) => {
     const [inactivityTimeout, setInactivityTimeout] = useState(
         parseInt(localStorage.getItem('inactivityTimeout')) || DEFAULT_TIMEOUT
     );
+    const proxyServerURL = "https://proxy-omega-lac.vercel.app";
+
+    const initializeProxy = async () => {
+        try {
+            const savedBaseURL = localStorage.getItem("customBaseURL");
+
+            if (savedBaseURL) {
+                await fetch(`${proxyServerURL}/api/updateBaseURL`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ baseURL: savedBaseURL }),
+                });
+
+                setBaseURL(savedBaseURL);
+            }
+        } catch (error) {
+            console.error("Error initializing proxy connection:", error);
+        }
+    };
+
+    useEffect(() => {
+        initializeProxy();
+    }, []);
 
     const logoutTimer = useRef(null);
 
@@ -400,12 +423,29 @@ export const AuthProvider = ({ children }) => {
         resetInactivityTimer();
     };
 
-    const updateBaseURL = (newURL) => {
-        setBaseURL(newURL);
-        localStorage.setItem('customBaseURL', newURL);
-        setIsBaseURLChanged(true);
+    // const updateBaseURL = (newURL) => {
+    //     setBaseURL(newURL);
+    //     localStorage.setItem('customBaseURL', newURL);
+    //     setIsBaseURLChanged(true);
+    //
+    //     updateProxyBaseURL(newURL);
+    // };
 
-        updateProxyBaseURL(newURL);
+    const updateBaseURL = async (newURL) => {
+        try {
+            setBaseURL(newURL);
+            localStorage.setItem("customBaseURL", newURL);
+
+            await fetch(`${proxyServerURL}/api/updateBaseURL`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ baseURL: newURL }),
+            });
+
+            setIsBaseURLChanged(true);
+        } catch (error) {
+            console.error("Error updating proxy Base URL:", error);
+        }
     };
 
     const updateTenantId = (newTenantId) => {

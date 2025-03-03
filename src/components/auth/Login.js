@@ -76,7 +76,7 @@ const Login = () => {
                 }
             } else {
                 const loginData = { username, password };
-                const response = await fetch(`/fineract-provider/api/v1/authentication`, {
+                const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/authentication`, {
                     method: "POST",
                     headers: {
                         Accept: "application/json",

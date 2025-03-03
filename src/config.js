@@ -1,6 +1,7 @@
 let API_CONFIG = {
     baseURL: null,
     tenantId: null,
+    proxy: 'https://proxy-omega-lac.vercel.app'
 };
 
 export const loadConfig = async () => {

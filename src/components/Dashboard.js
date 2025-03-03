@@ -49,7 +49,7 @@ const Dashboard = () => {
                 };
 
                 const response = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
-                const offices = response.data || [];
+                const offices = response?.data || [];
                 setOfficeOptions(offices);
 
                 if (user.officeId === 1) {
@@ -97,9 +97,9 @@ const Dashboard = () => {
                     const defaultCurrency = currencyResponse.data.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
 
-                    const staff = staffResponse.data;
-                    const loans = loansResponse.data.pageItems;
-                    const clients = response.data.pageItems;
+                    const staff = staffResponse?.data;
+                    const loans = loansResponse?.data?.pageItems;
+                    const clients = response?.data?.pageItems;
 
                     const filteredClients =
                         selectedOffice && selectedOffice !== "all"
@@ -326,11 +326,11 @@ const Dashboard = () => {
                     const currencyResponse = await axios.get(`/fineract-provider/api/v1/currencies`, { headers });
                     const savingsResponse = await axios.get(`/fineract-provider/api/v1/savingsaccounts`, { headers });
 
-                    const defaultCurrency = currencyResponse.data.selectedCurrencyOptions[0] || {};
+                    const defaultCurrency = currencyResponse?.data?.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
 
-                    const loans = response.data.pageItems;
-                    const savings = savingsResponse.data.pageItems;
+                    const loans = response?.data?.pageItems;
+                    const savings = savingsResponse?.data?.pageItems;
 
                     const filteredLoans =
                         selectedOffice && selectedOffice !== "all"
@@ -369,30 +369,30 @@ const Dashboard = () => {
                     });
 
                     thisMonthLoans.forEach(loan => {
-                        const summary = loan.summary || {};
-                        if (summary.interestCharged) {
+                        const summary = loan?.summary || {};
+                        if (summary?.interestCharged) {
                             totalInterestThisMonth += summary.interestCharged;
                         }
                     });
 
                     filteredLoans.forEach(loan => {
                         const summary = loan.summary || {};
-                        if (summary.principalOutstanding) {
+                        if (summary?.principalOutstanding) {
                             totalPrincipalOutstanding += summary.principalOutstanding;
                             countPrincipalOutstanding++;
                         }
                         // totalPrincipalOutstanding += summary.principalOutstanding || 0;
-                        if (summary.interestOutstanding) {
+                        if (summary?.interestOutstanding) {
                             totalInterestOutstanding += summary.interestOutstanding;
                             countInterestOutstanding ++;
                         }
-                        if (summary.principalOverdue) {
+                        if (summary?.principalOverdue) {
                             totalPrincipalOverdue += summary.principalOverdue;
                             countPrincipalOverdue++;
                         }
                         // totalInterestOutstanding += summary.interestOutstanding || 0;
                         // totalPrincipalOverdue += summary.principalOverdue || 0;
-                        if (summary.interestOverdue) {
+                        if (summary?.interestOverdue) {
                             totalInterestOverdue += summary.interestOverdue;
                             countInterestOverdue++;
                         }
@@ -407,7 +407,7 @@ const Dashboard = () => {
                         // totalInterestThisMonth += summary.interestCharged || 0;
                         // totalOverdue += summary.totalOverdue || 0;
 
-                        if (loan.isNPA) {
+                        if (loan?.isNPA) {
                             nonPerformingAssets++;
                             countNonPerformingAssets++;
                         }
