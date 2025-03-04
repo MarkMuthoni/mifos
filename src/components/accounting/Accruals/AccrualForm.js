@@ -37,7 +37,7 @@ const AccrualForm = () => {
 
         try {
             const response = await axios.post(
-                `/fineract-provider/api/v1/runaccruals`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/runaccruals`,
                 payload,
                 {
                     headers: {

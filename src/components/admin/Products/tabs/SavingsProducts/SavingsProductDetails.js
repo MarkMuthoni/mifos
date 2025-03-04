@@ -21,7 +21,7 @@ const SavingsProductDetails = ({ savingsProductId, onClose, onEdit }) => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`/fineract-provider/api/v1/savingsproducts/${savingsProductId}?template=false`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/savingsproducts/${savingsProductId}?template=false`, { headers });
                 setSavingsProductDetails(response.data);
             } catch (error) {
                 console.error('Error fetching savings product details:', error);

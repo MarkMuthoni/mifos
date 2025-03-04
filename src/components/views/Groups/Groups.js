@@ -20,7 +20,7 @@ const Groups = ({ onRowClick }) => {
     const fetchGroups = async () => {
         try {
             startLoading();
-            const response = await axios.get(`/fineract-provider/api/v1/groups`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/groups`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

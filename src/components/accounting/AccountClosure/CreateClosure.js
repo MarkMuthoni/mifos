@@ -26,7 +26,7 @@ const CreateClosure = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -63,7 +63,7 @@ const CreateClosure = () => {
             // console.log("Payload:", payload);
 
             try {
-                const response = await axios.post(`/fineract-provider/api/v1/glclosures`, payload, {
+                const response = await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/glclosures`, payload, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

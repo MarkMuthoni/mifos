@@ -149,7 +149,7 @@ const AddClientForm = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/clients/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template`,
                 {
                     headers,
                     params: {
@@ -187,7 +187,7 @@ const AddClientForm = () => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`/fineract-provider/api/v1/clients/template`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template`, { headers });
 
                 setClientTemplate(response.data || {});
             } catch (error) {
@@ -210,7 +210,7 @@ const AddClientForm = () => {
                     'Content-Type': 'application/json',
                 };
 
-                const response = await axios.get(`/fineract-provider/api/v1/charges/template`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/charges/template`, { headers });
 
                 const savingsRelatedCharges = response.data.savingsChargeCalculationTypeOptions;
                 setSavingsCharges(savingsRelatedCharges);
@@ -1066,7 +1066,7 @@ const AddClientForm = () => {
                 externalId: externalId || undefined,
             };
 
-            const response = await axios.post(`/fineract-provider/api/v1/clients`, clientData, { headers });
+            const response = await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients`, clientData, { headers });
 
             setLegalForm('');
             setFirstName('');

@@ -22,7 +22,7 @@ const FinancialActivityMappingsTable = () => {
     const fetchMappings = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/financialactivityaccounts`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/financialactivityaccounts`, {
                 params: { offset: (currentPage - 1) * pageSize, limit: pageSize },
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -43,7 +43,7 @@ const FinancialActivityMappingsTable = () => {
     const fetchMappingDetails = async (id) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/financialactivityaccounts/${id}?template=false`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/financialactivityaccounts/${id}?template=false`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

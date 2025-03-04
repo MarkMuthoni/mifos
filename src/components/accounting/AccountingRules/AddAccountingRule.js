@@ -45,8 +45,8 @@ const AddAccountingRule = () => {
                     'Content-Type': 'application/json',
                 };
                 const [officesResponse, accountsResponse] = await Promise.all([
-                    axios.get(`/fineract-provider/api/v1/offices`, { headers }),
-                    axios.get(`/fineract-provider/api/v1/glaccounts`, { headers })
+                    axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, { headers }),
+                    axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/glaccounts`, { headers })
                 ]);
                 setOffices(officesResponse.data);
                 setAccounts(accountsResponse.data);
@@ -86,7 +86,7 @@ const AddAccountingRule = () => {
         };
 
         try {
-            const response = await axios.post(`/fineract-provider/api/v1/accountingrules`, payload, {
+            const response = await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -95,7 +95,7 @@ const AddAccountingRule = () => {
             });
 
             const ruleId = response.data.resourceId;
-            const ruleDetailsResponse = await axios.get(`/fineract-provider/api/v1/accountingrules/${ruleId}`, {
+            const ruleDetailsResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules/${ruleId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -123,7 +123,7 @@ const AddAccountingRule = () => {
         if (window.confirm('Are you sure you want to delete this rule?')) {
             startLoading();
             try {
-                await axios.delete(`/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`, {
+                await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -620,7 +620,7 @@ const AddAccountingRule = () => {
         };
 
         try {
-            await axios.put(`/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`, updatedPayload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`, updatedPayload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -629,7 +629,7 @@ const AddAccountingRule = () => {
             });
 
             const updatedRuleDetailsResponse = await axios.get(
-                `/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules/${ruleDetails.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

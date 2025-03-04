@@ -43,7 +43,7 @@ const ViewTellers = ({onViewCashiers}) => {
     const fetchTellers = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/tellers`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/tellers`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -137,7 +137,7 @@ const ViewTellers = ({onViewCashiers}) => {
 
         startLoading();
         try {
-            await axios.put(`/fineract-provider/api/v1/tellers/${modalData.id}`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/tellers/${modalData.id}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -157,7 +157,7 @@ const ViewTellers = ({onViewCashiers}) => {
     const handleDelete = async () => {
         startLoading();
         try {
-            await axios.delete(`/fineract-provider/api/v1/tellers/${modalData.id}`, {
+            await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/tellers/${modalData.id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

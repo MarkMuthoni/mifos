@@ -30,7 +30,7 @@ const COB = () => {
     const pollCatchUpStatus = () => {
         const interval = setInterval(async () => {
             try {
-                const response = await fetch(`/fineract-provider/api/v1/loans/is-catch-up-running`, {
+                const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/is-catch-up-running`, {
                     method: 'GET',
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -55,7 +55,7 @@ const COB = () => {
     const fetchLockedLoans = async () => {
         startLoading();
         try {
-            const response = await fetch(`/fineract-provider/api/v1/loans/locked?page=0&limit=5000`, {
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/locked?page=0&limit=5000`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -75,7 +75,7 @@ const COB = () => {
     const runCatchUp = async () => {
         startLoading();
         try {
-            const response = await fetch(`/fineract-provider/api/v1/loans/catch-up`, {
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/catch-up`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

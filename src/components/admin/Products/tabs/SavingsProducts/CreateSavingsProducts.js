@@ -83,7 +83,7 @@ const CreateSavingsProducts = ({ onSuccess, productToEdit}) => {
                 startLoading();
 
                 const savingsProductTemplateResponse = await axios.get(
-                    `/fineract-provider/api/v1/savingsproducts/template`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsproducts/template`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -182,8 +182,8 @@ const CreateSavingsProducts = ({ onSuccess, productToEdit}) => {
 
             const method = productToEdit ? 'put' : 'post';
             const url = productToEdit
-                ? `/fineract-provider/api/v1/savingsproducts/${productToEdit.id}`
-                : `/fineract-provider/api/v1/savingsproducts`;
+                ? `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsproducts/${productToEdit.id}`
+                : `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsproducts`;
 
             const response = await axios[method](url, payload, {
                     headers: {

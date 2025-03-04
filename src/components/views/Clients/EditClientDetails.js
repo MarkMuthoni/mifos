@@ -32,8 +32,8 @@ const EditClientDetails = () => {
             };
 
             const [clientResponse, templateResponse] = await Promise.all([
-                axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers }),
-                axios.get(`/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`, {
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`, {
                     headers,
                 }),
             ]);
@@ -105,7 +105,7 @@ const EditClientDetails = () => {
                 locale: 'en',
             };
 
-            await axios.put(`/fineract-provider/api/v1/clients/${clientId}`, cleanedData, { headers });
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, cleanedData, { headers });
 
             showNotification('Client details updated successfully!', 'success');
             navigate('/clients', {

@@ -53,7 +53,7 @@ const AuditTrails = () => {
     const fetchTemplateData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/audits/searchtemplate`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/audits/searchtemplate`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -71,7 +71,7 @@ const AuditTrails = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/audits`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/audits`,
                 {
                     params: {
                         offset: 0,
@@ -117,7 +117,7 @@ const AuditTrails = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/audits/${row.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/audits/${row.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

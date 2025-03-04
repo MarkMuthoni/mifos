@@ -70,8 +70,8 @@ const FixedDepositAccount = () => {
             };
 
             const [clientResponse, fixedDepositResponse] = await Promise.all([
-                axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers }),
-                axios.get(`/fineract-provider/api/v1/fixeddepositaccounts/template?clientId=${clientId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/fixeddepositaccounts/template?clientId=${clientId}`, { headers }),
             ]);
 
             setClientData(clientResponse.data);

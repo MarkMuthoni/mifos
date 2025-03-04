@@ -26,7 +26,7 @@ const CreateCollateral = () => {
     const fetchTemplateData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/collateral-management/template`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/collateral-management/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -57,7 +57,7 @@ const CreateCollateral = () => {
 
         try {
             startLoading();
-            await axios.post(`/fineract-provider/api/v1/collateral-management`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/collateral-management`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

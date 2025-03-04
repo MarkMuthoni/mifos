@@ -22,7 +22,7 @@ const SmsService = () => {
     const fetchSmsData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/externalservice/SMS`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/externalservice/SMS`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -63,7 +63,7 @@ const SmsService = () => {
         try {
             const payload = { ...formValues };
             const response = await axios.put(
-                `/fineract-provider/api/v1/externalservice/SMS`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/externalservice/SMS`,
                 payload,
                 {
                     headers: {

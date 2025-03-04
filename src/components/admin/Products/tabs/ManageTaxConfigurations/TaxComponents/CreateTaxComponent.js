@@ -25,7 +25,7 @@ const CreateTaxComponent = () => {
     const fetchTemplate = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/taxes/component/template`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -53,7 +53,7 @@ const CreateTaxComponent = () => {
 
         startLoading();
         try {
-            const response = await axios.post(`/fineract-provider/api/v1/taxes/component`, payload, {
+            const response = await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -63,7 +63,7 @@ const CreateTaxComponent = () => {
 
             // Fetch the newly created component details
             const newComponentResponse = await axios.get(
-                `/fineract-provider/api/v1/taxes/component/${response.data.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component/${response.data.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

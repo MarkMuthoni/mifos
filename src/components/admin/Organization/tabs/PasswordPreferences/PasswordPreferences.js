@@ -24,7 +24,7 @@ const PasswordPreferences = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/passwordpreferences/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/passwordpreferences/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -59,7 +59,7 @@ const PasswordPreferences = () => {
         startLoading();
         try {
             const payload = { validationPolicyId: selectedPreference };
-            await axios.put(`/fineract-provider/api/v1/passwordpreferences`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/passwordpreferences`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

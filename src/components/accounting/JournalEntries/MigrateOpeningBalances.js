@@ -28,7 +28,7 @@ const MigrateOpeningBalancesPage = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -47,7 +47,7 @@ const MigrateOpeningBalancesPage = () => {
     const fetchCurrencies = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/currencies?fields=selectedCurrencyOptions`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/currencies?fields=selectedCurrencyOptions`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -74,7 +74,7 @@ const MigrateOpeningBalancesPage = () => {
 
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/journalentries/openingbalance`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/journalentries/openingbalance`, {
                 params: { currencyCode: currency, officeId: office },
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

@@ -33,7 +33,7 @@ const ViewStandingInstructions = () => {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
-                const response = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
                 setClientData(response.data);
             } catch (error) {
                 console.error('Error fetching client data:', error);
@@ -54,7 +54,7 @@ const ViewStandingInstructions = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
                 const response = await axios.get(
-                    `/fineract-provider/api/v1/standinginstructions/template?fromAccountType=2&fromClientId=${clientId}&fromOfficeId=${user.officeId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/standinginstructions/template?fromAccountType=2&fromClientId=${clientId}&fromOfficeId=${user.officeId}`,
                     { headers }
                 );
                 setStandingInstructionsTemplate(response.data);
@@ -78,7 +78,7 @@ const ViewStandingInstructions = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
                 const response = await axios.get(
-                    `/fineract-provider/api/v1/standinginstructions?clientId=${clientId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/standinginstructions?clientId=${clientId}`,
                     { headers }
                 );
                 setStandingInstructions(response.data.pageItems || []);

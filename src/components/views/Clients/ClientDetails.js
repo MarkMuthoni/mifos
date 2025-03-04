@@ -328,7 +328,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 locale: 'en',
             };
 
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=activate`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=activate`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -355,7 +355,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
     const handleConfirmDelete = async (clientId) => {
         try {
-            await axios.delete(`/fineract-provider/api/v1/clients/${clientId}`, {
+            await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -374,7 +374,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
     const fetchRejectionTemplate = async () => {
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/clients/template?commandParam=reject`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template?commandParam=reject`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -410,7 +410,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         };
 
         try {
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=reject`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=reject`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -428,7 +428,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     const fetchWithdrawalNarrations = async () => {
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/clients/template?commandParam=withdraw`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template?commandParam=withdraw`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -469,7 +469,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=withdraw`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=withdraw`,
                 payload,
                 {
                     headers: {
@@ -515,7 +515,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=activate`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=activate`,
                 payload,
                 { headers }
             );
@@ -555,7 +555,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         setIsProcessingApproval(true);
 
         try {
-            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=approve`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=approve`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -603,7 +603,7 @@ const ClientDetails = ({ clientId, onClose }) => {
         setIsProcessingUndo(true);
 
         try {
-            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=undoapproval`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}?command=undoapproval`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -640,7 +640,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
                 { headers }
             );
 
@@ -663,7 +663,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${productId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${productId}`,
                 { headers }
             );
 
@@ -693,7 +693,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${selectedLoan.id}&fromAccountType=${selectedLoan.productId}&toOfficeId=${officeId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${selectedLoan.id}&fromAccountType=${selectedLoan.productId}&toOfficeId=${officeId}`,
                 { headers }
             );
 
@@ -739,7 +739,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/accounttransfers`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers`, payload, { headers });
 
             showNotification("Funds transferred successfully.", 'success');
             setIsOverpayTransferModalOpen(false);
@@ -758,7 +758,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburse`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburse`,
                 { headers }
             );
 
@@ -812,7 +812,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${selectedLoanId}?command=disburse`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${selectedLoanId}?command=disburse`, payload, { headers });
 
             showNotification("Loan disbursed successfully.", 'success');
             setIsDisburseModalOpen(false);
@@ -842,7 +842,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch main client details
-            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, {headers});
+            const clientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, {headers});
             setClientDetails(clientResponse.data);
 
             // Fetch client image if imagePresent is true
@@ -854,23 +854,23 @@ const ClientDetails = ({ clientId, onClose }) => {
             }
 
             // Fetch template data
-            const templateResponse = await axios.get(`/fineract-provider/api/v1/clients/template`, {headers});
+            const templateResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template`, {headers});
             setTemplateData(templateResponse.data);
 
             // Fetch registered datatables
-            const datatablesResponse = await axios.get(`/fineract-provider/api/v1/datatables?apptable=m_client`, {headers});
+            const datatablesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/datatables?apptable=m_client`, {headers});
             setDataTables(datatablesResponse.data);
 
             // Fetch collaterals
-            const collateralsResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, {headers});
+            const collateralsResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, {headers});
             setCollaterals(collateralsResponse.data);
 
             // Fetch charges
-            const chargesResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, {headers});
+            const chargesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, {headers});
             setCharges(chargesResponse.data.pageItems);
 
             // Fetch accounts
-            const accountsResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}/accounts`, {headers});
+            const accountsResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/accounts`, {headers});
             setAccounts(accountsResponse.data);
 
         } catch (error) {
@@ -892,12 +892,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             startLoading();
 
             const clientResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
 
             const chargesResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/charges`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/charges`,
                 { headers }
             );
 
@@ -918,7 +918,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     const fetchClientImage = async (imageId, headers) => {
         try {
             const imageUrlResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/images?maxHeight=150`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/images?maxHeight=150`,
                 { headers }
             );
 
@@ -1013,14 +1013,14 @@ const ClientDetails = ({ clientId, onClose }) => {
                 };
 
                 try {
-                    const addressConfigResponse = await axios.get(`/fineract-provider/api/v1/fieldconfiguration/ADDRESS`, {
+                    const addressConfigResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/fieldconfiguration/ADDRESS`, {
                         headers,
                     });
-                    const addressTemplateResponse = await axios.get(`/fineract-provider/api/v1/client/addresses/template`, {
+                    const addressTemplateResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/client/addresses/template`, {
                         headers,
                     });
                     const clientAddressesResponse = await axios.get(
-                        `/fineract-provider/api/v1/client/${clientId}/addresses`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/client/${clientId}/addresses`,
                         {headers}
                     );
 
@@ -1048,13 +1048,13 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             await axios.post(
-                `/fineract-provider/api/v1/client/${clientId}/addresses`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/client/${clientId}/addresses`,
                 newAddress,
                 { headers }
             );
             setIsAddressModalOpen(false);
             const updatedAddresses = await axios.get(
-                `/fineract-provider/api/v1/client/${clientId}/addresses`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/client/${clientId}/addresses`,
                 { headers }
             );
             setClientAddresses(updatedAddresses.data);
@@ -1076,13 +1076,13 @@ const ClientDetails = ({ clientId, onClose }) => {
                     };
 
                     const familyResponse = await axios.get(
-                        `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                         { headers }
                     );
                     setFamilyMembers(familyResponse.data);
 
                     const templateResponse = await axios.get(
-                        `/fineract-provider/api/v1/clients/template`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template`,
                         { headers }
                     );
 
@@ -1112,13 +1112,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                 newFamilyMember,
                 { headers }
             );
             setIsFamilyModalOpen(false);
             const updatedFamilyMembers = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/familymembers`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/familymembers`,
                 { headers }
             );
             setFamilyMembers(updatedFamilyMembers.data);
@@ -1158,13 +1158,13 @@ const ClientDetails = ({ clientId, onClose }) => {
                     startLoading();
 
                     const identitiesResponse = await axios.get(
-                        `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                         { headers }
                     );
                     setIdentities(identitiesResponse.data);
 
                     const templateResponse = await axios.get(
-                        `/fineract-provider/api/v1/clients/${clientId}/identifiers/template`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/identifiers/template`,
                         { headers }
                     );
                     setDocumentTypeOptions(templateResponse.data.allowedDocumentTypes);
@@ -1189,13 +1189,13 @@ const ClientDetails = ({ clientId, onClose }) => {
             startLoading();
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                 newIdentity,
                 { headers }
             );
 
             const updatedIdentities = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/identifiers`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/identifiers`,
                 { headers }
             );
             setIdentities(updatedIdentities.data);
@@ -1226,7 +1226,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `/fineract-provider/api/v1/clients/${clientId}/documents`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents`,
                         { headers }
                     );
                     setDocuments(response.data);
@@ -1254,13 +1254,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents`,
                 formData,
                 { headers }
             );
 
             const updatedDocuments = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents`,
                 { headers }
             );
             setDocuments(updatedDocuments.data);
@@ -1286,7 +1286,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
                 try {
                     const response = await axios.get(
-                        `/fineract-provider/api/v1/clients/${clientId}/notes`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes`,
                         { headers }
                     );
                     setNotes(response.data);
@@ -1307,8 +1307,8 @@ const ClientDetails = ({ clientId, onClose }) => {
         };
 
         const endpoint = editingNoteId
-            ? `/fineract-provider/api/v1/clients/${clientId}/notes/${editingNoteId}`
-            : `/fineract-provider/api/v1/clients/${clientId}/notes`;
+            ? `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes/${editingNoteId}`
+            : `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes`;
 
         const method = editingNoteId ? 'put' : 'post';
 
@@ -1317,7 +1317,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             await axios[method](endpoint, { note: newNote }, { headers });
 
             const updatedNotes = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/notes`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -1347,12 +1347,12 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.delete(
-                `/fineract-provider/api/v1/clients/${clientId}/notes/${noteId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes/${noteId}`,
                 { headers }
             );
 
             const updatedNotes = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/notes`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/notes`,
                 { headers }
             );
             setNotes(updatedNotes.data);
@@ -1390,12 +1390,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const approvalTemplateResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${selectedLoanId}/template?templateType=approval`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${selectedLoanId}/template?templateType=approval`,
                 { headers }
             );
 
             const loanDetailsResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${selectedLoanId}?associations=multiDisburseDetails`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${selectedLoanId}?associations=multiDisburseDetails`,
                 { headers }
             );
 
@@ -1449,7 +1449,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=approve`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=approve`, payload, { headers });
             setIsLoanApproveModalOpen(false);
             fetchGeneralTabData();
             showNotification('Loan approved successfully', 'success');
@@ -3264,13 +3264,13 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}/images`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/images`,
                 formData,
                 { headers }
             );
 
             const updatedClientData = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
             setClientDetails(updatedClientData.data);
@@ -3306,9 +3306,9 @@ const ClientDetails = ({ clientId, onClose }) => {
         try {
             startLoading();
 
-            await axios.delete(`/fineract-provider/api/v1/clients/${clientId}/images`, { headers });
+            await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/images`, { headers });
 
-            const updatedClientData = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const updatedClientData = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setClientDetails(updatedClientData.data);
 
             setClientImage(process.env.PUBLIC_URL + 'Images/user.jpg');
@@ -3378,9 +3378,9 @@ const ClientDetails = ({ clientId, onClose }) => {
 
         try {
             startLoading();
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}/images`, formData, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/images`, formData, { headers });
 
-            const updatedClientData = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const updatedClientData = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setClientDetails(updatedClientData.data);
 
             const updatedImage = await fetchClientImage(clientId, headers);
@@ -3405,7 +3405,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents`,
                 { headers }
             );
 
@@ -3447,7 +3447,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 };
 
                 await axios.delete(
-                    `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,
                     { headers }
                 );
 
@@ -3477,7 +3477,7 @@ const ClientDetails = ({ clientId, onClose }) => {
     // const handleDownloadDocument = async () => {
     //     try {
     //         // Construct the URL for downloading the document
-    //         const downloadUrl = `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}/content`;
+    //         const downloadUrl = `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}/content`;
     //         const headers = {
     //             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
     //             'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -3523,7 +3523,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             formData.append("file", selectedDocument);
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents`,
                 formData,
                 { headers }
             );
@@ -3553,11 +3553,11 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch client details
-            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
             setCloseClientData(clientResponse.data);
 
             // Fetch closure reasons
-            const templateResponse = await axios.get(`/fineract-provider/api/v1/clients/template?commandParam=close`, { headers });
+            const templateResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/template?commandParam=close`, { headers });
             setClosureReasonOptions(templateResponse.data?.narrations || []);
 
             setIsCloseClientModalOpen(true);
@@ -3596,7 +3596,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
 
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=close`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=close`, payload, { headers });
 
             showNotification('Client successfully closed.', 'success');
             fetchGeneralTabData();
@@ -3617,8 +3617,8 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const officesResponse = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
-            const currentClientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const officesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, { headers });
+            const currentClientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const currentOfficeId = currentClientResponse.data?.officeId;
             const filteredOffices = officesResponse.data?.filter((office) => office.id !== currentOfficeId);
@@ -3662,7 +3662,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=proposeTransfer`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=proposeTransfer`,
                 payload,
                 { headers }
             );
@@ -3689,9 +3689,9 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const [clientResponse, staffTemplateResponse] = await Promise.all([
-                axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers }),
                 axios.get(
-                    `/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
                     { headers }
                 ),
             ]);
@@ -3723,7 +3723,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientData.id}?command=assignStaff`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientData.id}?command=assignStaff`,
                 payload,
                 { headers }
             );
@@ -3774,7 +3774,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 staffId: staffIdToUnassign,
             };
 
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}?command=unassignStaff`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=unassignStaff`, payload, { headers });
 
             await fetchGeneralTabData();
             closeUnassignStaffModal();
@@ -3795,7 +3795,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const transferDateResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
 
@@ -3827,7 +3827,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=withdrawTransfer`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=withdrawTransfer`,
                 { note: undoTransferNote },
                 { headers }
             );
@@ -3859,7 +3859,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch transfer proposal date
             const transferDateResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
             const fetchedDate = transferDateResponse.data;
@@ -3873,11 +3873,11 @@ const ClientDetails = ({ clientId, onClose }) => {
             }
 
             // Fetch all groups
-            const allGroupsResponse = await axios.get(`/fineract-provider/api/v1/groups`, { headers });
+            const allGroupsResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/groups`, { headers });
             const allGroups = allGroupsResponse.data;
 
             // Fetch client details to identify the current group
-            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
             const clientGroups = clientResponse.data.groups || [];
             const currentGroup = clientGroups.length > 0 ? clientGroups[0] : null;
 
@@ -3911,7 +3911,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=acceptTransfer`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=acceptTransfer`,
                 payload,
                 { headers }
             );
@@ -3942,7 +3942,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch transfer proposal date
             const transferDateResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/transferproposaldate`,
                 { headers }
             );
             const fetchedDate = transferDateResponse.data;
@@ -3976,7 +3976,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=rejectTransfer`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=rejectTransfer`,
                 payload,
                 { headers }
             );
@@ -4002,7 +4002,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch charge options
             const chargeTemplateResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}/charges/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/charges/template`,
                 { headers }
             );
             setAvailableCharges(chargeTemplateResponse.data.chargeOptions || []);
@@ -4054,7 +4054,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const response = await axios.get(`/fineract-provider/api/v1/collateral-management`, { headers });
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/collateral-management`, { headers });
             setCollateralOptions(response.data);
         } catch (error) {
             console.error('Error fetching collateral options:', error);
@@ -4071,7 +4071,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const response = await axios.get(`/fineract-provider/api/v1/collateral-management/${collateralId}?template=false`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/collateral-management/${collateralId}?template=false`, {
                 headers,
             });
             setCollateralDetails(response.data);
@@ -4108,7 +4108,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                 locale: 'en',
             };
 
-            await axios.post(`/fineract-provider/api/v1/clients/${clientId}/collaterals`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/collaterals`, payload, { headers });
 
             // Refetch client data after successful submission
             fetchGeneralTabData();
@@ -4131,12 +4131,12 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             // Fetch client data
-            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
             const currentSavingsAccountId = clientResponse.data.savingsAccountId || '';
 
             // Fetch template data
             const templateResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?template=true&staffInSelectedOfficeOnly=true`,
                 { headers }
             );
             const accountOptions = templateResponse.data.savingAccountOptions || [];
@@ -4169,7 +4169,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/clients/${clientId}?command=updateSavingsAccount`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=updateSavingsAccount`,
                 payload,
                 { headers }
             );
@@ -4194,9 +4194,9 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const clientResponse = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const clientResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
-            const templatesResponse = await axios.get(`/fineract-provider/api/v1/templates?entityId=0&typeId=0`, { headers });
+            const templatesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/templates?entityId=0&typeId=0`, { headers });
             const reports = templatesResponse.data;
 
             setAvailableReports(reports);
@@ -4227,7 +4227,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             const response = await axios.post(
-                `/fineract-provider/api/v1/templates?clientId=${clientId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/templates?clientId=${clientId}`,
                 { reportId: selectedReportId },
                 { headers }
             );
@@ -4259,7 +4259,7 @@ const ClientDetails = ({ clientId, onClose }) => {
 
             // Fetch repayment template data
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=repayment`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=repayment`,
                 { headers }
             );
 
@@ -4326,7 +4326,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${selectedLoan.id}/transactions?command=repayment`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${selectedLoan.id}/transactions?command=repayment`,
                 payload,
                 { headers }
             );
@@ -4353,10 +4353,10 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const transactionResponse = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
                 { headers }
             );
 
@@ -4401,7 +4401,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=deposit`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=deposit`,
                 payload,
                 { headers }
             );
@@ -4437,10 +4437,10 @@ const ClientDetails = ({ clientId, onClose }) => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
 
             const transactionResponse = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${clientId}/transactions/template`,
                 { headers }
             );
 
@@ -4485,7 +4485,7 @@ const ClientDetails = ({ clientId, onClose }) => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=withdrawal`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${selectedSavingsId}/transactions?command=withdrawal`,
                 payload,
                 { headers }
             );
@@ -4869,7 +4869,7 @@ const ClientDetails = ({ clientId, onClose }) => {
                                     {/*<button*/}
                                     {/*    onClick={() =>*/}
                                     {/*        window.open(*/}
-                                    {/*            `/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,*/}
+                                    {/*            `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/documents/${signatureData.id}`,*/}
                                     {/*            '_blank'*/}
                                     {/*        )*/}
                                     {/*    }*/}

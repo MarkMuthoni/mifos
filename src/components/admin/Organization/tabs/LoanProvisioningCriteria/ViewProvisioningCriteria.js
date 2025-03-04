@@ -25,7 +25,7 @@ const ViewProvisioningCriteria = () => {
     const fetchProvisioningCriteria = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/provisioningcriteria`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/provisioningcriteria`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

@@ -21,7 +21,7 @@ const CentersApplications = () => {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
-                const response = await axios.get(`/fineract-provider/api/v1/centers/${centerId}`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/centers/${centerId}`, { headers });
                 setCenterData(response.data);
             } catch (error) {
                 console.error("Error fetching center data:", error);

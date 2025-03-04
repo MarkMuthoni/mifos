@@ -23,7 +23,7 @@ const CodeForm = () => {
 
         try {
             const response = await axios.post(
-                `/fineract-provider/api/v1/codes`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/codes`,
                 { name: codeName },
                 {
                     headers: {

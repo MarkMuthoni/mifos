@@ -27,7 +27,7 @@ const ViewTaxComponents = () => {
     const fetchTaxComponents = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/taxes/component`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -46,7 +46,7 @@ const ViewTaxComponents = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/taxes/component/${component.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component/${component.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -79,7 +79,7 @@ const ViewTaxComponents = () => {
                 locale: 'en',
             };
             await axios.put(
-                `/fineract-provider/api/v1/taxes/component/${selectedComponent.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/taxes/component/${selectedComponent.id}`,
                 payload,
                 {
                     headers: {

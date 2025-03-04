@@ -42,7 +42,7 @@ const HookForm = () => {
     const fetchHookTemplate = async () => {
         startLoading();
         try {
-            const response = await fetch(`/fineract-provider/api/v1/hooks/template`, {
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/hooks/template`, {
                 method: 'GET',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -142,7 +142,7 @@ const HookForm = () => {
                 };
             }
 
-            const response = await fetch(`/fineract-provider/api/v1/hooks`, {
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/hooks`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

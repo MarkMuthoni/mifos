@@ -222,7 +222,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=activate`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=activate`,
                 payload,
                 { headers }
             );
@@ -246,7 +246,7 @@ const SavingsAccounts = () => {
                 };
 
                 await axios.delete(
-                    `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}`,
                     { headers }
                 );
 
@@ -298,7 +298,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=withdrawnByApplicant`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=withdrawnByApplicant`,
                 payload,
                 { headers }
             );
@@ -345,7 +345,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=reject`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=reject`,
                 payload,
                 { headers }
             );
@@ -384,7 +384,7 @@ const SavingsAccounts = () => {
         setIsProcessingApproval(true);
 
         try {
-            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=approve`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=approve`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -431,7 +431,7 @@ const SavingsAccounts = () => {
         setIsProcessingUndo(true);
 
         try {
-            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=undoapproval`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=undoapproval`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -480,7 +480,7 @@ const SavingsAccounts = () => {
             year: "numeric",
         });
 
-        const reportURL = `/fineract-provider/api/v1/runreports/Client%20Saving%20Transactions?tenantIdentifier=default&locale=en&dateFormat=dd%20MMMM%20yyyy&output-type=EXCEL&R_startDate=${fromDate}&R_endDate=${toDate}&R_savingsAccountId=${transferFromAccount}`;
+        const reportURL = `${API_CONFIG.proxy}/fineract-provider/api/v1/runreports/Client%20Saving%20Transactions?tenantIdentifier=default&locale=en&dateFormat=dd%20MMMM%20yyyy&output-type=EXCEL&R_startDate=${fromDate}&R_endDate=${toDate}&R_savingsAccountId=${transferFromAccount}`;
 
         try {
             const headers = {
@@ -516,7 +516,7 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?template=true&associations=charges`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?template=true&associations=charges`,
                 { headers }
             );
 
@@ -564,7 +564,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=assignSavingsOfficer`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=assignSavingsOfficer`,
                 payload,
                 { headers }
             );
@@ -592,7 +592,7 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${savingsAccountId}&fromAccountType=2`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${savingsAccountId}&fromAccountType=2`,
                 { headers }
             );
 
@@ -675,7 +675,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
 
-            await axios.post(`/fineract-provider/api/v1/accounttransfers`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers`, payload, { headers });
 
             showNotification("Funds transferred successfully.", 'success');
             handleCloseTransferFundsModal();
@@ -698,12 +698,12 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
                 { headers }
             );
 
             const accountResponse = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?associations=all`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?associations=all`,
                 { headers }
             );
 
@@ -768,7 +768,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=close`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=close`,
                 payload,
                 { headers }
             );
@@ -794,7 +794,7 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/charges/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/charges/template`,
                 { headers }
             );
 
@@ -843,7 +843,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/charges`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/charges`,
                 payload,
                 { headers }
             );
@@ -877,7 +877,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=postInterest`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=postInterest`,
                 {},
                 { headers }
             );
@@ -928,7 +928,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=postInterestAsOn`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=postInterestAsOn`,
                 payload,
                 { headers }
             );
@@ -962,7 +962,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=calculateInterest`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=calculateInterest`,
                 {},
                 { headers }
             );
@@ -987,14 +987,14 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
 
-            const codesResponse = await axios.get(`/fineract-provider/api/v1/codes`, { headers });
+            const codesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/codes`, { headers });
             const holdAmountCode = codesResponse.data.find(
                 (code) => code.name === "SavingsAccountBlockReasons"
             );
 
             if (holdAmountCode) {
                 const codeValuesResponse = await axios.get(
-                    `/fineract-provider/api/v1/codes/${holdAmountCode.id}/codevalues`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/codes/${holdAmountCode.id}/codevalues`,
                     { headers }
                 );
                 setHoldAmountReasons(codeValuesResponse.data || []);
@@ -1053,7 +1053,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=holdAmount`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=holdAmount`,
                 payload,
                 { headers }
             );
@@ -1078,14 +1078,14 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
 
-            const codesResponse = await axios.get(`/fineract-provider/api/v1/codes`, { headers });
+            const codesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/codes`, { headers });
             const blockAccountCode = codesResponse.data.find(
                 (code) => code.name === "SavingsAccountBlockReasons"
             );
 
             if (blockAccountCode) {
                 const codeValuesResponse = await axios.get(
-                    `/fineract-provider/api/v1/codes/${blockAccountCode.id}/codevalues`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/codes/${blockAccountCode.id}/codevalues`,
                     { headers }
                 );
                 setBlockAccountReasons(codeValuesResponse.data || []);
@@ -1129,7 +1129,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=block`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=block`,
                 payload,
                 { headers }
             );
@@ -1154,14 +1154,14 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
 
-            const codesResponse = await axios.get(`/fineract-provider/api/v1/codes`, { headers });
+            const codesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/codes`, { headers });
             const blockWithdrawalCode = codesResponse.data.find(
                 (code) => code.name === "SavingsTransactionFreezeReasons"
             );
 
             if (blockWithdrawalCode) {
                 const codeValuesResponse = await axios.get(
-                    `/fineract-provider/api/v1/codes/${blockWithdrawalCode.id}/codevalues`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/codes/${blockWithdrawalCode.id}/codevalues`,
                     { headers }
                 );
                 setBlockWithdrawalReasons(codeValuesResponse.data || []);
@@ -1205,7 +1205,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=blockWithdraw`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=blockWithdraw`,
                 payload,
                 { headers }
             );
@@ -1231,7 +1231,7 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
                 { headers }
             );
 
@@ -1297,7 +1297,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=withdrawal`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=withdrawal`,
                 payload,
                 { headers }
             );
@@ -1335,14 +1335,14 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
 
-            const codesResponse = await axios.get(`/fineract-provider/api/v1/codes`, { headers });
+            const codesResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/codes`, { headers });
             const reasonCode = codesResponse.data.find(
                 (code) => code.name === "SavingsAccountBlockReasons"
             );
 
 
             const reasonsResponse = await axios.get(
-                `/fineract-provider/api/v1/codes/${reasonCode.id}/codevalues`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/codes/${reasonCode.id}/codevalues`,
                 { headers }
             );
 
@@ -1376,7 +1376,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=blockdeposit`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?command=blockdeposit`,
                 payload,
                 { headers }
             );
@@ -1411,7 +1411,7 @@ const SavingsAccounts = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/template`,
                 { headers }
             );
 
@@ -1475,7 +1475,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=deposit`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions?command=deposit`,
                 payload,
                 { headers }
             );
@@ -1513,7 +1513,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/standinginstructions?clientId=${clientId}&clientName=${encodeURIComponent(
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/standinginstructions?clientId=${clientId}&clientName=${encodeURIComponent(
                     clientDetails?.displayName || ""
                 )}&fromAccountId=${savingsAccountId}&fromAccountType=2&locale=en&dateFormat=dd%20MMMM%20yyyy`,
                 { headers }
@@ -1539,7 +1539,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
             await axios.delete(
-                `/fineract-provider/api/v1/standinginstructions/${instructionId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/standinginstructions/${instructionId}`,
                 { headers }
             );
             fetchStandingInstructions();
@@ -1565,7 +1565,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/savings/${savingsAccountId}/notes`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/notes`,
                 { headers }
             );
             setNotes(response.data || []);
@@ -1586,13 +1586,13 @@ const SavingsAccounts = () => {
             };
             if (editingNoteId) {
                 await axios.put(
-                    `/fineract-provider/api/v1/savings/${savingsAccountId}/notes/${editingNoteId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/notes/${editingNoteId}`,
                     { note: newNote },
                     { headers }
                 );
             } else {
                 await axios.post(
-                    `/fineract-provider/api/v1/savings/${savingsAccountId}/notes`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/notes`,
                     { note: newNote },
                     { headers }
                 );
@@ -1617,7 +1617,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
             await axios.delete(
-                `/fineract-provider/api/v1/savings/${savingsAccountId}/notes/${noteId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/notes/${noteId}`,
                 { headers }
             );
             fetchNotes();
@@ -1649,7 +1649,7 @@ const SavingsAccounts = () => {
                 "Content-Type": "application/json",
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/savings/${savingsAccountId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/documents`,
                 { headers }
             );
             setDocuments(response.data || []);
@@ -1678,7 +1678,7 @@ const SavingsAccounts = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             await axios.post(
-                `/fineract-provider/api/v1/savings/${savingsAccountId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savings/${savingsAccountId}/documents`,
                 formData,
                 { headers }
             );
@@ -1734,7 +1734,7 @@ const SavingsAccounts = () => {
         try {
             startLoading();
 
-            const endpoint = `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/${id}`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/${id}`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -1774,7 +1774,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/${id}?command=undo`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}/transactions/${id}?command=undo`,
                 payload,
                 { headers }
             );
@@ -1792,7 +1792,7 @@ const SavingsAccounts = () => {
         try {
             startLoading();
 
-            const receiptURL = `/fineract-provider/api/v1/runreports/Savings%20Transaction%20Receipt?tenantIdentifier=default&locale=en&dateFormat=dd%20MMMM%20yyyy&output-type=PDF&R_transactionId=${id}`;
+            const receiptURL = `${API_CONFIG.proxy}/fineract-provider/api/v1/runreports/Savings%20Transaction%20Receipt?tenantIdentifier=default&locale=en&dateFormat=dd%20MMMM%20yyyy&output-type=PDF&R_transactionId=${id}`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -1821,7 +1821,7 @@ const SavingsAccounts = () => {
         try {
             startLoading();
 
-            const endpoint = `/fineract-provider/api/v1/journalentries?transactionId=S${id}&transactionDetails=true`;
+            const endpoint = `${API_CONFIG.proxy}/fineract-provider/api/v1/journalentries?transactionId=S${id}&transactionDetails=true`;
 
             const headers = {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -1887,14 +1887,14 @@ const SavingsAccounts = () => {
             };
 
             const savingsResponse = await axios.get(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?associations=all`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsAccountId}?associations=all`,
                 { headers }
             );
             setSavingsDetails(savingsResponse.data);
             setTransactions(savingsResponse.data.transactions || []);
 
             const clientResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
             setClientDetails(clientResponse.data);
@@ -2640,7 +2640,7 @@ const SavingsAccounts = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/savingsaccounts/${savingsDetails.id}?command=unblock`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsDetails.id}?command=unblock`,
                 {
                     dateFormat: "dd MMMM yyyy",
                     locale: "en",

@@ -33,7 +33,7 @@ const ViewAccountNumberPreferencesTable = () => {
     const fetchPreferences = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/accountnumberformats`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -52,7 +52,7 @@ const ViewAccountNumberPreferencesTable = () => {
         startLoading();
         try {
             const preferenceResponse = await axios.get(
-                `/fineract-provider/api/v1/accountnumberformats/${preferenceId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats/${preferenceId}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -62,7 +62,7 @@ const ViewAccountNumberPreferencesTable = () => {
                 }
             );
             const templateResponse = await axios.get(
-                `/fineract-provider/api/v1/accountnumberformats/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -104,7 +104,7 @@ const ViewAccountNumberPreferencesTable = () => {
                 prefixType: formData.prefixType,
             };
             await axios.put(
-                `/fineract-provider/api/v1/accountnumberformats/${selectedPreference.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats/${selectedPreference.id}`,
                 payload,
                 {
                     headers: {
@@ -132,7 +132,7 @@ const ViewAccountNumberPreferencesTable = () => {
         startLoading();
         try {
             await axios.delete(
-                `/fineract-provider/api/v1/accountnumberformats/${selectedPreference.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats/${selectedPreference.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

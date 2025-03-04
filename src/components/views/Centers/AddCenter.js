@@ -42,7 +42,7 @@ const AddCenterForm = ({ onSuccessfulSubmit }) => {
                     'Content-Type': 'application/json',
                 };
 
-                const officeResponse = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
+                const officeResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, { headers });
                 setOffices(officeResponse.data);
 
             } catch (error) {
@@ -77,7 +77,7 @@ const AddCenterForm = ({ onSuccessfulSubmit }) => {
 
                 // Fetch staff for selected office
                 const staffResponse = await axios.get(
-                    `/fineract-provider/api/v1/centers/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/centers/template?officeId=${selectedOfficeId}&staffInSelectedOfficeOnly=true`,
                     { headers }
                 );
                 setStaffs(staffResponse.data.staffOptions || []);
@@ -85,7 +85,7 @@ const AddCenterForm = ({ onSuccessfulSubmit }) => {
 
                 // Fetch groups for selected office
                 const groupResponse = await axios.get(
-                    `/fineract-provider/api/v1/groups?officeId=${selectedOfficeId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/groups?officeId=${selectedOfficeId}`,
                     { headers }
                 );
                 setGroups(groupResponse.data || []);
@@ -155,7 +155,7 @@ const AddCenterForm = ({ onSuccessfulSubmit }) => {
                 'Content-Type': 'application/json',
             };
 
-            await axios.post(`/fineract-provider/api/v1/centers`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/centers`, payload, { headers });
 
             setName('');
             setOffice('');

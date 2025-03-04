@@ -66,7 +66,7 @@ const ReportsPage = () => {
     const fetchReports = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/reports`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/reports`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

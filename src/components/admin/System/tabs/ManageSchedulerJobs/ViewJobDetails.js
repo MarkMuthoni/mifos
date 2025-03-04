@@ -30,7 +30,7 @@ const ViewJobDetails = ({ job }) => {
     const fetchJobDetails = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/jobs/${job.jobId}`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/jobs/${job.jobId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -52,7 +52,7 @@ const ViewJobDetails = ({ job }) => {
     const fetchJobHistory = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/jobs/${job.jobId}/runhistory`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/jobs/${job.jobId}/runhistory`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -74,7 +74,7 @@ const ViewJobDetails = ({ job }) => {
                 cronExpression: editData.cronExpression,
                 active: editData.active,
             };
-            await axios.put(`/fineract-provider/api/v1/jobs/${job.jobId}`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/jobs/${job.jobId}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

@@ -66,7 +66,7 @@ const BulkLoanReassignment = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -84,7 +84,7 @@ const BulkLoanReassignment = () => {
     const fetchLoanOfficers = async (officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/staff?officeId=${officeId}`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/staff?officeId=${officeId}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -102,7 +102,7 @@ const BulkLoanReassignment = () => {
     const fetchSavingsAccounts = async (officerId) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/savingsaccounts`, {  // Removed officerId from URL
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts`, {  // Removed officerId from URL
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -126,7 +126,7 @@ const BulkLoanReassignment = () => {
     const fetchLoans = async (officerId) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/loans`, {  // Removed officerId from URL
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans`, {  // Removed officerId from URL
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -273,7 +273,7 @@ const BulkLoanReassignment = () => {
             for (const clientId of selectedClientIds) {
                 const clientPayload = { staffId: toLoanOfficer };
                 await axios.post(
-                    `/fineract-provider/api/v1/clients/${clientId}?command=assignStaff`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}?command=assignStaff`,
                     clientPayload,
                     {headers}
                 );
@@ -289,7 +289,7 @@ const BulkLoanReassignment = () => {
                 };
 
                 await axios.post(
-                    `/fineract-provider/api/v1/loans/${loanId}?command=assignLoanOfficer`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=assignLoanOfficer`,
                     loanPayload,
                     {headers}
                 );
@@ -314,7 +314,7 @@ const BulkLoanReassignment = () => {
 
                 try {
                     await axios.post(
-                        `/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
                         savingsPayload,
                         {headers}
                     );
@@ -322,7 +322,7 @@ const BulkLoanReassignment = () => {
                     console.warn(`Failed to assign savings account ${savingsId}. Checking if unassigned...`);
 
                     const { data: account } = await axios.get(
-                        `/fineract-provider/api/v1/savingsaccounts/${savingsId}`,
+                        `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsId}`,
                         {headers}
                     );
 
@@ -330,7 +330,7 @@ const BulkLoanReassignment = () => {
                         // Try direct assignment if the account is unassigned
                         try {
                             await axios.post(
-                                `/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
+                                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
                                 unassignedSavingsPayload,
                                 {headers}
                             );
@@ -348,13 +348,13 @@ const BulkLoanReassignment = () => {
 
                         try {
                             await axios.post(
-                                `/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=unassignSavingsOfficer`,
+                                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=unassignSavingsOfficer`,
                                 unassignPayload,
                                 {headers}
                             );
 
                             await axios.post(
-                                `/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
+                                `${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts/${savingsId}?command=assignSavingsOfficer`,
                                 unassignedSavingsPayload,
                                 {headers}
                             );

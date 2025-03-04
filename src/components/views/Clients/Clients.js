@@ -53,7 +53,7 @@ const Clients = ({ onRowClick }) => {
     const fetchClients = async () => {
         try {
             startLoading();
-            const response = await axios.get(`/fineract-provider/api/v1/clients`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -73,7 +73,7 @@ const Clients = ({ onRowClick }) => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantID': `${API_CONFIG.tenantId}`,

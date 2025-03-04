@@ -24,7 +24,7 @@ const CreateEditCurrencies = ({ onSuccess }) => {
     const fetchCurrencies = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/currencies`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/currencies`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -76,7 +76,7 @@ const CreateEditCurrencies = ({ onSuccess }) => {
 
         startLoading();
         try {
-            await axios.put(`/fineract-provider/api/v1/currencies`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/currencies`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

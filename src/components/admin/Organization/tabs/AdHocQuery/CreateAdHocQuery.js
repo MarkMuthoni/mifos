@@ -27,7 +27,7 @@ const CreateAdHocQuery = ({ onFormSubmitSuccess }) => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/adhocquery/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/adhocquery/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -58,7 +58,7 @@ const CreateAdHocQuery = ({ onFormSubmitSuccess }) => {
         startLoading();
         try {
             await axios.post(
-                `/fineract-provider/api/v1/adhocquery`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/adhocquery`,
                 payload,
                 {
                     headers: {

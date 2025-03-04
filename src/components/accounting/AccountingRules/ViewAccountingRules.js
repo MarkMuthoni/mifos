@@ -27,7 +27,7 @@ const AccountingRulesTable = () => {
     const fetchAccountingRules = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/accountingrules`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -51,7 +51,7 @@ const AccountingRulesTable = () => {
     const handleRowClick = async (rule) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/accountingrules/${rule.id}`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/accountingrules/${rule.id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

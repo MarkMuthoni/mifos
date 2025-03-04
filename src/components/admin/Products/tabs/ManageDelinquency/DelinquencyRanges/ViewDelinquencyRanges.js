@@ -29,7 +29,7 @@ const ViewDelinquencyRanges = () => {
     const fetchDelinquencyRanges = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/delinquency/ranges`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/delinquency/ranges`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -58,7 +58,7 @@ const ViewDelinquencyRanges = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/delinquency/ranges/${range.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/delinquency/ranges/${range.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -80,7 +80,7 @@ const ViewDelinquencyRanges = () => {
         startLoading();
         try {
             const response = await axios.put(
-                `/fineract-provider/api/v1/delinquency/ranges/${selectedRange.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/delinquency/ranges/${selectedRange.id}`,
                 updatedRange,
                 {
                     headers: {
@@ -106,7 +106,7 @@ const ViewDelinquencyRanges = () => {
             startLoading();
             try {
                 await axios.delete(
-                    `/fineract-provider/api/v1/delinquency/ranges/${selectedRange.id}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/delinquency/ranges/${selectedRange.id}`,
                     {
                         headers: {
                             Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

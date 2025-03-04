@@ -10,7 +10,7 @@ const NotificationModal = ({ isOpen, onClose }) => {
     const handleCloseModal = async () => {
         try {
             await axios.put(
-                `/fineract-provider/api/v1/notifications`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/notifications`,
                 {},
                 {
                     headers: {

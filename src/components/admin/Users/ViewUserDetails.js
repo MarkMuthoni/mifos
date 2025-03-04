@@ -35,7 +35,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
     const fetchUserDetails = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/users/${selectedUser.id}`, { // Use "selectedUser"
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/users/${selectedUser.id}`, { // Use "selectedUser"
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -54,7 +54,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
 
         try {
             const userResponse = await axios.get(
-                `/fineract-provider/api/v1/users/${userDetails.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/users/${userDetails.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -65,7 +65,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
             );
 
             const templateResponse = await axios.get(
-                `/fineract-provider/api/v1/users/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/users/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -76,7 +76,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
             );
 
             const staffResponse = await axios.get(
-                `/fineract-provider/api/v1/staff?officeId=${userResponse.data.officeId}&status=all`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/staff?officeId=${userResponse.data.officeId}&status=all`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -120,7 +120,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
                 staffId: editFormData.staffId || null,
             };
 
-            await axios.put(`/fineract-provider/api/v1/users/${userDetails.id}`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/users/${userDetails.id}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -162,7 +162,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
                 firstname: userDetails.firstname,
             };
 
-            await axios.put(`/fineract-provider/api/v1/users/${userDetails.id}`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/users/${userDetails.id}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -189,7 +189,7 @@ const ViewUserDetails = ({ selectedUser, onClose }) => {
 
         startLoading();
         try {
-            await axios.delete(`/fineract-provider/api/v1/users/${userDetails.id}`, {
+            await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/users/${userDetails.id}`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

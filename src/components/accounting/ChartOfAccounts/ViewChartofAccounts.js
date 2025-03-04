@@ -32,7 +32,7 @@ const ChartOfAccountsTable = () => {
     const fetchAccounts = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/glaccounts`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/glaccounts`, {
                 params: filters,
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -74,7 +74,7 @@ const ChartOfAccountsTable = () => {
         startLoading();
         try {
             const accountDetailsResponse = await axios.get(
-                `/fineract-provider/api/v1/glaccounts/${id}?template=true`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/glaccounts/${id}?template=true`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -107,7 +107,7 @@ const ChartOfAccountsTable = () => {
         startLoading();
         try {
             const payload = { disabled: !accountDetails.disabled };
-            await axios.put(`/fineract-provider/api/v1/glaccounts/${accountDetails.id}`, payload, {
+            await axios.put(`${API_CONFIG.proxy}/fineract-provider/api/v1/glaccounts/${accountDetails.id}`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -126,7 +126,7 @@ const ChartOfAccountsTable = () => {
         if (window.confirm('Are you sure you want to delete this account?')) {
             startLoading();
             try {
-                await axios.delete(`/fineract-provider/api/v1/glaccounts/${accountDetails.id}`, {
+                await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/glaccounts/${accountDetails.id}`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

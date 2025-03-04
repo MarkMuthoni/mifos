@@ -25,7 +25,7 @@ const CreateEntityDataTableCheck = () => {
     const fetchTemplateData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/entityDatatableChecks/template`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/entityDatatableChecks/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -66,7 +66,7 @@ const CreateEntityDataTableCheck = () => {
             }
 
             if (statusField) {
-                const response = await axios.get(`/fineract-provider/api/v1/entityDatatableChecks/template`, {
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/entityDatatableChecks/template`, {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -99,7 +99,7 @@ const CreateEntityDataTableCheck = () => {
 
         startLoading();
         try {
-            await axios.post(`/fineract-provider/api/v1/entityDatatableChecks`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/entityDatatableChecks`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

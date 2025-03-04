@@ -452,7 +452,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/journalentries?transactionId=L${transactionId}&transactionDetails=true`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/journalentries?transactionId=L${transactionId}&transactionDetails=true`,
                 { headers }
             );
 
@@ -506,7 +506,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/${transactionId}?command=undo`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/${transactionId}?command=undo`,
                 payload,
                 { headers }
             );
@@ -531,12 +531,12 @@ const LoanDetails = () => {
             };
 
             const loanResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}?associations=all&exclude=guarantors,futureSchedule`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?associations=all&exclude=guarantors,futureSchedule`,
                 { headers }
             );
 
             const transactionResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/${transactionId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/${transactionId}`,
                 { headers }
             );
 
@@ -583,7 +583,7 @@ const LoanDetails = () => {
             const formattedToDate = formatDateForPayload(exportForm.toDate);
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/runreports/Client%20Loan%20Account%20Schedule`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/runreports/Client%20Loan%20Account%20Schedule`,
                 {
                     params: {
                         tenantIdentifier: "default",
@@ -628,7 +628,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=creditBalanceRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=creditBalanceRefund`,
                 { headers }
             );
 
@@ -674,7 +674,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=creditBalanceRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=creditBalanceRefund`,
                 payload,
                 { headers }
             );
@@ -702,7 +702,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients?displayName=${inputValue}&orphansOnly=true&sortOrder=ASC&orderBy=displayName`,
                 { headers }
             );
 
@@ -724,7 +724,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${loanDetails.loanProductId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${loanDetails.loanProductId}`,
                 { headers }
             );
 
@@ -753,7 +753,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${loanDetails.loanProductId}&toOfficeId=${officeId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers/template?fromAccountId=${loanId}&fromAccountType=${loanDetails.loanProductId}&toOfficeId=${officeId}`,
                 { headers }
             );
 
@@ -788,7 +788,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/accounttransfers`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/accounttransfers`, payload, { headers });
 
             showNotification("Funds transferred successfully!", 'success');
             setIsTransferModalOpen(false);
@@ -808,7 +808,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburseToSavings`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburseToSavings`,
                 { headers }
             );
 
@@ -855,7 +855,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}?command=disburseToSavings`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=disburseToSavings`,
                 payload,
                 { headers }
             );
@@ -880,7 +880,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburse`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=disburse`,
                 { headers }
             );
 
@@ -933,7 +933,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=disburse`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=disburse`, payload, { headers });
 
             showNotification("Loan disbursed successfully!", 'success');
             setIsDisburseModalOpen(false);
@@ -960,7 +960,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=undoapproval`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=undoapproval`, payload, { headers });
 
             showNotification("Loan approval undone successfully!", 'success');
             setIsUndoApprovalModalOpen(false);
@@ -996,7 +996,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.delete(`/fineract-provider/api/v1/loans/${loanId}`, { headers });
+            await axios.delete(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}`, { headers });
 
             showNotification("Loan deleted successfully!", 'success');
             setIsDeleteModalOpen(false);
@@ -1018,7 +1018,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const response = await axios.get(`/fineract-provider/api/v1/templates?entityId=1&typeId=0`, { headers });
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/templates?entityId=1&typeId=0`, { headers });
             setLoanScreenReports(response.data || []);
         } catch (error) {
             console.error("Error fetching loan screen reports:", error);
@@ -1046,7 +1046,7 @@ const LoanDetails = () => {
                 templateId: parseInt(selectedReportId, 10),
             };
 
-            await axios.post(`/fineract-provider/api/v1/templates/?loanId=${loanId}`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/templates/?loanId=${loanId}`, payload, { headers });
 
             showNotification("Loan screen report generated successfully!", 'success');
             setIsLoanScreenReportsModalOpen(false);
@@ -1076,7 +1076,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}?fields=id,loanOfficerId,loanOfficerOptions&staffInSelectedOfficeOnly=true&template=true`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?fields=id,loanOfficerId,loanOfficerOptions&staffInSelectedOfficeOnly=true&template=true`,
                 { headers }
             );
             const { loanOfficerId, loanOfficerOptions } = response.data;
@@ -1113,7 +1113,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=assignLoanOfficer`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=assignLoanOfficer`, payload, { headers });
 
             showNotification("Loan officer changed successfully!", 'success');
             setIsChangeLoanOfficerModalOpen(false);
@@ -1134,7 +1134,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/collaterals/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/collaterals/template`,
                 { headers }
             );
             setCollateralTypes(response.data?.allowedCollateralTypes || []);
@@ -1172,7 +1172,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/collaterals`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/collaterals`,
                 payload,
                 { headers }
             );
@@ -1224,7 +1224,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=withdrawnByApplicant`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=withdrawnByApplicant`, payload, { headers });
             setIsWithdrawModalOpen(false);
             fetchLoanData();
             showNotification("Loan withdrawn successfully by the client!", 'success');
@@ -1272,7 +1272,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=reject`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=reject`, payload, { headers });
             setIsRejectModalOpen(false);
             fetchLoanData();
             showNotification("Loan rejected successfully!", 'success');
@@ -1293,12 +1293,12 @@ const LoanDetails = () => {
             };
 
             const approvalTemplateResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/template?templateType=approval`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/template?templateType=approval`,
                 { headers }
             );
 
             const loanDetailsResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}?associations=multiDisburseDetails`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?associations=multiDisburseDetails`,
                 { headers }
             );
 
@@ -1352,7 +1352,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}?command=approve`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=approve`, payload, { headers });
             setIsApproveModalOpen(false);
             fetchLoanData();
             showNotification('Loan approved successfully', 'success');
@@ -1384,7 +1384,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/guarantors/recover`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/guarantors/recover`,
                 {},
                 { headers }
             );
@@ -1411,7 +1411,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/guarantors/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/guarantors/template`,
                 { headers }
             );
 
@@ -1492,7 +1492,7 @@ const LoanDetails = () => {
                 "Content-Type": "application/json",
             };
 
-            await axios.post(`/fineract-provider/api/v1/loans/${loanId}/guarantors`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/guarantors`, payload, { headers });
 
             showNotification("Guarantor created successfully!", 'success');
             handleCloseCreateGuarantorModal();
@@ -1516,7 +1516,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}?associations=guarantors`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?associations=guarantors`,
                 { headers }
             );
 
@@ -1558,7 +1558,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/guarantors/note`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/guarantors/note`,
                 payload,
                 { headers }
             );
@@ -1584,7 +1584,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=close`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=close`,
                 { headers }
             );
 
@@ -1635,7 +1635,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=close`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=close`,
                 payload,
                 { headers }
             );
@@ -1660,7 +1660,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=close-rescheduled`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=close-rescheduled`,
                 { headers }
             );
 
@@ -1711,7 +1711,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=close-rescheduled`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=close-rescheduled`,
                 payload,
                 { headers }
             );
@@ -1736,7 +1736,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=writeoff`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=writeoff`,
                 { headers }
             );
 
@@ -1792,7 +1792,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=writeoff`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=writeoff`,
                 payload,
                 { headers }
             );
@@ -1817,7 +1817,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/rescheduleloans/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/rescheduleloans/template`,
                 { headers }
             );
 
@@ -1895,7 +1895,7 @@ const LoanDetails = () => {
                 "Content-Type": "application/json",
             };
 
-            await axios.post(`/fineract-provider/api/v1/rescheduleloans`, payload, { headers });
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/rescheduleloans`, payload, { headers });
 
             showNotification("Loan rescheduled successfully!", 'success');
             handleCloseLoanRescheduleModal();
@@ -1917,7 +1917,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=waiveinterest`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=waiveinterest`,
                 { headers }
             );
 
@@ -1966,7 +1966,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=waiveinterest`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=waiveinterest`,
                 payload,
                 { headers }
             );
@@ -1991,7 +1991,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=merchantIssuedRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=merchantIssuedRefund`,
                 { headers }
             );
 
@@ -2056,7 +2056,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=merchantIssuedRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=merchantIssuedRefund`,
                 payload,
                 { headers }
             );
@@ -2081,7 +2081,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=payoutRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=payoutRefund`,
                 { headers }
             );
 
@@ -2146,7 +2146,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=payoutRefund`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=payoutRefund`,
                 payload,
                 { headers }
             );
@@ -2171,7 +2171,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=goodwillCredit`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=goodwillCredit`,
                 { headers }
             );
 
@@ -2236,7 +2236,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=goodwillCredit`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=goodwillCredit`,
                 payload,
                 { headers }
             );
@@ -2286,7 +2286,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=reAmortize`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=reAmortize`,
                 payload,
                 { headers }
             );
@@ -2348,7 +2348,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=re-age`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=re-age`,
                 payload,
                 { headers }
             );
@@ -2375,7 +2375,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=charge-off`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=charge-off`,
                 { headers }
             );
 
@@ -2427,7 +2427,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=charge-off`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=charge-off`,
                 payload,
                 { headers }
             );
@@ -2454,7 +2454,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=prepayLoan&transactionDate=${encodeURIComponent(
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=prepayLoan&transactionDate=${encodeURIComponent(
                     prepayLoanDate.toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "long",
@@ -2526,7 +2526,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=prepayLoan`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=prepayLoan`,
                 payload,
                 { headers }
             );
@@ -2573,7 +2573,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}?command=undodisbursal`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?command=undodisbursal`,
                 payload,
                 { headers }
             );
@@ -2600,7 +2600,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=repayment`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=repayment`,
                 { headers }
             );
 
@@ -2677,7 +2677,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=repayment`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=repayment`,
                 payload,
                 { headers }
             );
@@ -2710,7 +2710,7 @@ const LoanDetails = () => {
             });
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=foreclosure&locale=en&dateFormat=dd%20MMMM%20yyyy&transactionDate=${transactionDate}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions/template?command=foreclosure&locale=en&dateFormat=dd%20MMMM%20yyyy&transactionDate=${transactionDate}`,
                 { headers }
             );
 
@@ -2761,7 +2761,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/transactions?command=foreclosure`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/transactions?command=foreclosure`,
                 payload,
                 { headers }
             );
@@ -2788,7 +2788,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/charges/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/charges/template`,
                 { headers }
             );
 
@@ -2851,7 +2851,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/charges`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/charges`,
                 payload,
                 { headers }
             );
@@ -2882,8 +2882,8 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const [activeResponse, transfersResponse] = await Promise.all([
-                axios.get(`/fineract-provider/api/v1/external-asset-owners/transfers/active-transfer?loanId=${loanId}`, { headers }),
-                axios.get(`/fineract-provider/api/v1/external-asset-owners/transfers?loanId=${loanId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/external-asset-owners/transfers/active-transfer?loanId=${loanId}`, { headers }),
+                axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/external-asset-owners/transfers?loanId=${loanId}`, { headers }),
             ]);
 
             setActiveTransfer(activeResponse.data || null);
@@ -2912,7 +2912,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/external-asset-owners/transfers/loans/${loanId}?command=sale`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/external-asset-owners/transfers/loans/${loanId}?command=sale`,
                 payload,
                 {
                     headers: {
@@ -2946,7 +2946,7 @@ const LoanDetails = () => {
 
             if (pendingTransfer) {
                 await axios.post(
-                    `/fineract-provider/api/v1/external-asset-owners/transfers/${pendingTransfer.transferId}?command=cancel`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/external-asset-owners/transfers/${pendingTransfer.transferId}?command=cancel`,
                     {},
                     {
                         headers: {
@@ -2977,7 +2977,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/standinginstructions?clientId=${clientId}&clientName=${clientDetails?.clientName}&fromAccountId=${loanId}&fromAccountType=1&locale=en&dateFormat=dd%20MMMM%20yyyy&limit=14&offset=0`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/standinginstructions?clientId=${clientId}&clientName=${clientDetails?.clientName}&fromAccountId=${loanId}&fromAccountType=1&locale=en&dateFormat=dd%20MMMM%20yyyy&limit=14&offset=0`,
                 { headers }
             );
 
@@ -3009,7 +3009,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/notes`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/notes`,
                 { headers }
             );
             setNotes(response.data);
@@ -3035,13 +3035,13 @@ const LoanDetails = () => {
 
             if (editingNoteId) {
                 await axios.put(
-                    `/fineract-provider/api/v1/loans/${loanId}/notes/${editingNoteId}`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/notes/${editingNoteId}`,
                     payload,
                     { headers }
                 );
             } else {
                 await axios.post(
-                    `/fineract-provider/api/v1/loans/${loanId}/notes`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/notes`,
                     payload,
                     { headers }
                 );
@@ -3076,7 +3076,7 @@ const LoanDetails = () => {
             };
 
             await axios.delete(
-                `/fineract-provider/api/v1/loans/${loanId}/notes/${noteId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/notes/${noteId}`,
                 { headers }
             );
 
@@ -3103,7 +3103,7 @@ const LoanDetails = () => {
                 "Content-Type": "application/json",
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/documents`,
                 { headers }
             );
             setLoanDocuments(response.data);
@@ -3139,7 +3139,7 @@ const LoanDetails = () => {
             formData.append("file", uploadPayload.file);
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/documents`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/documents`,
                 formData,
                 { headers }
             );
@@ -3168,7 +3168,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/rescheduleloans?loanId=${loanId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/rescheduleloans?loanId=${loanId}`,
                 { headers }
             );
 
@@ -3186,7 +3186,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/rescheduleloans/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/rescheduleloans/template`,
                 { headers }
             );
 
@@ -3237,7 +3237,7 @@ const LoanDetails = () => {
             }
 
             await axios.post(
-                `/fineract-provider/api/v1/rescheduleloans?loanId=${loanId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/rescheduleloans?loanId=${loanId}`,
                 payload,
                 { headers }
             );
@@ -3260,7 +3260,7 @@ const LoanDetails = () => {
                 Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
-            const response = await axios.get(`/fineract-provider/api/v1/paymenttypes`, { headers });
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/paymenttypes`, { headers });
             setPaymentTypeOptions(response.data);
         } catch (error) {
             console.error("Error fetching payment types:", error);
@@ -3289,7 +3289,7 @@ const LoanDetails = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/charges/${selectedCharge.id}?command=waive`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/charges/${selectedCharge.id}?command=waive`,
                 { locale: "en" },
                 { headers }
             );
@@ -3320,7 +3320,7 @@ const LoanDetails = () => {
                 delete payload.bankNumber;
             }
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/charges/${selectedCharge.id}?command=adjustment`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/charges/${selectedCharge.id}?command=adjustment`,
                 payload,
                 { headers }
             );
@@ -3342,7 +3342,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/configurations/name/charge-accrual-date`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/configurations/name/charge-accrual-date`,
                 { headers }
             );
             setChargeAccrual(response.data);
@@ -3375,7 +3375,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/collaterals`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/collaterals`,
                 { headers }
             );
             setCollaterals(response.data);
@@ -3396,7 +3396,7 @@ const LoanDetails = () => {
             };
 
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/collaterals/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/collaterals/template`,
                 { headers }
             );
             setCollateralTemplate(response.data.allowedCollateralTypes);
@@ -3426,7 +3426,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/collaterals`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/collaterals`,
                 payload,
                 { headers }
             );
@@ -3459,13 +3459,13 @@ const LoanDetails = () => {
             };
 
             const actionsResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/delinquency-actions`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/delinquency-actions`,
                 { headers }
             );
             setDelinquencyActions(actionsResponse.data);
 
             const tagsResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}/delinquencytags`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/delinquencytags`,
                 { headers }
             );
             setDelinquencyTags(tagsResponse.data);
@@ -3504,7 +3504,7 @@ const LoanDetails = () => {
             };
 
             await axios.post(
-                `/fineract-provider/api/v1/loans/${loanId}/delinquency-actions`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}/delinquency-actions`,
                 payload,
                 { headers }
             );
@@ -3558,13 +3558,13 @@ const LoanDetails = () => {
             };
 
             const loanResponse = await axios.get(
-                `/fineract-provider/api/v1/loans/${loanId}?associations=all&exclude=guarantors,futureSchedule`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${loanId}?associations=all&exclude=guarantors,futureSchedule`,
                 { headers }
             );
             setLoanDetails(loanResponse.data);
 
             const clientResponse = await axios.get(
-                `/fineract-provider/api/v1/clients/${clientId}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`,
                 { headers }
             );
             setClientDetails(clientResponse.data);

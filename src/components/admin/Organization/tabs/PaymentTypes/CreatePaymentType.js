@@ -28,7 +28,7 @@ const CreatePaymentType = ({ onFormSubmitSuccess }) => {
 
         startLoading();
         try {
-            await axios.post(`/fineract-provider/api/v1/paymenttypes`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/paymenttypes`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

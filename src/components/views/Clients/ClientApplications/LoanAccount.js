@@ -74,7 +74,7 @@ const LoanAccount = () => {
                         'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                     };
 
-                    const response = await axios.get(`/fineract-provider/api/v1/loans/${account}?associations=charges,collateral,meeting,multiDisburseDetails&staffInSelectedOfficeOnly=true&template=true`,
+                    const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${account}?associations=charges,collateral,meeting,multiDisburseDetails&staffInSelectedOfficeOnly=true&template=true`,
                         { headers });
                     setModifyData(response.data);
                 } catch (error) {
@@ -223,7 +223,7 @@ const LoanAccount = () => {
             };
 
             const response = await axios.post(
-                `/fineract-provider/api/v1/loans?command=calculateLoanSchedule`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans?command=calculateLoanSchedule`,
                 payload,
                 {
                     headers: {
@@ -258,12 +258,12 @@ const LoanAccount = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
 
-            const clientRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
-            const loanTemplateRequest = axios.get(`/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&clientId=${clientId}&templateType=individual`, { headers });
-            const datatableRequest = axios.get(`/fineract-provider/api/v1/datatables?apptable=m_client`, { headers });
-            const clientAccountsRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/accounts`, { headers });
-            const collateralsRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, { headers });
-            const chargesRequest = axios.get(`/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, { headers });
+            const clientRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
+            const loanTemplateRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&clientId=${clientId}&templateType=individual`, { headers });
+            const datatableRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/datatables?apptable=m_client`, { headers });
+            const clientAccountsRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/accounts`, { headers });
+            const collateralsRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/collaterals/template`, { headers });
+            const chargesRequest = axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}/charges?pendingPayment=true`, { headers });
 
             const responses = await Promise.allSettled([
                 clientRequest,
@@ -323,7 +323,7 @@ const LoanAccount = () => {
                 'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
             };
             const response = await axios.get(
-                `/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&productId=${productId}&clientId=${clientId}&templateType=individual`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/template?activeOnly=true&staffInSelectedOfficeOnly=true&productId=${productId}&clientId=${clientId}&templateType=individual`,
                 { headers }
             );
             setLoanTemplate(response.data);
@@ -1260,8 +1260,8 @@ const LoanAccount = () => {
             };
 
             const endpoint = isModifying
-                ? `/fineract-provider/api/v1/loans/${account}`
-                : `/fineract-provider/api/v1/loans`;
+                ? `${API_CONFIG.proxy}/fineract-provider/api/v1/loans/${account}`
+                : `${API_CONFIG.proxy}/fineract-provider/api/v1/loans`;
 
             const method = isModifying ? "put" : "post";
 

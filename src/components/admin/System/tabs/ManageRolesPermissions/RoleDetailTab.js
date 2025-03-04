@@ -23,7 +23,7 @@ const RoleDetailTab = ({ role, onClose}) => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/roles/${role.id}/permissions`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/roles/${role.id}/permissions`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -107,7 +107,7 @@ const RoleDetailTab = ({ role, onClose}) => {
             };
 
             await axios.put(
-                `/fineract-provider/api/v1/roles/${role.id}/permissions`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/roles/${role.id}/permissions`,
                 payload,
                 {
                     headers: {
@@ -137,7 +137,7 @@ const RoleDetailTab = ({ role, onClose}) => {
         try {
             startLoading();
             await axios.post(
-                `/fineract-provider/api/v1/roles/${role.id}?command=${action}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/roles/${role.id}?command=${action}`,
                 {},
                 {
                     headers: {
@@ -179,7 +179,7 @@ const RoleDetailTab = ({ role, onClose}) => {
         try {
             startLoading();
             await axios.delete(
-                `/fineract-provider/api/v1/roles/${role.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/roles/${role.id}`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,

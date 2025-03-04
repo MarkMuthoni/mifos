@@ -30,7 +30,7 @@ const ViewOffices = () => {
     const fetchOffices = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -59,7 +59,7 @@ const ViewOffices = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/offices/${office.id}?template=false`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/offices/${office.id}?template=false`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -81,7 +81,7 @@ const ViewOffices = () => {
         startLoading();
         try {
             const response = await axios.put(
-                `/fineract-provider/api/v1/offices/${selectedOffice.id}`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/offices/${selectedOffice.id}`,
                 updatedOffice,
                 {
                     headers: {

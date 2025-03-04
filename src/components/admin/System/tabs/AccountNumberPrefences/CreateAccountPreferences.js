@@ -25,7 +25,7 @@ const AccountNumberPreferenceForm = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/accountnumberformats/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -63,7 +63,7 @@ const AccountNumberPreferenceForm = () => {
                 prefixType: { code: formData.prefixType },
             };
             const response = await axios.post(
-                `/fineract-provider/api/v1/accountnumberformats`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/accountnumberformats`,
                 payload,
                 {
                     headers: {

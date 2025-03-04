@@ -25,7 +25,7 @@ const ClientApplications = () => {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
-                const response = await axios.get(`/fineract-provider/api/v1/clients/${clientId}`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients/${clientId}`, { headers });
                 setClientData(response.data);
             } catch (error) {
                 console.error("Error fetching client data:", error);

@@ -28,7 +28,7 @@ const CreateHoliday = () => {
     const fetchTemplateData = async () => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/holidays/template`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/holidays/template`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -43,7 +43,7 @@ const CreateHoliday = () => {
 
     const fetchOffices = async () => {
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/offices`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -99,7 +99,7 @@ const CreateHoliday = () => {
 
         startLoading();
         try {
-            const response = await axios.post(`/fineract-provider/api/v1/holidays`, payload, {
+            const response = await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/holidays`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

@@ -35,7 +35,7 @@ const SchedulerJobs = ({ onRowClick }) => {
             const token = user?.base64EncodedAuthenticationKey;
             if (!token) throw new Error('Authorization token not found');
 
-            const response = await axios.get(`/fineract-provider/api/v1/scheduler`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/scheduler`, {
                 headers: {
                     Authorization: `Basic ${token}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -59,7 +59,7 @@ const SchedulerJobs = ({ onRowClick }) => {
             const token = user?.base64EncodedAuthenticationKey;
             if (!token) throw new Error('Authorization token not found');
 
-            const response = await axios.get(`/fineract-provider/api/v1/jobs`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/jobs`, {
                 headers: {
                     Authorization: `Basic ${token}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
@@ -91,8 +91,8 @@ const SchedulerJobs = ({ onRowClick }) => {
             if (!token) throw new Error('Authorization token not found');
 
             const endpoint = schedulerStatus
-                ? `/fineract-provider/api/v1/scheduler?command=stop`
-                : `/fineract-provider/api/v1/scheduler?command=start`;
+                ? `${API_CONFIG.proxy}/fineract-provider/api/v1/scheduler?command=stop`
+                : `${API_CONFIG.proxy}/fineract-provider/api/v1/scheduler?command=start`;
 
             const response = await axios.post(endpoint, null, {
                 headers: {
@@ -164,7 +164,7 @@ const SchedulerJobs = ({ onRowClick }) => {
                 );
 
                 await axios.post(
-                    `/fineract-provider/api/v1/jobs/${jobId}?command=executeJob`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/jobs/${jobId}?command=executeJob`,
                     { jobParameters: parameters },
                     {
                         headers: {
@@ -219,7 +219,7 @@ const SchedulerJobs = ({ onRowClick }) => {
 
             for (const jobId of selectedJobs) {
                 const response = await axios.post(
-                    `/fineract-provider/api/v1/jobs/${jobId}?command=executeJob`,
+                    `${API_CONFIG.proxy}/fineract-provider/api/v1/jobs/${jobId}?command=executeJob`,
                     {},
                     {
                         headers: {

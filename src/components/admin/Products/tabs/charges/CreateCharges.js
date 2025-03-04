@@ -43,7 +43,7 @@ const CreateChargeForm = () => {
         startLoading();
         try {
             const response = await axios.get(
-                `/fineract-provider/api/v1/charges/template`,
+                `${API_CONFIG.proxy}/fineract-provider/api/v1/charges/template`,
                 {
                     headers: {
                         Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
@@ -136,7 +136,7 @@ const CreateChargeForm = () => {
 
         try {
             startLoading();
-            await axios.post(`/fineract-provider/api/v1/charges`, payload, {
+            await axios.post(`${API_CONFIG.proxy}/fineract-provider/api/v1/charges`, payload, {
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,

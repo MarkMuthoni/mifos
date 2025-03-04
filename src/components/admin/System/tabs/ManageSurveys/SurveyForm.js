@@ -82,7 +82,7 @@ const SurveyForm = () => {
 
         startLoading();
         try {
-            const response = await fetch(`/fineract-provider/api/v1/surveys`, {
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/surveys`, {
                 method: 'POST',
                 headers: {
                     Authorization: `Basic ${user.base64EncodedAuthenticationKey}`,
