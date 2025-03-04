@@ -454,27 +454,25 @@ export const AuthProvider = ({ children }) => {
         setIsBaseURLChanged(true);
     };
 
-    const updateProxyBaseURL = (newURL) => {
-        if (newURL) {
-            fetch('/api/updateBaseURL', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ baseURL: newURL })
-            }).then(response => response.json())
-                .then()
-                .catch(error => console.error("Error updating proxy Base URL:", error));
+    const updateProxyBaseURL = async () => {
+        const savedBaseURL = localStorage.getItem("customBaseURL");
+
+        if (savedBaseURL) {
+            try {
+                await fetch(`${proxyServerURL}/api/updateBaseURL`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ baseURL: savedBaseURL }),
+                });
+            } catch (error) {
+                console.error("Error updating proxy Base URL:", error);
+            }
         }
     };
 
     useEffect(() => {
-        const savedBaseURL = localStorage.getItem('customBaseURL');
-        if (savedBaseURL) {
-            fetch('/api/updateBaseURL', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({baseURL: savedBaseURL})
-            }).then();
-         }
+        const interval = setInterval(updateProxyBaseURL, 5000); // Adjust timing as needed
+        return () => clearInterval(interval);
     }, []);
 
     const toggleComponentVisibility = (componentId) => {
