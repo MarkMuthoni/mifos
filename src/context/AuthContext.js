@@ -147,7 +147,7 @@ export const AuthProvider = ({ children }) => {
             'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
         };
         try {
-            const response = await fetch(`/fineract-provider/api/v1/notifications?isRead=false`, { headers });
+            const response = await fetch(`${API_CONFIG.proxy}/fineract-provider/api/v1/notifications?isRead=false`, { headers });
 
             if (!response.ok) {
                 const errorText = await response.text();

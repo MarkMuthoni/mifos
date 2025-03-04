@@ -33,7 +33,7 @@ const Insights = ({ selectedOffice, officeOptions }) => {
     const fetchOfficeData = async (endpoint, officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/runreports/${endpoint}`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/runreports/${endpoint}`, {
                 headers,
                 params: {
                     R_officeId: officeId,
@@ -109,7 +109,7 @@ const Insights = ({ selectedOffice, officeOptions }) => {
     const fetchLoanAccountData = async (officeId) => {
         startLoading();
         try {
-            const response = await axios.get(`/fineract-provider/api/v1/loans`, {
+            const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans`, {
                 headers,
                 params: {
                     officeId: officeId === 'all' ? undefined : officeId,

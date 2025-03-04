@@ -48,7 +48,7 @@ const Dashboard = () => {
                     'Fineract-Platform-TenantId': `${API_CONFIG.tenantId}`,
                 };
 
-                const response = await axios.get(`/fineract-provider/api/v1/offices`, { headers });
+                const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/offices`, { headers });
                 const offices = response?.data || [];
                 setOfficeOptions(offices);
 
@@ -89,10 +89,10 @@ const Dashboard = () => {
                 startLoading();
                 try {
                     const officeFilter = selectedOffice && selectedOffice !== "all" ? `&officeId=${selectedOffice}` : "";
-                    const response = await axios.get(`/fineract-provider/api/v1/clients?${officeFilter}`, { headers });
-                    const staffResponse = await axios.get(`/fineract-provider/api/v1/staff`, { headers });
-                    const loansResponse = await axios.get(`/fineract-provider/api/v1/loans`, { headers });
-                    const currencyResponse = await axios.get(`/fineract-provider/api/v1/currencies`, { headers });
+                    const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/clients?${officeFilter}`, { headers });
+                    const staffResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/staff`, { headers });
+                    const loansResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans`, { headers });
+                    const currencyResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/currencies`, { headers });
 
                     const defaultCurrency = currencyResponse.data.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
@@ -322,9 +322,9 @@ const Dashboard = () => {
                 startLoading();
                 try {
                     const officeFilter = selectedOffice && selectedOffice !== "all" ? `&officeId=${selectedOffice}` : "";
-                    const response = await axios.get(`/fineract-provider/api/v1/loans?${officeFilter}`, { headers });
-                    const currencyResponse = await axios.get(`/fineract-provider/api/v1/currencies`, { headers });
-                    const savingsResponse = await axios.get(`/fineract-provider/api/v1/savingsaccounts`, { headers });
+                    const response = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/loans?${officeFilter}`, { headers });
+                    const currencyResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/currencies`, { headers });
+                    const savingsResponse = await axios.get(`${API_CONFIG.proxy}/fineract-provider/api/v1/savingsaccounts`, { headers });
 
                     const defaultCurrency = currencyResponse?.data?.selectedCurrencyOptions[0] || {};
                     const { code: currencyCode, code: currencySymbol, decimalPlaces } = defaultCurrency;
