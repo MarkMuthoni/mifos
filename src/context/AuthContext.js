@@ -1,7 +1,6 @@
 import React, {createContext, useState, useEffect, useRef} from 'react';
 import bcrypt from "bcryptjs";
 import {API_CONFIG, loadConfig} from "../config";
-import CryptoJS from "crypto-js";
 
 export const AuthContext = createContext();
 
@@ -95,7 +94,6 @@ const ALL_COMPONENTS = {
     "pentaho-reports": true,
     "table-reports": true,
 };
-const SECRET_KEY = "h387gfu7y8f783g873co37gco3f8od3b3cfc8on6wt1r3fo8w6t4co8xt4rf2w4xo4rtx3i4d6fw3o4fo4wx3fc";
 
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -438,12 +436,10 @@ export const AuthProvider = ({ children }) => {
             setBaseURL(newURL);
             localStorage.setItem("customBaseURL", newURL);
 
-            const encryptedBaseURL = encryptBaseURL(newURL);
-
             await fetch(`${proxyServerURL}/api/updateBaseURL`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ baseURL: encryptedBaseURL }),
+                body: JSON.stringify({ baseURL: newURL }),
             });
 
             setIsBaseURLChanged(true);
@@ -458,21 +454,15 @@ export const AuthProvider = ({ children }) => {
         setIsBaseURLChanged(true);
     };
 
-    const encryptBaseURL = (baseURL) => {
-        return CryptoJS.AES.encrypt(baseURL, SECRET_KEY).toString();
-    }
-
     const updateProxyBaseURL = async () => {
         const savedBaseURL = localStorage.getItem("customBaseURL");
 
         if (savedBaseURL) {
-            const encryptedBaseURL = encryptBaseURL(savedBaseURL);
-
             try {
                 await fetch(`${proxyServerURL}/api/updateBaseURL`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ baseURL: encryptedBaseURL }),
+                    body: JSON.stringify({ baseURL: savedBaseURL }),
                 });
             } catch (error) {
                 console.error("Error updating proxy Base URL:", error);
